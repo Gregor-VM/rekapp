@@ -1,0 +1,11 @@
+.env
+/node_modules
+/dist
+
+rekapp/node_modules
+/rekapp/.pnp
+/rekapp/.pnp.js
+
+/rekapp/dist
+/rekapp/coverage
+/rekapp/build

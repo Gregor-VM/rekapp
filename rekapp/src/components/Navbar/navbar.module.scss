@@ -1,0 +1,91 @@
+.navbar {
+    display: flex;
+    height: 10%;
+    width: 100%;
+    justify-content: space-between;
+    background-color: aliceblue;
+
+    & > div{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+}
+
+.menu{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    padding: 15px;
+    margin: 10px;
+    cursor: pointer;
+
+    &:active{
+        border-radius: 50%;
+        background-color: floralwhite;
+    }
+
+    & div{
+        margin: 1px 0;
+        height: 3px;
+        width: 90%;
+        background-color: black;
+        border-radius: 2px;
+    }
+
+}
+
+.profileContainer{
+
+    & > button{
+        margin: 0 10px;
+        margin-top: 4px;
+        outline: 0;
+        border: 0;
+        background-color: white;
+        font-weight: bold;
+        padding: 10px;
+        cursor: pointer;
+        &:hover{
+            background-color: coral;
+            color: white;
+        }
+    }
+
+    & > img{
+        border-radius: 50%;
+        margin: 0 10px;
+    }
+}
+
+.menubar {
+    width: 0%;
+    background-color: honeydew;
+    height: 100vh;
+    position: absolute;
+    overflow: hidden;
+    z-index: 100;
+}
+
+.openMenu{
+    transition: all 0.5s;
+    width: 20%;
+}
+
+.closeMenu{
+    transition: all 0.5s;
+    width: 0%;
+}
+
+.out{
+    width: 100%;
+    position: absolute;
+    height: 100vh;
+    z-index: 99;
+    background-color: black;
+    transition: opacity 0.5s ease;
+    opacity: 10%;
+}
