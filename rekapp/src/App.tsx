@@ -1,25 +1,40 @@
 import './App.scss';
-import {useEffect} from 'react';
+import {useEffect, useCallback, useState} from 'react';
 
-import {Provider} from 'react-redux';
-import store from './store/store';
+import {useDispatch} from 'react-redux';
+import * as actions from './store/actions/decksActions';
 
 import Navbar from './components/Navbar';
-import Deck from './components/Deck';
+import DeckComp from './components/Deck';
 import Modal from './components/Modal';
+
+import axios from './utils/axios';
+
+import {Deck} from './interfaces'
 
 function App() {
 
+  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+
+
+  const getDecksCallback = useCallback(async () => {
+    setLoading(true);
+    const decks : Deck[] = (await axios.get("decks")).data;
+    dispatch(actions.loadDecks(decks));
+    setLoading(false)
+  }, [dispatch, setLoading]);
+
   useEffect(() => {
-    fetch("/api").then(res => res.json()).then(data => console.log(data));
-  }, [])
+    getDecksCallback()
+  }, [getDecksCallback])
 
   return (
-    <Provider store={store}>
+    <>
       <Modal />
       <Navbar />
-      <Deck />
-    </Provider>
+      <DeckComp loading={loading} />
+    </>
   );
 }
 

@@ -4,6 +4,8 @@ import styles from "./navbar.module.scss";
 import {useDispatch} from 'react-redux';
 import * as actions from '../../store/actions/modalActions';
 
+import AddCardButton from '../AddCardButton';
+
 function Navbar() {
     const [menu, setMenu] = useState(false);
 
@@ -23,6 +25,9 @@ function Navbar() {
 
     return (
         <>
+
+        <AddCardButton />
+
         <div className={styles.menubar + " " + (menu ? styles.openMenu : styles.closeMenu)}>
             Menu
         </div>

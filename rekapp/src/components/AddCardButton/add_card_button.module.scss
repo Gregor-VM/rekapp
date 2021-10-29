@@ -1,0 +1,85 @@
+
+
+@keyframes active {
+    0%{
+        box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, .2);
+    }
+
+    100%{
+        box-shadow: 0px 0px 0px 100px transparent;
+        transform: rotate(360deg);
+    }
+}
+
+
+.animation {
+    animation-name: active;
+    animation-duration: .5s;
+    animation-iteration-count: 1;
+    animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+
+    & div{
+        transition: all .2s;
+        opacity: .8;
+    }
+}
+
+.container{
+    position: absolute;
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    bottom: 0;
+    right: 0;
+    margin: 20px;
+    background-color: white;
+    box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, .2);
+    cursor: pointer;
+
+
+    %arrow {
+        border-radius: 4px;
+        position: relative;
+    }
+
+
+
+    & > .up{
+        @extend %arrow;
+        left: 50%;
+        margin-top: 20px;
+        height: 20px;
+        width: 3px;
+        background-color: rgb(255, 115, 0);
+    }
+
+    & > .left{
+        @extend %arrow;
+        left: 0;
+        height: 3px;
+        margin-left: 20px;
+        width: 20px;
+        background-color: rgb(206, 92, 0);
+    }
+
+    & > .right{
+        @extend %arrow;
+        top: -4%;
+        left: 54%;
+        height: 3px;
+        margin-right: 20px;
+        width: 20px;
+        background-color: rgb(255, 161, 85);
+    }
+
+    & > .down{
+        @extend %arrow;
+        bottom: 4%;
+        left: 50%;
+        margin-bottom: 20px;
+        height: 20px;
+        width: 3px;
+        background-color: rgb(255, 189, 134);
+    }
+
+}

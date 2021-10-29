@@ -2,8 +2,12 @@ import {useState, useRef} from 'react';
 import {useDispatch} from 'react-redux';
 import styles from './add_deck.module.scss';
 
+import axios from '../../utils/axios';
+
 import * as modalActions from '../../store/actions/modalActions';
-import * as deckActions from '../../store/actions/decksActions'
+import * as deckActions from '../../store/actions/decksActions';
+
+import { Deck } from '../../interfaces';
 
 function AddDeck() {
 
@@ -15,6 +19,23 @@ function AddDeck() {
 
     const dispatch = useDispatch();
 
+    const createDeck = async () => {
+
+        dispatch(modalActions.closeModal());
+
+        const deck : Deck = {
+            _id: undefined,
+            name: (nameRef.current?.value as string),
+            backgroundColor: color,
+            backgroundImage: "null",
+            cards: []
+        }
+
+        const createdDeck : Deck = (await axios.post("/deck", deck)).data;
+        dispatch(deckActions.createDeck(createdDeck));
+
+    }
+
     return (
         <div className={styles.container}>
             <div className={styles.body}>
@@ -22,24 +43,16 @@ function AddDeck() {
                 <input ref={nameRef} autoComplete="new-password" autoFocus type="text" placeholder="NAME OF THE DECK" />
                 <h4>Color:</h4>
                 <div className={styles.colorSelector}>
-                    {colors.map((eachColor => {
+                    {colors.map(((eachColor, i) => {
                         const border = eachColor === color ? "4px solid black" : "4px solid transparent"
-                        return (<div style={{backgroundColor: eachColor, border}} onClick={() => {
+                        return (<div key={i} style={{backgroundColor: eachColor, border}} onClick={() => {
                             setColor(eachColor);
                         }}></div>)
                     }))}
                 </div>
             </div>
             <div className={styles.footer}>
-                <button onClick={() => {
-                    dispatch(modalActions.closeModal());
-                    dispatch(deckActions.createDeck({
-                        name: nameRef.current?.value,
-                        color: color,
-                        cards: []
-                    }))
-
-                }}>CREATE DECK</button>
+                <button onClick={createDeck}>CREATE DECK</button>
             </div>
 
         </div>

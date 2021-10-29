@@ -1,6 +1,7 @@
 import {Router} from 'express';
 import verifyToken from '../middlewares/verifyToken';
-import {protectedGet, createDeck, getDecks, pullAllDecks, deleteDeckById} from 
+import {protectedGet, createDeck, getDecks, deleteAllDecks, deleteDeckById,
+        getCards, createCard, deleteCardById} from 
 '../controllers/deck.controller'
 
 const router = Router();
@@ -9,12 +10,22 @@ router.use(verifyToken);
 
 router.get("/protected", protectedGet);
 
+// DECKS ROUTES
+
 router.get("/decks", getDecks);
 
-router.post("/create-deck", createDeck);
+router.post("/deck", createDeck);
 
-router.delete("/delete-deck/:id", deleteDeckById);
+router.delete("/deck/:id", deleteDeckById);
 
-router.delete("/delete-all-decks", pullAllDecks);
+router.delete("/decks", deleteAllDecks);
+
+// CARDS ROUTES
+
+router.get("/cards/:deckId", getCards);
+
+router.post("/card/:deckId", createCard);
+
+router.delete("/card/:deckId/:cardId", deleteCardById);
 
 export default router;
