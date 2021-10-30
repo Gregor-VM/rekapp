@@ -1,15 +1,20 @@
-import {useState} from 'react'
+import {useState} from 'react';
 import styles from "./navbar.module.scss";
 
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {useLocation} from 'react-router-dom';
 import * as actions from '../../store/actions/modalActions';
 
 import AddCardButton from '../AddCardButton';
+import { RootState } from '../../store/store';
 
 function Navbar() {
     const [menu, setMenu] = useState(false);
 
     const dispatch = useDispatch();
+      
+    const isHome = (useLocation()).pathname === "/";
+    const {progress: {total, current}} = useSelector((state: RootState) => state.cards);
 
     const openMenu = () => {
         setMenu(true);
@@ -26,7 +31,7 @@ function Navbar() {
     return (
         <>
 
-        <AddCardButton />
+        {(isHome && <AddCardButton />)}
 
         <div className={styles.menubar + " " + (menu ? styles.openMenu : styles.closeMenu)}>
             Menu
@@ -43,7 +48,10 @@ function Navbar() {
             </div>
 
             <div className={styles.profileContainer}>
-                <button onClick={openModal}>CREATE DECK</button>
+                
+                {(isHome && <button onClick={openModal}>CREATE DECK</button>)}
+                {(total && <span>{current}/{total}</span>)}
+
                 <h4>Gregor</h4>
                 <img alt="profile" src="https://yt3.ggpht.com/ytc/AKedOLTpvKuGuqG-anw7EaboiIh5Zb8AxdB1rFFkjIB4oQ=s48-c-k-c0x00ffffff-no-rj"></img>
             </div>

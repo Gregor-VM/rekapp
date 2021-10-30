@@ -1,6 +1,6 @@
 import {Router} from 'express';
 import verifyToken from '../middlewares/verifyToken';
-import {protectedGet, createDeck, getDecks, deleteAllDecks, deleteDeckById,
+import {protectedGet, createDeck, getDecks, getDeck, deleteAllDecks, deleteDeckById,
         getCards, createCard, deleteCardById} from 
 '../controllers/deck.controller'
 
@@ -13,6 +13,8 @@ router.get("/protected", protectedGet);
 // DECKS ROUTES
 
 router.get("/decks", getDecks);
+
+router.get("/deck/:id", getDeck);
 
 router.post("/deck", createDeck);
 

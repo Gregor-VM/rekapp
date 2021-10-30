@@ -37,8 +37,15 @@ export const deleteAllDecks : RequestHandler = async (req : UserRequest, res) =>
 }
 
 export const getDecks : RequestHandler = async (req : UserRequest, res) => {
-    const response = await User.findById(req.userId, {decks: 1});
+    const response = await User.findById(req.userId, {decks: {cards: 0}});
     res.json(response.decks);
+}
+
+export const getDeck : RequestHandler = async (req: UserRequest, res) => {
+    const id = (req.params.id as string);
+    const response = await User.findById(req.userId);
+    const deck = response.decks.find(deck => deck._id.toString() === id);
+    res.json(deck);
 }
 
 

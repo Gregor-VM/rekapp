@@ -5,7 +5,11 @@ import * as actions from '../../store/actions/modalActions'
 
 import {RootState} from '../../store/store';
 
+
+// Content
+
 import AddDeck from '../AddDeck';
+import AddCard from '../AddCard';
 
 function Modal() {
 
@@ -23,6 +27,7 @@ function Modal() {
             <div onClick={closeModal} className={styles.out}></div>
             <div className={styles.container}>
                 {(modal.content === 0) && (<AddDeck />)}
+                {(modal.content === 1) && (<AddCard />)}
             </div>
         </div>
     )

@@ -15,6 +15,11 @@ export interface Deck {
     cards: Card[] | never
 }
 
+export interface DeckCards extends Deck {
+    currentCard: Card | null,
+    progress: {total: number | null, current: number | null}
+}
+
 export interface AddCard{
     name: string,
     card: Card

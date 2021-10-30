@@ -13,4 +13,9 @@
     & > h4{
         text-align: center;
     }
+
+    transition: all .3s;
+    &:hover{
+        transform: translateY(-2.5px);
+    }
 }
