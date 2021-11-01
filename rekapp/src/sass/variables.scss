@@ -1,0 +1,19 @@
+
+$palette : (
+    "primary": coral,
+    "secondary": #131516,
+    "background": #131516,
+    "foreground": #202324,
+    "text": white,
+    "green": rgb(80, 252, 0),
+    "red":rgb(255, 0, 0)
+);
+
+//#202324 (dark dark)
+//rgb(28, 31, 32) (light dark)
+//#131516 (dark dark dark)
+
+
+@function color ($key){
+    @return map-get($map: $palette, $key: $key);
+}

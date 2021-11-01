@@ -18,7 +18,7 @@ export const register : RequestHandler = async (req, res) => {
 };
 
 export const login : RequestHandler = async (req, res) => {
-    1
+    
     const {email, password} : {email: string, password:  string} = req.body;
 
     const match = await User.findOne({email});

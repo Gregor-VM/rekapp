@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNzg5NDQ2NjZjYjMzNjdhOTJiZWZiZSIsImlhdCI6MTYzNTMwMjE1NSwiZXhwIjoxNjM1NzM0MTU1fQ.xTPlJmR0tDimWfwvv4apFaWK-9dh_MkPDlXAtpn-7mE";
+const token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNzg5NDQ2NjZjYjMzNjdhOTJiZWZiZSIsImlhdCI6MTYzNTczNDc3MSwiZXhwIjoxNjM2MTY2NzcxfQ.oXRYd0YrqsBykjSrbFCPgjOVLAX_3TaDLHmBZ1wq3ps";
 
 const axiosInstance = axios.create({
     baseURL: "http://localhost:3001/api/",

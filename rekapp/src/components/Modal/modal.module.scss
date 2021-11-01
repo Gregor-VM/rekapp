@@ -1,13 +1,13 @@
 .container{
+    overflow: hidden;
     height: 80vh;
     width: 80%;
     position: absolute;
     z-index: 50;
     background-color: white;
-    top: calc(10% - 20px);
-    left: calc(10% - 20px);
+    top: calc(10%);
+    left: calc(10%);
     border-radius: 20px;
-    padding: 20px;
     box-shadow: rgba(0, 0, 0, .2) 5px 5px 40px;
 }
 

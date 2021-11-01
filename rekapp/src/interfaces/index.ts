@@ -24,3 +24,10 @@ export interface AddCard{
     name: string,
     card: Card
 }
+
+
+export interface Audio{
+    arraybuffer: ArrayBuffer | null,
+    size: number | null,
+    type: string | null
+}

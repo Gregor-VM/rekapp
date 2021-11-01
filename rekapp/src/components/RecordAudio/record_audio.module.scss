@@ -1,0 +1,75 @@
+@import "../../sass/variables.scss";
+
+.container{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+
+    & > div{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(color("text"), .1);
+        border-radius: 10px;
+        margin: 10px;
+        width: 3rem;
+        height: 3rem;
+        cursor: pointer;
+        
+
+        &:hover{
+            background-color: rgba(color("text"), .2);
+        }
+    }
+}
+
+%icon{
+    display: block;
+    width: 40%;
+    height: 40%;
+}
+
+.start i{
+    @extend %icon;
+    border-radius: 50%;
+    background-color: color("red");
+}
+
+.stop i{
+    @extend %icon;
+    background-color: rgb(255, 255, 255);
+}
+
+@keyframes recording {
+    0%{
+        transform: scale(1);
+    }
+
+    100%{
+        transform: scale(1.1);
+        background-color: darken($color: color("red"), $amount: 10);
+    }
+}
+
+.recording{
+    background-color: rgba(color("text"), .4) !important;
+    & > i{
+        animation-name: recording;
+        animation-duration: .2s;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+    }
+}
+
+
+
+
+.playing{
+    background-color: darken($color: color("red"), $amount: 20) !important;
+}

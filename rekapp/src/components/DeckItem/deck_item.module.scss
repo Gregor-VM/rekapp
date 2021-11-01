@@ -2,13 +2,8 @@
     width: 100%;
     height: 150px;
     border-radius: 20px;
-    background-color: lavender;
     cursor: pointer;
     color: white;
-
-    &:hover{
-        background-color: gray;
-    }
 
     & > h4{
         text-align: center;

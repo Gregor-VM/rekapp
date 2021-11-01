@@ -1,3 +1,5 @@
+@import "../../sass/variables.scss";
+
 .loadingSelected {
     height: 50px;
 }
@@ -8,24 +10,15 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100%;
+    height: calc(100% - 50px);
+    background-color: color("foreground");
 
     & > .body{
+
+        padding: 20px;
+
         & > h4{
             margin: 10px 0;
-        }        
-        & > select{
-            padding: 10px;
-            height: 50px;
-            outline: none;
-            border: 1px solid black;
-            border-radius: 5px;
-            font-family: inherit;
-            font-size: inherit;
-
-            &:focus{
-                border-color: rgb(255, 171, 36);
-            }
         }
 
         & > textarea{
@@ -35,10 +28,12 @@
             font-size: inherit;
             padding: 10px;
             outline: none;
+            border: 1px dashed rgba(color("text"),.5);
+            background-color: color("background");
 
             &:focus{
                 transition: all .5s;
-                border: 1px dashed black;
+                border: 1px dashed color("primary");
             }
         }
 
@@ -46,19 +41,114 @@
 
     & > .footer{
 
+        min-height: 60px;
         align-self: flex-end;
+        border-top: 2px solid rgba(color("text"),.2);
+        border-left: 2px solid rgba(color("text"),.2);
+        border-radius: 20px 0px 0px 0px;
+        overflow: hidden;
+
+
+        %twoSections{
+            width: 150px;
+            height: 100%;
+            outline: none;
+            border: none;
+            font-family: inherit;
+            font-size: inherit;
+            border-radius: 0;
+        }
+
+        & > select{
+            @extend %twoSections;
+            background-color: rgba(color("text"),.1);
+            padding: 10px;
+            &:focus{
+                //border-color: color("primary");
+                background-color: darken($color: color("primary"), $amount: 20);
+            }
+            
+            & option{
+                background-color: color("background");
+            }
+
+        }
         
         & > button{
-            padding: 10px;
-            border: 0;
-            outline: 0;
+            @extend %twoSections;
             cursor: pointer;
-            border-radius: 5px;
+            background-color: rgba(color("text"),.1);
             &:hover{
-                background-color: darkgray;
-                color: white;
+                background-color: darken($color: color("primary"), $amount: 20);
             }
         }
     }
 }
 
+
+.toggleBar{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 50px;
+    width: 100%;
+    background-color: color("foreground");
+
+    .barOptions{
+
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        height: 48px;
+
+        & span{
+            padding: 20px;
+            width: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    }
+
+    .backgroundBar{
+        width: 100%;
+        background-color: rgba(color("text"),.05);
+    }
+
+    .bar{
+        height: 2px;
+        width: 50%;
+        background-color: color("primary");
+    }
+}
+
+
+.rightAnimation{
+    transition: all .2s;
+    transform: translateX(100%);
+}
+
+.leftAnimation{
+    transition: all .2s;
+    transform: translateX(0%);
+}
+
+.activeTab{
+    
+    @keyframes activeTab {
+        0%{
+            background-color: transparent;
+        }
+
+        100%{
+            background-color: rgba(color("text"), .05);
+        }
+    }
+    
+    animation-name: activeTab;
+    animation-duration: 2s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-fill-mode: forwards;
+}

@@ -17,9 +17,10 @@ const verifyToken : RequestHandler = async (req: GetUserRequest, res, next) => {
     try {
         
         const authentication = req.headers["authorization"]
-        if(typeof authentication !== "string") return res.json({error: "No token provided"});
+
+        if(typeof authentication !== "string") throw new Error("The type of the token is not an string");
         const token = (authentication).replace("Bearer ", "");
-        const decodedToken = (jwt.verify(token, config.SECRET) as TokenPayload);   
+        const decodedToken = (jwt.verify(token, config.SECRET) as TokenPayload);
         
         const currentDate = parseInt(Date.now().toString().slice(0, 10));
 
@@ -33,7 +34,7 @@ const verifyToken : RequestHandler = async (req: GetUserRequest, res, next) => {
         }
 
     } catch (error) {
-        return res.json({error: "invalid token"});
+        return res.status(401).json({error: "invalid token"});
     }
 
 };

@@ -69,6 +69,6 @@ UserSchema.statics.verifyPassword = async (password: string, hash: string) => {
     return await bcrypt.compare(password, hash);
 }
 
-const User : IUserModel = model<IUserDocument, IUserModel>("User", UserSchema)
+const User : IUserModel = model<IUserDocument, IUserModel>("User", UserSchema);
 
 export default User;

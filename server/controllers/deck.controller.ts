@@ -26,14 +26,19 @@ export const createDeck : RequestHandler = async (req : UserRequest, res) => {
 
 export const deleteDeckById : RequestHandler = async (req: UserRequest, res) => {
     const id = (req.params.id as string);
-    await User.findByIdAndUpdate(req.userId, {$pull: {decks: {"_id":id}}});
-    return res.status(204);
+    //await User.findByIdAndUpdate(req.userId, {$pull: {decks: {"_id":id}}});
+    const userData = await User.findById(req.userId);
+    const index = userData.decks.findIndex(deck => deck._id.toString() === id);
+    if(index === -1) return res.sendStatus(404);
+    userData.decks.splice(index, 1);
+    await userData.save();
+    return res.sendStatus(204);
 }
 
 export const deleteAllDecks : RequestHandler = async (req : UserRequest, res) => {
     //const response = await User.findByIdAndUpdate(req.userId, {$pullAll: {decks: }});
     const response = await User.findByIdAndUpdate(req.userId, {$set: {decks: []}});
-    res.json(response);
+    res.status(204).json(response);
 }
 
 export const getDecks : RequestHandler = async (req : UserRequest, res) => {
@@ -78,8 +83,9 @@ export const deleteCardById : RequestHandler = async (req: UserRequest, res) => 
     const data = await User.findById(req.userId);
 
     const index = data.decks.findIndex(deck => deck._id.toString() === deckId);
+    if(index === -1) return res.sendStatus(404);
     const cardIndex = data.decks[index].cards.findIndex(card => card._id.toString() === cardId);
     data.decks[index].cards.splice(cardIndex, 1);
     await data.save();
-    res.status(204);
+    res.sendStatus(204);
 }

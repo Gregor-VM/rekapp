@@ -44,8 +44,8 @@ function AddDeck() {
                 <h4>Color:</h4>
                 <div className={styles.colorSelector}>
                     {colors.map(((eachColor, i) => {
-                        const border = eachColor === color ? "4px solid black" : "4px solid transparent"
-                        return (<div key={i} style={{backgroundColor: eachColor, border}} onClick={() => {
+                        const border = eachColor === color ? styles.activeColor : "";
+                        return (<div key={i} style={{backgroundColor: eachColor}} className={border} onClick={() => {
                             setColor(eachColor);
                         }}></div>)
                     }))}
