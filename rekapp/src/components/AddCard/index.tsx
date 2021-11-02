@@ -7,6 +7,7 @@ import axios from '../../utils/axios';
 import {RootState} from '../../store/store';
 import {Deck} from '../../interfaces';
 import RecordAudio from '../RecordAudio';
+import UploadImage from '../UploadImage';
 
 
 function AddCard() {
@@ -83,6 +84,7 @@ function AddCard() {
                     </>
                 )}
                 
+                <UploadImage />
                 
             </div>
             <div className={styles.footer}>
