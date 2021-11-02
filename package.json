@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx jest --detectOpenHandles",
+    "test": "npx jest",
     "start": "rimraf ./dist && tsc && node dist/",
     "dev": "nodemon server/index.ts --exec ts-node",
     "build": "cd rekapp && npm install && npm run build"
@@ -14,9 +14,7 @@
     "setupFiles": [
       "dotenv/config"
     ],
-    "extensionsToTreatAsEsm": [
-      ".ts"
-    ]
+    "testEnvironment": "node"
   },
   "author": "",
   "license": "ISC",

@@ -1,20 +1,7 @@
 import {Document, Schema, model, Model} from 'mongoose';
 import bcrypt from 'bcryptjs';
 
-interface Card{
-    _id: string
-    front: string
-    back: string
-}
-
-interface Deck {
-    _id: string
-    name: string
-    backgroundColor: string
-    backgroundImage: string
-    options: Object,
-    cards: Card[]
-}
+import {Deck} from '../interface';
 
 interface IUserDocument extends Document {
     username: string
@@ -49,7 +36,12 @@ const UserSchema = new Schema({
         backgroundColor: String,
         backgroundImage: String,
         options: Object,
-        cards: [{front: String, back: String}]
+        cards: [{front: String, back: String, 
+            img: {
+                type: {title: String, data: String},
+                required: false
+            }
+        }]
     }],
     config: {
         type: Object

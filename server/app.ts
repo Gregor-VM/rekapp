@@ -13,8 +13,8 @@ import deckRoutes from './routes/deck.routes';
 
 const app = express();
 
-app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.json({limit: "30mb"}));
+app.use(express.urlencoded({extended: true, limit: "30mb"}));
 
 app.use(cors());
 

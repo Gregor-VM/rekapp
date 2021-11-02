@@ -1,4 +1,5 @@
 import {Request, RequestHandler} from 'express';
+import { Card } from '../interface';
 import User from '../models/User';
 
 interface UserRequest extends Request{
@@ -59,13 +60,16 @@ export const getDeck : RequestHandler = async (req: UserRequest, res) => {
 
 export const getCards : RequestHandler = async (req: UserRequest, res) => {
     const deckId = (req.params.deckId as string);
-    const result = await User.findById(req.userId, {decks: {_id: deckId}, _id:0});
-    res.json(result.decks[0].cards);
+    
+    const result = await User.findById(req.userId);
+    const cards = (result.decks.find((deck) => deck._id.toString() === deckId)).cards;
+
+    res.json(cards);
 }
 
 export const createCard : RequestHandler = async (req: UserRequest, res) => {
     const deckId = (req.params.deckId as string);
-    const card : {front: string, back: string, _id: undefined} = req.body;
+    const card : Card = req.body;
 
     const data = await User.findById(req.userId);
     const index = data.decks.findIndex(deck => deck._id.toString() === deckId);
@@ -89,3 +93,4 @@ export const deleteCardById : RequestHandler = async (req: UserRequest, res) => 
     await data.save();
     res.sendStatus(204);
 }
+
