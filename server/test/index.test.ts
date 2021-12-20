@@ -2,7 +2,7 @@ import app from '../app';
 import request from 'supertest';
 import mongoose from 'mongoose';
 
-const token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNzg5NDQ2NjZjYjMzNjdhOTJiZWZiZSIsImlhdCI6MTYzNTczNDc3MSwiZXhwIjoxNjM2MTY2NzcxfQ.oXRYd0YrqsBykjSrbFCPgjOVLAX_3TaDLHmBZ1wq3ps";
+const token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNzg5NDQ2NjZjYjMzNjdhOTJiZWZiZSIsImlhdCI6MTY0MDAyMjU5NCwiZXhwIjoxNjQwNDU0NTk0fQ.mxdsx8kphuI6ta3HWoSi3UfERIPTd2dNFJPoy_bHOqc";
 
 //const agent = request(app);
 
