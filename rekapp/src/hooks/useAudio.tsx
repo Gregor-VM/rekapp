@@ -18,6 +18,7 @@ function useAudio(url : string) {
         })
 
         return () => {
+            audio.pause();
             audio.removeEventListener("ended", () => {
                 setIsPlaying(null);
             });

@@ -1,18 +1,32 @@
+export interface Img{
+    _id: undefined
+    title: string
+    data: string
+}
+
+export interface Audio{
+    _id: undefined
+    data: string
+}
+
 export interface Card{
     _id: string | undefined
     front: string
     back: string
+    frontImg: Img | undefined
+    backImg: Img | undefined
+    frontAudio: Audio | undefined
+    backAudio: Audio | undefined
 }
 
 export interface Deck {
-    //name: string | undefined
-    //color: string
-    //cards: Card[] | never[]
     _id: string | undefined
+    shared: {value: boolean, author: string} | undefined
     name: string
     backgroundColor: string
     backgroundImage: string
-    cards: Card[] | never
+    options: Object | undefined,
+    cards: Card[]
 }
 
 export interface DeckCards extends Deck {
@@ -26,8 +40,3 @@ export interface AddCard{
 }
 
 
-export interface Audio{
-    arraybuffer: ArrayBuffer | null,
-    size: number | null,
-    type: string | null
-}

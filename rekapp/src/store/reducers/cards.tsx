@@ -6,6 +6,8 @@ const initialValue : DeckCards = {
     _id: undefined,
     backgroundColor: "",
     backgroundImage: "",
+    shared: undefined,
+    options: undefined,
     cards: [],
     name: "",
     currentCard: null,

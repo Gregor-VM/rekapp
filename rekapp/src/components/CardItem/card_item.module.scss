@@ -12,6 +12,18 @@
         height: 100%;
     }
 
+    & > .front{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        & > img {
+            margin: 20px;
+        }
+
+    }
+
     & > .back{
         background-color: rgba(color("text"),.02);
         display: flex;
@@ -19,9 +31,15 @@
 
         & > span {
             height: 80%;
+
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
+            align-items: center;
+    
+            & > img {
+                margin: 20px;
+            }
         }
 
         & > div{

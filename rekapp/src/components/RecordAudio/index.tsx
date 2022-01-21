@@ -1,14 +1,12 @@
 import styles from './record_audio.module.scss';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import useAudio from '../../hooks/useAudio';
 //import { Audio } from '../../interfaces';
 
-function RecordAudio() {
+function RecordAudio({url, setUrl, dataURL, setDataURL} : {url: string, setUrl: (string: string) => void, dataURL: string, setDataURL: (string: string) => void}) {
 
     const [recording, setRecording] = useState(false);
     const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
-    
-    const [url, setUrl] = useState<string>("");
 
     const {isPlaying, toggle} = useAudio(url);
 
@@ -27,12 +25,15 @@ function RecordAudio() {
 
             mediaRecorder.start();
 
-            mediaRecorder.ondataavailable = (e) => {
-                /*
-                const arraybuffer = await e.data.arrayBuffer();
-                const size = e.data.size;
-                const type = e.data.type;
-                setAudio({arraybuffer, size, type});*/
+            mediaRecorder.ondataavailable = async (e) => {
+
+                const reader = new FileReader();
+
+                reader.readAsDataURL(e.data);
+
+                reader.addEventListener("load", async () => {
+                    setDataURL(reader.result as string);
+                })
 
                 const url = window.URL.createObjectURL(e.data);
                 setUrl(url);
@@ -62,14 +63,16 @@ function RecordAudio() {
 
     }
 
+
     return (
         <div className={styles.container}>
             <h4>Record Audio</h4>
             <div className={styles.controls}>
                 {url && (
                     <div onClick={playAudio} className={styles.play + " " + ((isPlaying !== null) ? styles.playing : "")}>
-                        {(isPlaying || isPlaying === null) && <i className={"fas fa-play"}></i>}
-                        {(isPlaying === false) && <i className="fas fa-pause"></i>}
+                        {isPlaying && <i className="fas fa-pause"></i>}
+                        {(isPlaying === null) && <i className="fas fa-play"></i>}
+                        {(isPlaying === false) && <i className={"fas fa-play"}></i>}
                     </div>
                 )}
                 <div onClick={startRecording} className={styles.start + " " + (recording ? styles.recording : "")}><i></i></div>

@@ -24,6 +24,8 @@ function AddDeck() {
         dispatch(modalActions.closeModal());
 
         const deck : Deck = {
+            shared: undefined,
+            options: undefined,
             _id: undefined,
             name: (nameRef.current?.value as string),
             backgroundColor: color,

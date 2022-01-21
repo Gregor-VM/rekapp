@@ -1,12 +1,10 @@
-import {DragEvent, useRef, useState} from 'react'
+import React, {DragEvent, createRef, MouseEventHandler} from 'react'
 import styles from './upload_image.module.scss';
 
-function UploadImage() {
+function UploadImage({base64, setBase64} : {base64: string  | undefined, setBase64: (string: string) => void}) {
 
 
-    const [base64, setBase64] = useState<string>();
-    const inputRef = useRef<HTMLInputElement>(null);
-
+    const inputRef = createRef<HTMLInputElement>();
 
     const dragEnter = (e : DragEvent<HTMLDivElement>) => {
         e.preventDefault();
@@ -26,8 +24,9 @@ function UploadImage() {
         e.preventDefault();
     }
 
-    const selectFile = () => {
-        if(inputRef.current) inputRef.current.click();
+    const selectFile : MouseEventHandler<HTMLButtonElement> = (e) => {
+        e.preventDefault();
+        inputRef.current?.click();
     }
 
     const fileSelected : React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -51,12 +50,13 @@ function UploadImage() {
         if(verifyType(file)){
             const reader = new FileReader();
             reader.readAsDataURL(file);
-            reader.onloadend = e => {
+            reader.onload = e => {
                 const fileBase64 = reader.result;
                 setBase64(fileBase64 as string);
             }
         }
     }
+
 
     return (
         <div className={styles.container}>

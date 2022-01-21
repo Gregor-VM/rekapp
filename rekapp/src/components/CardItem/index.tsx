@@ -50,10 +50,22 @@ function CardItem({card} : {card: Card}) {
         <div className={styles.container}>
             <div className={styles.front}>
                 {card.front}
+                <img src={card.frontImg?.data}></img>
+                <audio controls>
+                    <source src={card.frontAudio?.data} type="audio/ogg" />
+                </audio>
             </div>
 
             <div onClick={revealHandler} className={reveal ? styles.back : styles.reveal}>
-                <span>{reveal ? card.back : "Click to reveal"}</span>
+                <span>{reveal ? 
+                    <>
+                    {card.back}
+                    <img src={card.backImg?.data}></img>
+                    <audio controls>
+                        <source src={card.backAudio?.data} type="audio/ogg" />
+                    </audio>
+                    </>
+             : "Click to reveal"}</span>
 
                 {reveal && (
                     <div>

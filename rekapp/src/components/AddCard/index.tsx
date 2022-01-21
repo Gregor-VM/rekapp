@@ -5,7 +5,7 @@ import {useSelector} from 'react-redux';
 import axios from '../../utils/axios';
 
 import {RootState} from '../../store/store';
-import {Deck} from '../../interfaces';
+import {Card, Deck} from '../../interfaces';
 import RecordAudio from '../RecordAudio';
 import UploadImage from '../UploadImage';
 
@@ -16,9 +16,20 @@ function AddCard() {
     const [selected, setSelected] = useState<string | undefined>(undefined);
     const [currentUIBar, setCurrentUIBar] = useState(0);
 
+    const [base64front, setBase64front] = useState<string>();
+    const [base64back, setBase64back] = useState<string>();
+
+    const [audioDataUrlFront, setAudioDataUrlFront] = useState<string>("");
+    const [audioDataUrlBack, setAudioDataUrlBack] = useState<string>("");
+
+    const [audioUrlFront, setAudioUrlFront] = useState<string>("");
+    const [audioUrlBack, setAudioUrlBack] = useState<string>("");
+
     const [card, setCard] = useState({front: "", back: ""});
 
     const decksList = useSelector((state : RootState) => (state.decks as Deck[]).map(deck => ({name: deck.name, _id: deck._id})));
+
+    
 
     const deckSelect : React.ChangeEventHandler<HTMLSelectElement> = (e) => {
         localStorage.setItem("deckSelected", e.target.value);
@@ -32,7 +43,19 @@ function AddCard() {
 
         e.preventDefault();
 
-        const createdCard = await axios.post(`/card/${selected}`, card);
+        let cardData: Card = {
+            _id: undefined,
+            front: card.front,
+            back: card.back,
+            frontImg: {_id: undefined, data: base64front as string, title: card.front},
+            backImg: {_id: undefined, data: base64back as string, title: card.back},
+            frontAudio: {_id: undefined, data: audioDataUrlFront},
+            backAudio: {_id: undefined, data: audioDataUrlBack}
+        };
+
+        const createdCard = (await axios.post("/card/" + selected, cardData));
+        console.log(createdCard.data);
+
         if(createdCard.status === 200){
             setCard({front: "", back: ""});
             tabTapped(0);
@@ -43,6 +66,12 @@ function AddCard() {
     const tabTapped = (index: number) => {
         setCurrentUIBar(index);
     }
+
+
+
+
+
+
 
     useEffect(() => {
         const deckSelected = localStorage.getItem("deckSelected");
@@ -72,7 +101,8 @@ function AddCard() {
                     <>
                     <h4>Front</h4>
                     <textarea name="front" value={card.front} onChange={cardChangeHandler} rows={5}></textarea>
-                    <RecordAudio />
+                    <RecordAudio dataURL={audioDataUrlFront} setDataURL={setAudioDataUrlFront} url={audioUrlFront} setUrl={setAudioUrlFront} />
+                    <UploadImage base64={base64front} setBase64={setBase64front} />
                     </>
                 )}
 
@@ -80,11 +110,12 @@ function AddCard() {
                     <>
                     <h4>Back</h4>
                     <textarea name="back" value={card.back} onChange={cardChangeHandler} rows={5}></textarea>
-                    <RecordAudio />
+                    <RecordAudio dataURL={audioDataUrlBack} setDataURL={setAudioDataUrlBack} url={audioUrlBack} setUrl={setAudioUrlBack} />
+                    <UploadImage base64={base64back} setBase64={setBase64back} />
                     </>
                 )}
                 
-                <UploadImage />
+                
                 
             </div>
             <div className={styles.footer}>
