@@ -31,17 +31,42 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
+    profileImg: String,
     decks: [{
         name: String,
+        shared: {value: Boolean, author: String},
         backgroundColor: String,
         backgroundImage: String,
         options: Object,
-        cards: [{front: String, back: String, 
-            img: {
+        cards: 
+
+            [{
+                
+            front: String, 
+            back: String,
+
+            frontImg: {
                 type: {title: String, data: String},
                 required: false
+            },
+
+            backImg:{
+                type: {title: String, data: String},
+                required: false
+            },
+
+            frontAudio:{
+                type: {data: String},
+                required: false
+            },
+
+            backAudio:{
+                type: {data: String},
+                required: false
             }
-        }]
+
+            }]
+
     }],
     config: {
         type: Object

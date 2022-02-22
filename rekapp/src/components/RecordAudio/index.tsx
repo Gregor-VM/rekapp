@@ -1,5 +1,5 @@
 import styles from './record_audio.module.scss';
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import useAudio from '../../hooks/useAudio';
 //import { Audio } from '../../interfaces';
 

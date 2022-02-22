@@ -1,5 +1,5 @@
 import {Request, RequestHandler} from 'express';
-import { Card } from '../interface';
+import { Card, Deck } from '../interface';
 import User from '../models/User';
 
 interface UserRequest extends Request{
@@ -17,7 +17,7 @@ export const createDeck : RequestHandler = async (req : UserRequest, res) => {
         name: string, backgroundColor: string, backgroundImage: string
     } = req.body;
 
-    const deck = {name, backgroundColor, backgroundImage, options: {}};
+    const deck = {name, shared: {value: false, author: ""}, backgroundColor, backgroundImage, options: {}};
 
     const response = await User.findByIdAndUpdate(req.userId, {$push: {decks: deck}},
     {new: true});
@@ -55,7 +55,40 @@ export const getDeck : RequestHandler = async (req: UserRequest, res) => {
 }
 
 
+export const updateDeckInfo : RequestHandler = async (req: UserRequest, res) => {
 
+    const updatedDeck : {
+        name: string, backgroundColor: string, backgroundImage: string, options: any
+    } = req.body;
+
+    const deckId = (req.params.deckId as string);
+
+    const user = await User.findById(req.userId);
+    const index = user.decks.findIndex(deck => deck._id.toString() === deckId);
+    user.decks[index] = {...user.decks[index], ...updatedDeck, cards: user.decks[index].cards, _id: user.decks[index]._id};
+
+    await user.save();
+
+    res.sendStatus(200);
+}
+
+export const updateCard : RequestHandler = async (req: UserRequest, res) => {
+    const updatedCard : Card = req.body;
+    const deckId = (req.params.deckId as string);
+    const cardId = (req.params.cardId as string);
+
+    const data = await User.findById(req.userId);
+
+    const index = data.decks.findIndex(deck => deck._id.toString() === deckId);
+    if(index === -1) return res.sendStatus(404);
+    const cardIndex = data.decks[index].cards.findIndex(card => card._id.toString() === cardId);
+
+    data.decks[index].cards[cardIndex] = {_id: data.decks[index].cards[cardIndex]._id, ...updatedCard};
+    await data.save();
+
+    res.sendStatus(200);
+
+}
 
 
 export const getCards : RequestHandler = async (req: UserRequest, res) => {
@@ -94,3 +127,22 @@ export const deleteCardById : RequestHandler = async (req: UserRequest, res) => 
     res.sendStatus(204);
 }
 
+export const shareDeckByEmail : RequestHandler = async (req: UserRequest, res) => {
+    const email = req.params.email as string;
+    const deckId = req.params.deckId as string;
+
+    const user = await User.findById(req.userId);
+    const userEmail = user.email;
+    const deck = user.decks.find(deck => deck._id.toString() === deckId);
+
+    const data = await User.findOne({email: email});
+
+
+    if(userEmail !== email){
+        data.decks.push({...deck, shared: {value: true, author: req.userId}});
+        await data.save();
+        res.sendStatus(200);
+    }else{
+        res.sendStatus(406);
+    }
+}

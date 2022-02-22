@@ -3,6 +3,7 @@ import styles from './upload_image.module.scss';
 
 function UploadImage({base64, setBase64} : {base64: string  | undefined, setBase64: (string: string) => void}) {
 
+    const [name, setName] = React.useState("");
 
     const inputRef = createRef<HTMLInputElement>();
 
@@ -50,6 +51,7 @@ function UploadImage({base64, setBase64} : {base64: string  | undefined, setBase
         if(verifyType(file)){
             const reader = new FileReader();
             reader.readAsDataURL(file);
+            setName(file.name);
             reader.onload = e => {
                 const fileBase64 = reader.result;
                 setBase64(fileBase64 as string);
@@ -65,7 +67,7 @@ function UploadImage({base64, setBase64} : {base64: string  | undefined, setBase
                 <input onChange={fileSelected} ref={inputRef} accept="jpg" type="file" hidden={true} />
             </div>
             <div className={styles.imgContainer}>
-                <img src={base64}></img>
+                <img alt={name} src={base64}></img>
             </div>
         </div>
     )

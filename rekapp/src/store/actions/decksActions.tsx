@@ -8,3 +8,7 @@ export const createDeck = (deck: Deck) => {
 export const loadDecks = (decks: Deck[]) => {
     return {type: types.LOAD_DECKS, payload: decks};
 }
+
+export const deleteDeck = (deckId: string) => {
+    return {type: types.DELETE_DECK, payload: deckId};
+}

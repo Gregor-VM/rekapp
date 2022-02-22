@@ -2,7 +2,7 @@ import app from '../app';
 import request from 'supertest';
 import mongoose from 'mongoose';
 
-const token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNzg5NDQ2NjZjYjMzNjdhOTJiZWZiZSIsImlhdCI6MTY0MDAyMjU5NCwiZXhwIjoxNjQwNDU0NTk0fQ.mxdsx8kphuI6ta3HWoSi3UfERIPTd2dNFJPoy_bHOqc";
+const token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNzg5NDQ2NjZjYjMzNjdhOTJiZWZiZSIsImlhdCI6MTY0MDM2NDA4MiwiZXhwIjoxNjQwNzk2MDgyfQ.esnQIwnhzp-8rLdJ7JBHZBF1cWZbl9zNg1yyTlntGH8";
 
 //const agent = request(app);
 
@@ -191,6 +191,24 @@ describe("GET cards", () => {
     });
 });
 
+
+describe("PUT deck", () => {
+    it("should response with status 200", (done) => {
+        const deckData = {name: "Test changed", backgroundColor: "#ffffff", 
+        backgroundImage: "null"}
+        agent.put("/deck/"+deckId).set("Authorization", token).send(deckData).expect(200, done);
+    });
+});
+
+describe("PUT card", () => {
+    it("should response with status 200", (done) => {
+        const cardData = {front: "Test front changed", back: "Test back changed"};
+        agent.put(`/card/${deckId}/${cardId}`)
+        .set("Authorization", token).send().expect(200, done);
+    })
+})
+
+
 describe("DELETE card", () => {
 
     it("should delete the post if the id is provided", (done) => {
@@ -236,6 +254,12 @@ describe("DELETE deck", () => {
     
 });
 
+describe("Share deck", () => {
+    it("should response with code 406", (done) => {
+        agent.post("/deck/share/john@email.com/" + deckId)
+        .set("Authorization", token).send().expect(406, done);
+    })
+})
 
 /**
  * GET CARD

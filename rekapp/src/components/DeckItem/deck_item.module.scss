@@ -1,3 +1,5 @@
+@import "../../sass/variables.scss";
+
 .groupItem{
     width: 100%;
     height: 150px;
@@ -5,12 +7,81 @@
     cursor: pointer;
     color: white;
 
-    & > h4{
+    & > div > h4{
+        width: 100%;
         text-align: center;
+        margin: 1em 0;
     }
 
+    & > .top {
+        display: flex;
+        justify-content: space-between;
+    }
+
+
+    /*
     transition: all .3s;
     &:hover{
         transform: translateY(-2.5px);
+    }*/
+}
+
+.menu{
+    position: relative;
+    width: 20%;
+    height: 3em;
+    display: flex;
+    transform: translate(400%, -310%);
+    cursor: pointer;
+
+    .options {
+        width: 100%;
+        height: 3em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    
+        & > div {
+            border-radius: 5px;
+            width: 5px;
+            height: 5px;
+            background-color: rgb(255, 255, 255);
+            margin: 1px 0;
+        }
+    
+        &:hover{
+            & > .centerxshadow{
+                box-shadow: 0px 0px 0px 15px rgba(255, 255, 255, .3);
+            }
+        }
+
+        & > .centerxshadow{
+            box-shadow: 0px 0px 0px 0px rgba(255, 255, 255, .3);
+            transition: box-shadow .1s;
+        }
+    
+    }
+
+    & > ul{
+        position: absolute;
+        background-color: color("text");
+        text-decoration: none;
+        list-style: none;
+        margin: 0 !important;
+        padding: 0;
+        width: 120px;
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow: 5px 5px 10px rgba(0,0,0,.4);
+        background-color: color("foreground");
+    
+        & > li{
+            color: color("text");
+            padding: 10px;
+            &:hover{
+                background-color: lighten($color: color("background"), $amount: 20);
+            }
+        }
     }
 }
