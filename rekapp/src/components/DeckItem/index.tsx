@@ -5,7 +5,9 @@ import {useState} from 'react'
 import {useHistory} from 'react-router-dom';
 
 import {useDispatch} from 'react-redux';
-import * as actions from '../../store/actions/decksActions';
+import * as deckActions from '../../store/actions/decksActions';
+import * as modalActions from '../../store/actions/modalActions';
+import * as viewCardsActions from '../../store/actions/viewCardsActions';
 
 import axios from '../../utils/axios';
 
@@ -46,7 +48,15 @@ function GroupItem({deck} : {deck : Deck}) {
 
     const deleteDeck = async () => {
         const response = await axios.delete("deck/" + deck._id);
-        if(response.status === 204) dispatch(actions.deleteDeck(deck._id as string));
+        if(response.status === 204) dispatch(deckActions.deleteDeck(deck._id as string));
+    }
+
+    const displayCards = async () => {
+
+        dispatch(modalActions.openModal(2));
+        if(deck._id){
+            dispatch(viewCardsActions.setViewCardId(deck._id));
+        }
     }
 
     return (
@@ -67,7 +77,7 @@ function GroupItem({deck} : {deck : Deck}) {
             {isOpen && (
                 <ul>
                     <li onClick={deleteDeck}>Delete</li>
-                    <li>Cards</li>
+                    <li onClick={displayCards}>Cards</li>
                 </ul>
             )}
         </div>

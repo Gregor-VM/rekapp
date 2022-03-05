@@ -1,9 +1,12 @@
-import styles from './card_info.module.scss';
+import normalStyles from './card_info.module.scss';
+import smallStyles from './card_info_small.module.scss';
 
 import {useState, createRef} from 'react';
 import {Img, Audio} from '../../interfaces/index'
 
-function CardInfo({cardInfo} : {cardInfo: {img: Img | undefined, audio: Audio | undefined, text: string}}) {
+function CardInfo({cardInfo, small} : {small: boolean, cardInfo: {img: Img | undefined, audio: Audio | undefined, text: string}}) {
+
+    const styles = small ? smallStyles : normalStyles;
 
     const [isPlaying, setIsPlaying] = useState({front: true, back: true});
     const audioRef: React.LegacyRef<HTMLAudioElement> = createRef();
@@ -31,7 +34,7 @@ function CardInfo({cardInfo} : {cardInfo: {img: Img | undefined, audio: Audio | 
                 <div onClick={() => playOrPause(true)} className={isPlaying.front ? "" : styles.playing}>
                 {isPlaying.front ? <i className="fas fa-play"></i> : <i className="fas fa-pause"></i>}
                 </div>
-                <audio onPause={() => toggle(true)} onPlay={() => toggle(true)} autoPlay ref={audioRef} hidden>
+                <audio onPause={() => toggle(true)} onPlay={() => toggle(true)} autoPlay={!small} ref={audioRef} hidden>
                     <source src={cardInfo.audio?.data} type="audio/ogg" />
                 </audio>
         </div>

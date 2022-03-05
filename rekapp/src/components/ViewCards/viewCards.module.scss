@@ -1,0 +1,15 @@
+@import "../../sass/variables.scss";
+
+.container{
+    background-color: color("foreground");
+    height: 100%;
+    padding: 20px;
+    
+    & > div{
+        border-bottom: 2px solid color("primary");
+    }
+}
+
+.rows{
+    display: flex;
+}

@@ -1,0 +1,35 @@
+@import "../../sass/variables.scss";
+
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    & > img {
+        margin: 20px;
+        width: 100px;
+        height: 100px;
+    }
+}
+
+.container > div, .back > span > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(color("text"), .1);
+    border-radius: 10px;
+    margin: 10px;
+    width: 3rem;
+    height: 3rem;
+    cursor: pointer;
+    
+
+    &:hover{
+        background-color: rgba(color("text"), .2);
+    }
+}
+
+.playing{
+    background-color: darken($color: color("red"), $amount: 20) !important;
+}

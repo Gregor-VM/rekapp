@@ -53,11 +53,11 @@ function CardItem({card} : {card: Card}) {
     return (
         <div className={styles.container}>
             
-            <CardInfo cardInfo={{img: card.frontImg, audio: card.frontAudio, text: card.front}} />
+            <CardInfo small={false} cardInfo={{img: card.frontImg, audio: card.frontAudio, text: card.front}} />
 
             <div onClick={revealHandler} className={reveal ? styles.back : styles.reveal}>
                 <span>{reveal ? 
-                    <CardInfo cardInfo={{img: card.backImg, audio: card.backAudio, text: card.back}} />
+                    <CardInfo small={false} cardInfo={{img: card.backImg, audio: card.backAudio, text: card.back}} />
 
 
              : "Click to reveal"}</span>
