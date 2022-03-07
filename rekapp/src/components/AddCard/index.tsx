@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import styles from './add_card.module.scss';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 
 import axios from '../../utils/axios';
 
@@ -9,8 +9,12 @@ import {Card, Deck} from '../../interfaces';
 import RecordAudio from '../RecordAudio';
 import UploadImage from '../UploadImage';
 
+import * as cardEditActions from '../../store/actions/cardEditActions'
+
 
 function AddCard() {
+
+    const dispatch = useDispatch();
 
 
     const [selected, setSelected] = useState<string | undefined>(undefined);
@@ -28,6 +32,7 @@ function AddCard() {
     const [card, setCard] = useState({front: "", back: ""});
 
     const decksList = useSelector((state : RootState) => (state.decks as Deck[]).map(deck => ({name: deck.name, _id: deck._id})));
+    const cardEdit = useSelector((state : RootState) => (state.cardEdit));
 
     
 
@@ -80,6 +85,19 @@ function AddCard() {
         else setSelected(decksList[0]._id);
     }, [decksList]);
 
+    useEffect(() => {
+        console.log(cardEdit)
+    }, [cardEdit.editing]);
+
+    
+    useEffect(() => {
+        return () => {
+            if(cardEdit.editing === true){
+                dispatch(cardEditActions.setCardEdit(null));
+            }
+        }
+    },[]);
+
     return (
         <>
 
@@ -130,7 +148,7 @@ function AddCard() {
                             })}
                     </select>)}
 
-                <button type="submit">CREATE CARD</button>
+                <button type="submit">{cardEdit.editing ? "UPDATE CARD" : "CREATE CARD"}</button>
             </div>
         </form>
         </>

@@ -11,7 +11,9 @@ const types = {
     OPEN_MODAL: "OPEN_MODAL",
     CLOSE_MODAL: "CLOSE_MODAL",
 
-    SET_CARDS_VIEW_ID: "SET_CARDS_VIEW_ID"
+    SET_CARDS_VIEW_ID: "SET_CARDS_VIEW_ID",
+
+    SET_CARD_EDIT: "SET_CARD_EDIT"
 };
 
 export default types;

@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import axios from '../../utils/axios';
 
 import styles from './viewCards.module.scss';
@@ -9,11 +9,16 @@ import {RootState} from '../../store/store';
 import { Card, Deck } from '../../interfaces';
 import CardInfo from '../CardInfo';
 
+import * as modalActions from '../../store/actions/modalActions';
+import * as cardEditActions from '../../store/actions/cardEditActions';
+
 function ViewCards() {
 
     const [cards, setCards] = useState<Card[] | never[]>([]);
     const [update, setUpdate] = useState(false);
     const [loading, setLoading] = useState<boolean>(true);
+
+    const dispatch = useDispatch();
 
     const deckId = useSelector((state : RootState) => state.viewCards);
 
@@ -33,6 +38,12 @@ function ViewCards() {
     };
 
 
+    const editCard = (card: Card) => {
+        dispatch(modalActions.openModal(1));
+        dispatch(cardEditActions.setCardEdit(card));
+    };
+
+
     useEffect(() => {
         getCardsFromDeckId(deckId);
     }, [update]);
@@ -41,14 +52,14 @@ function ViewCards() {
         !loading ? (
             <div className={styles.view_cards_container}>
                 {cards.map(card => {
-                    return (<div className={styles.rows}>
+                    return (<div key={card._id} className={styles.rows}>
 
                         <CardInfo small={true} cardInfo={{img: card.frontImg, audio: card.frontAudio, text: card.front}} />
                         <CardInfo small={true} cardInfo={{img: card.backImg, audio: card.backAudio, text: card.back}} />
 
                         <div>
                             <button className={styles.view_cards_button} onClick={() => deleteCard(card._id)}><i className="fas fa-trash"></i></button>
-                            <button className={styles.view_cards_button}><i className="fas fa-edit"></i></button>
+                            <button className={styles.view_cards_button} onClick={() => editCard(card)}><i className="fas fa-edit"></i></button>
                         </div>
 
                         </div>)
