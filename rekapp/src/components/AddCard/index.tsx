@@ -9,7 +9,8 @@ import {Card, Deck} from '../../interfaces';
 import RecordAudio from '../RecordAudio';
 import UploadImage from '../UploadImage';
 
-import * as cardEditActions from '../../store/actions/cardEditActions'
+import * as cardEditActions from '../../store/actions/cardEditActions';
+import * as modalActions from '../../store/actions/modalActions';
 
 
 function AddCard() {
@@ -58,8 +59,29 @@ function AddCard() {
             backAudio: {_id: undefined, data: audioDataUrlBack}
         };
 
+        if(cardEdit.editing){
+
+            const updatedCard : Card = {
+                _id: cardEdit.card?._id as string,
+                front: card.front,
+                back: card.back,
+                frontImg: {_id: cardEdit.card?.frontImg?._id, data: base64front as string, title: card.front},
+                backImg: {_id: cardEdit.card?.backImg?._id, data: base64back as string, title: card.back},
+                frontAudio: {_id: cardEdit.card?.frontAudio?._id, data: audioDataUrlFront},
+                backAudio: {_id: cardEdit.card?.backAudio?._id, data: audioDataUrlBack}
+            };
+
+            const status = await axios.put(`/card/${cardEdit.deckId}/${cardEdit?.card?._id}`, updatedCard);
+
+            if(status.status === 200){
+                dispatch(modalActions.openModal(2));
+                dispatch(cardEditActions.setCardEdit(null));
+            }
+
+            return;
+        }
+
         const createdCard = (await axios.post("/card/" + selected, cardData));
-        console.log(createdCard.data);
 
         if(createdCard.status === 200){
             setCard({front: "", back: ""});
@@ -85,10 +107,41 @@ function AddCard() {
         else setSelected(decksList[0]._id);
     }, [decksList]);
 
-    useEffect(() => {
-        console.log(cardEdit)
-    }, [cardEdit.editing]);
+    const createBlob = async (data: string, front: boolean) => {
 
+        // CREATE BLOB USING FETCH
+
+        const audioBlob = await (await fetch(data)).blob();
+
+        //CREATE A FILE
+
+        const file = new File([await audioBlob.arrayBuffer()], card.front, {type: "audio/webm"})
+
+        const url = window.URL.createObjectURL(file);
+
+        // SET TO FRONT AND BACK USING THE FRONT BOOLEAN VARIABLE
+
+        front ? setAudioUrlFront(url) : setAudioUrlBack(url);
+        
+    }
+
+    useEffect(() => {
+        if(cardEdit.editing){
+            const currCard = cardEdit.card
+            setCard({front: currCard?.front as string, back: currCard?.back as string});
+            setBase64front(currCard?.frontImg?.data);
+            setBase64back(currCard?.backImg?.data);
+            setAudioDataUrlFront(currCard?.frontAudio?.data as string);
+            setAudioDataUrlBack(currCard?.backAudio?.data as string);
+
+            createBlob(currCard?.frontAudio?.data as string, true);
+            createBlob(currCard?.backAudio?.data as string, false);
+
+        }
+    }, [cardEdit]);
+
+
+    //RESET CARDEDIT WHEN CLICK OUTSIDE THE MODAL
     
     useEffect(() => {
         return () => {

@@ -40,7 +40,7 @@ function ViewCards() {
 
     const editCard = (card: Card) => {
         dispatch(modalActions.openModal(1));
-        dispatch(cardEditActions.setCardEdit(card));
+        dispatch(cardEditActions.setCardEdit({card, deckId}));
     };
 
 

@@ -81,7 +81,9 @@ export const updateCard : RequestHandler = async (req: UserRequest, res) => {
 
     const index = data.decks.findIndex(deck => deck._id.toString() === deckId);
     if(index === -1) return res.sendStatus(404);
+    
     const cardIndex = data.decks[index].cards.findIndex(card => card._id.toString() === cardId);
+    if(cardIndex === -1) return res.sendStatus(404);
 
     data.decks[index].cards[cardIndex] = {_id: data.decks[index].cards[cardIndex]._id, ...updatedCard};
     await data.save();
