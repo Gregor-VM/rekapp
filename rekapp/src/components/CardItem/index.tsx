@@ -13,12 +13,11 @@ import {Card, DeckCards} from '../../interfaces';
 import { RootState } from '../../store/store';
 import CardInfo from '../CardInfo';
 
-function CardItem({card} : {card: Card}) {
+function CardItem({deck, card, setRecap} : {deck: DeckCards, card: Card, setRecap: React.Dispatch<React.SetStateAction<never[] | Card[]>>}) {
 
     const [reveal, setReveal] = useState(false);
     const history = useHistory();
     const dispatch = useDispatch();
-    const deck : DeckCards = useSelector((state: RootState) => state.cards);
 
     const revealHandler = () => {
 
@@ -32,11 +31,19 @@ function CardItem({card} : {card: Card}) {
 
         const currentIndex = (deck.progress.current as number) + 1;
 
+        if(!answer){
+            
+            //setRecap(prev => [...prev, currentIndex - 1]);
+            setRecap(prev => [...prev, card]);
+        }
+
+        /*
+
         if(deck.cards[currentIndex - 1] === undefined) {
             dispatch(actions.loadDeck(initialValue));
             history.push("/");
             return;
-        }
+        }*/
 
         dispatch(actions.setCurrentCard(deck.cards[currentIndex - 1]));
 

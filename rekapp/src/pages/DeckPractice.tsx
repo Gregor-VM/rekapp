@@ -8,12 +8,13 @@ import CardItem from '../components/CardItem';
 import axios from '../utils/axios';
 import * as actions from '../store/actions/cardsActions';
 
-import {Deck, DeckCards} from '../interfaces';
+import {Card, Deck, DeckCards} from '../interfaces';
 import { RootState } from '../store/store';
 
 function DeckPractice() {
 
     const [loading, setLoading] = useState(true);
+    const [recap, setRecap] = useState<never[] | Card[]>([]);
 
     const dispatch = useDispatch();
     const cards : DeckCards = useSelector((state : RootState) => state.cards);
@@ -29,8 +30,10 @@ function DeckPractice() {
 
             if(cards.currentCard) {
                 setLoading(false);
-                return
+                return;
             };
+
+            console.log("getting cards")
 
             const deckInfo : Deck =  (await axios.get(`/deck/${deckId}`)).data;
             const deckCards : DeckCards = {...deckInfo, currentCard: deckInfo.cards[index], progress: {total: deckInfo.cards.length, current: index}}
@@ -46,12 +49,19 @@ function DeckPractice() {
 
     }, [getCardsCb]);
 
+    useEffect(() => {
+        if(cards.cards[index - 1] === undefined && cards.cards.length > 0) {
+            console.log(recap);
+            
+        }
+    }, [currentCard]);
+
     return (
         <div>
             <Navbar />
             {loading && (<div>Loading</div>)}
             {(!loading && currentCard) && (
-                <CardItem card={currentCard} />
+                <CardItem setRecap={setRecap} deck={cards} card={currentCard} />
             )}
         </div>
     )

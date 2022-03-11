@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import styles from './add_card.module.scss';
 import {useSelector, useDispatch} from 'react-redux';
 
@@ -18,6 +18,7 @@ function AddCard() {
     const dispatch = useDispatch();
 
 
+    const [mounted, setMounted] = useState(false);
     const [selected, setSelected] = useState<string | undefined>(undefined);
     const [currentUIBar, setCurrentUIBar] = useState(0);
 
@@ -107,15 +108,16 @@ function AddCard() {
         else setSelected(decksList[0]._id);
     }, [decksList]);
 
-    const createBlob = async (data: string, front: boolean) => {
+    const createBlob = useCallback(
 
-        // CREATE BLOB USING FETCH
+        async (data: string, front: boolean, text: string) => {
+            // CREATE BLOB USING FETCH
 
         const audioBlob = await (await fetch(data)).blob();
 
         //CREATE A FILE
 
-        const file = new File([await audioBlob.arrayBuffer()], card.front, {type: "audio/webm"})
+        const file = new File([await audioBlob.arrayBuffer()], text, {type: "audio/webm"})
 
         const url = window.URL.createObjectURL(file);
 
@@ -123,22 +125,25 @@ function AddCard() {
 
         front ? setAudioUrlFront(url) : setAudioUrlBack(url);
         
-    }
+    }, []);
 
     useEffect(() => {
-        if(cardEdit.editing){
-            const currCard = cardEdit.card
+        
+        if(cardEdit.editing && !mounted){
+            const currCard = cardEdit.card;
             setCard({front: currCard?.front as string, back: currCard?.back as string});
             setBase64front(currCard?.frontImg?.data);
             setBase64back(currCard?.backImg?.data);
             setAudioDataUrlFront(currCard?.frontAudio?.data as string);
             setAudioDataUrlBack(currCard?.backAudio?.data as string);
 
-            createBlob(currCard?.frontAudio?.data as string, true);
-            createBlob(currCard?.backAudio?.data as string, false);
+            createBlob(currCard?.frontAudio?.data as string, true, card.front);
+            createBlob(currCard?.backAudio?.data as string, false, card.back);
+
+            setMounted(true)
 
         }
-    }, [cardEdit]);
+    }, [mounted, cardEdit.card, cardEdit.editing, card.front, card.back, createBlob]);
 
 
     //RESET CARDEDIT WHEN CLICK OUTSIDE THE MODAL
@@ -149,7 +154,7 @@ function AddCard() {
                 dispatch(cardEditActions.setCardEdit(null));
             }
         }
-    },[]);
+    },[cardEdit.editing, dispatch]);
 
     return (
         <>

@@ -46,7 +46,7 @@ function ViewCards() {
 
     useEffect(() => {
         getCardsFromDeckId(deckId);
-    }, [update]);
+    }, [update, deckId]);
 
     return (
         !loading ? (
