@@ -1,19 +1,15 @@
 import styles from './card_item.module.scss';
 
-
-import {useSelector, useDispatch} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 import {useState} from 'react';
+import {useDispatch} from 'react-redux';
 
-import * as actions from '../../store/actions/cardsActions';
-import { initialValue } from '../../store/reducers/cards';
-
-
-import {Card, DeckCards} from '../../interfaces';
-import { RootState } from '../../store/store';
+import {Card, Deck} from '../../interfaces';
 import CardInfo from '../CardInfo';
 
-function CardItem({deck, card, setRecap} : {deck: DeckCards, card: Card, setRecap: React.Dispatch<React.SetStateAction<never[] | Card[]>>}) {
+import * as practiceCountActions from './../../store/actions/practiceCountActions';
+
+function CardItem({index, deck, card, setQueue, queue} : {index: number, queue: never[] | number[], deck: Deck | null, card: Card | undefined, setQueue: React.Dispatch<React.SetStateAction<never[] | number[]>>}) {
 
     const [reveal, setReveal] = useState(false);
     const history = useHistory();
@@ -29,42 +25,45 @@ function CardItem({deck, card, setRecap} : {deck: DeckCards, card: Card, setReca
 
     const choiceHandler = (answer : boolean) => {
 
-        const currentIndex = (deck.progress.current as number) + 1;
+        // WHEN THE QUEUE IS ABOUT BEING FINISH
 
-        if(!answer){
-            
-            //setRecap(prev => [...prev, currentIndex - 1]);
-            setRecap(prev => [...prev, card]);
-        }
-
-        /*
-
-        if(deck.cards[currentIndex - 1] === undefined) {
-            dispatch(actions.loadDeck(initialValue));
+        if(queue[1] === undefined && answer){
+            dispatch(practiceCountActions.resetPracticeCount());
             history.push("/");
             return;
-        }*/
+        };
 
-        dispatch(actions.setCurrentCard(deck.cards[currentIndex - 1]));
+        // WHEN YOU FAIL THE QUESTION THE CURRENT INDEX NEXT TO BE ADDED AGAIN
+        
+        setQueue(prev => [...prev, index]);
+        
+        if(!answer){
+            setQueue(prev => [...prev, index]);
+        }
+
+        if(answer) dispatch(practiceCountActions.incrementPracticeCount());
+
+        // DELETE THE OLDER ELEMENT IN THE QUEUE
+
+        setQueue(prev => prev.slice(1, -1));
 
         setReveal(false);
 
-        if(deck.progress.current) {
-            history.push(`/deck/${deck._id}/${currentIndex}`);
-        }
+        // REDIRECT TO THE NEXT ELEMENT IN THE QUEUE
 
-        dispatch(actions.incrementIndex());
+        history.push(`/deck/${deck?._id}/${queue[1] === undefined ? 1 : queue[1]}`);
+
     }
     
 
     return (
         <div className={styles.container}>
             
-            <CardInfo small={false} cardInfo={{img: card.frontImg, audio: card.frontAudio, text: card.front}} />
+            <CardInfo small={false} cardInfo={{img: card?.frontImg, audio: card?.frontAudio, text: card?.front || ""}} />
 
             <div onClick={revealHandler} className={reveal ? styles.back : styles.reveal}>
                 <span>{reveal ? 
-                    <CardInfo small={false} cardInfo={{img: card.backImg, audio: card.backAudio, text: card.back}} />
+                    <CardInfo small={false} cardInfo={{img: card?.backImg, audio: card?.backAudio, text: card?.back || ""}} />
 
 
              : "Click to reveal"}</span>

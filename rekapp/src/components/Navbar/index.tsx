@@ -14,7 +14,7 @@ function Navbar() {
     const dispatch = useDispatch();
       
     const isHome = (useLocation()).pathname === "/";
-    const {progress: {total, current}} = useSelector((state: RootState) => state.cards);
+    const count : {count: number, total: number | null} = useSelector((state: RootState) => state.practiceCount);
 
     const openMenu = () => {
         setMenu(true);
@@ -50,7 +50,7 @@ function Navbar() {
             <div className={styles.profileContainer}>
                 
                 {(isHome && <button onClick={openModal}>CREATE DECK</button>)}
-                {(total && <span>{current}/{total}</span>)}
+                {(count.total && <span>{count.count}/{count.total}</span>)}
 
                 <h4>Gregor</h4>
                 <img alt="profile" src="https://yt3.ggpht.com/ytc/AKedOLTpvKuGuqG-anw7EaboiIh5Zb8AxdB1rFFkjIB4oQ=s48-c-k-c0x00ffffff-no-rj"></img>

@@ -1,67 +1,71 @@
 import {useEffect, useState, useCallback} from 'react';
 import {useLocation} from 'react-router-dom';
-import {useSelector, useDispatch} from 'react-redux';
 
 import Navbar from '../components/Navbar';
 import CardItem from '../components/CardItem';
 
 import axios from '../utils/axios';
-import * as actions from '../store/actions/cardsActions';
 
-import {Card, Deck, DeckCards} from '../interfaces';
-import { RootState } from '../store/store';
+import {Deck} from '../interfaces';
+import { useDispatch } from 'react-redux';
+import * as practiceCountActions from './../store/actions/practiceCountActions';
 
 function DeckPractice() {
 
     const [loading, setLoading] = useState(true);
-    const [recap, setRecap] = useState<never[] | Card[]>([]);
+    const [queue, setQueue] = useState<number[] | never[]>([]);
+    const [cards, setCards] = useState<Deck | null>(null);
 
     const dispatch = useDispatch();
-    const cards : DeckCards = useSelector((state : RootState) => state.cards);
     
 
     const [deckId, indexString] = (useLocation<Deck>()).pathname.split("/").slice(2, 4);
     const index = parseInt(indexString);
 
-    const currentCard = cards.cards[index - 1];
+    const fillQueue = useCallback(
+        () => {
+            const lengthOfCards = cards?.cards.length;
+            let tempArray = [];
+            if(lengthOfCards){
+                for(let i=1;i<=lengthOfCards;i++) tempArray.push(i);
+                setQueue(tempArray);
+            }
+        },
+        [setQueue, cards?.cards.length],
+    )
 
     const getCardsCb = useCallback(
         async () => {
 
-            if(cards.currentCard) {
+            if(loading){
+                const deckInfo : Deck =  (await axios.get(`/deck/${deckId}`)).data;
+                dispatch(practiceCountActions.setTotal(deckInfo.cards.length));
+                setCards(deckInfo);
                 setLoading(false);
-                return;
-            };
-
-            console.log("getting cards")
-
-            const deckInfo : Deck =  (await axios.get(`/deck/${deckId}`)).data;
-            const deckCards : DeckCards = {...deckInfo, currentCard: deckInfo.cards[index], progress: {total: deckInfo.cards.length, current: index}}
-            dispatch(actions.loadDeck(deckCards));
-            setLoading(false);
+            } else {
+                if(queue.length === 0){
+                    fillQueue();
+                }
+            }
 
         },
-        [deckId, cards.currentCard, index, dispatch],
+        [deckId, dispatch, queue, fillQueue, loading],
     )
 
     useEffect(() => {
         getCardsCb();
-
     }, [getCardsCb]);
 
     useEffect(() => {
-        if(cards.cards[index - 1] === undefined && cards.cards.length > 0) {
-            console.log(recap);
-            
-        }
-    }, [currentCard]);
+        console.log(queue)
+    }, [queue])
 
     return (
         <div>
             <Navbar />
             {loading && (<div>Loading</div>)}
-            {(!loading && currentCard) && (
-                <CardItem setRecap={setRecap} deck={cards} card={currentCard} />
+            {(!loading) && (
+                <CardItem index={index} queue={queue} setQueue={setQueue} deck={cards} card={cards?.cards[index - 1]} />
             )}
         </div>
     )
