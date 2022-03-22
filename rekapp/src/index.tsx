@@ -9,7 +9,9 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import './index.scss';
 
 import Home from './pages/Home';
-import DeckPractice from './pages/DeckPractice'
+import DeckPractice from './pages/DeckPractice';
+import Register from './pages/Register/Register';
+import Login from './pages/Login/Login';
 
 //import reportWebVitals from './reportWebVitals';
 
@@ -20,6 +22,8 @@ ReactDOM.render(
       <Switch>
         <Route path="/" exact component={Home}></Route>
         <Route path="/deck/:deckId/:cardIndex" component={DeckPractice}></Route>
+        <Route path="/register" component={Register}></Route>
+        <Route path="/login" component={Login}></Route>
       </Switch>
     </Router>
     </Provider>

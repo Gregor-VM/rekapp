@@ -25,6 +25,8 @@ function CardItem({index, deck, card, setQueue, queue} : {index: number, queue: 
 
     const choiceHandler = (answer : boolean) => {
 
+        const previousIndex = queue[0];
+
         // WHEN THE QUEUE IS ABOUT BEING FINISH
 
         if(queue[1] === undefined && answer){
@@ -51,7 +53,7 @@ function CardItem({index, deck, card, setQueue, queue} : {index: number, queue: 
 
         // REDIRECT TO THE NEXT ELEMENT IN THE QUEUE
 
-        history.push(`/deck/${deck?._id}/${queue[1] === undefined ? 1 : queue[1]}`);
+        history.push(`/deck/${deck?._id}/${queue[1] === undefined ? previousIndex : queue[1]}`);
 
     }
     

@@ -56,10 +56,6 @@ function DeckPractice() {
         getCardsCb();
     }, [getCardsCb]);
 
-    useEffect(() => {
-        console.log(queue)
-    }, [queue])
-
     return (
         <div>
             <Navbar />
