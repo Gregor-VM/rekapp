@@ -16,7 +16,7 @@ a {
 .container{
     @extend %containerDad;
     padding-bottom: 30px;
-    margin-top: 15vh;
+    margin-top: 5vh;
 
     & > header{
         text-align: center;
@@ -37,6 +37,11 @@ a {
         color: color("text");
         outline: none;
         border: none;
+    }
+
+    & > p {
+        font-size: 12px;
+        color: lighten($color: red, $amount: 20)
     }
 
     

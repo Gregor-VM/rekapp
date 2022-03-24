@@ -12,18 +12,21 @@ import axios from '../utils/axios';
 import {Deck} from '../interfaces'
 import { RootState } from '../store/store';
 
+import {useHistory} from 'react-router-dom';
+
 function App() {
 
   const [loading, setLoading] = useState(true);
   const decks : Deck[] = useSelector((state: RootState) => state.decks);
   const dispatch = useDispatch();
+  const history = useHistory();
 
 
   const getDecksCallback = useCallback(async () => {
     setLoading(true);
     const decks : Deck[] = (await axios.get("decks")).data;
     dispatch(actions.loadDecks(decks));
-    setLoading(false)
+    setLoading(false);
   }, [dispatch, setLoading]);
 
   useEffect(() => {

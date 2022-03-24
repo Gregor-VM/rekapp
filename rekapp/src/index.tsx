@@ -13,6 +13,8 @@ import DeckPractice from './pages/DeckPractice';
 import Register from './pages/Register/Register';
 import Login from './pages/Login/Login';
 
+import ProtectedRoute from './components/ProtectedRoute'
+
 //import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
@@ -20,8 +22,8 @@ ReactDOM.render(
     <Provider store={store}>
     <Router>
       <Switch>
-        <Route path="/" exact component={Home}></Route>
-        <Route path="/deck/:deckId/:cardIndex" component={DeckPractice}></Route>
+        <ProtectedRoute path="/" exact component={Home}></ProtectedRoute>
+        <ProtectedRoute path="/deck/:deckId/:cardIndex" component={DeckPractice}></ProtectedRoute>
         <Route path="/register" component={Register}></Route>
         <Route path="/login" component={Login}></Route>
       </Switch>
