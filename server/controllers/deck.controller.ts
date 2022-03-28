@@ -1,5 +1,5 @@
 import {Request, RequestHandler} from 'express';
-import { Card, Deck } from '../interface';
+import { Card } from '../interface';
 import User from '../models/User';
 
 interface UserRequest extends Request{

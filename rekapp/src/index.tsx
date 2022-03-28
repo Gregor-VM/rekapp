@@ -14,6 +14,7 @@ import Register from './pages/Register/Register';
 import Login from './pages/Login/Login';
 
 import ProtectedRoute from './components/ProtectedRoute'
+import Settings from './pages/Settings/index';
 
 //import reportWebVitals from './reportWebVitals';
 
@@ -24,6 +25,7 @@ ReactDOM.render(
       <Switch>
         <ProtectedRoute path="/" exact component={Home}></ProtectedRoute>
         <ProtectedRoute path="/deck/:deckId/:cardIndex" component={DeckPractice}></ProtectedRoute>
+        <ProtectedRoute path="/settings" component={Settings}></ProtectedRoute>
         <Route path="/register" component={Register}></Route>
         <Route path="/login" component={Login}></Route>
       </Switch>

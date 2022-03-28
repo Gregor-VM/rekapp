@@ -1,0 +1,93 @@
+@import './../../sass/variables.scss';
+
+
+.container{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.right_box{
+
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 25px;
+
+    & > img{
+        border-radius: 50%;
+        width: 200px;
+    }
+
+    & > p{
+        font-weight: lighter;
+        font-size: 20px;
+    }
+
+    & > button{
+        position: relative;
+        right: 70px;
+        bottom: 30px;
+        background-color: color("background");
+        border: 1px solid rgba(color("primary"), .5);
+        color: rgba(color("primary"), .9);
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+
+        &:hover{
+            background: darken($color: color("primary"), $amount: 20);
+            color: color("text");
+            border: 1px solid color("text");
+        }
+
+    }
+
+}
+
+
+.left_box{
+    margin: 20px;
+    width: 100%;
+
+    & > span{
+        display: flex;
+        flex-direction: column;
+        margin: 25px 0;
+
+        & > input{
+            width: 90%;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: color("background");
+            border: 1px solid rgba(255, 255, 255, .3);
+            margin-top: 10px;
+            &:focus{
+                outline: 1px solid color("primary");
+            }
+        }
+
+        & > button{
+            width: 99%;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: darken($color: color("primary"), $amount: 10);
+            border: 1px solid rgba(255, 255, 255, 1);
+            margin-top: 10px;
+            cursor: pointer;
+            transition: all .2s;
+
+            &:hover{
+                background-color: darken($color: color("primary"), $amount: 5);
+            }
+        }
+    }
+}
+
+h3 {
+    margin: 0;
+    margin-bottom: 15px;
+    font-weight: lighter;
+    font-size: 25px;
+}

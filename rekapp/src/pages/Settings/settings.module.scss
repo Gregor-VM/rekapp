@@ -1,0 +1,29 @@
+@import './../../sass/variables.scss';
+
+.container{
+    display: flex;
+
+}
+
+.sidebar {
+    height: calc(100vh - 70px);
+    width: 30%;
+    border-right: 1px solid rgba(255, 255, 255, .3);
+
+    & > ul {
+        text-decoration: none;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        & > li{
+            cursor: pointer;
+            border-bottom: 1px solid rgba(255, 255, 255, .2);
+            padding: 20px;
+            background-color: color("background");
+            &:hover{
+                background-color: lighten($color: color("background"), $amount: 2.5);
+            }
+        }
+    }
+}
