@@ -39,4 +39,10 @@ export interface AddCard{
     card: Card
 }
 
+export interface User {
+    username: string
+    email: string
+    profileImg: string | undefined
+}
+
 

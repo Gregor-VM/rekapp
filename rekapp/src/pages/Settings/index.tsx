@@ -1,21 +1,20 @@
-import {useState} from 'react'
-import Navbar from '../../components/Navbar';
+import {useParams, useHistory} from 'react-router-dom';
 import styles from './settings.module.scss';
 
+import Navbar from '../../components/Navbar';
 import AccountSettings from './../../components/AccountSettings';
 import ChangePassword from './../../components/ChangePassword';
 
 function Settings() {
 
-    const [settingsType, setSettingsType] = useState(0);
+    const {option} : {option: string} = useParams();
+    const history = useHistory();
 
-    const settingsView = (type: number) => {
-        switch (type) {
-            case 0:
-                return <></>;
-            case 1:
+    const settingsView = (option: string) => {
+        switch (option) {
+            case "manage-account":
                 return <AccountSettings />;
-            case 2:
+            case "change-password":
                 return <ChangePassword />;
             default:
                 return <></>;
@@ -28,13 +27,13 @@ function Settings() {
         <div className={styles.container}>
             <div className={styles.sidebar}>
                 <ul>
-                    <li onClick={() => setSettingsType(0)}>General settings</li>
-                    <li onClick={() => setSettingsType(1)}>Manage account</li>
-                    <li onClick={() => setSettingsType(2)}>Change password</li>
+                    <li onClick={() => history.push("/settings/general-settings")}>General settings</li>
+                    <li onClick={() => history.push("/settings/manage-account")}>Manage account</li>
+                    <li onClick={() => history.push("/settings/change-password")}>Change password</li>
                 </ul>
             </div>
 
-            {settingsView(settingsType)}
+            {settingsView(option)}
 
         </div>
         </>

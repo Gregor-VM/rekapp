@@ -12,7 +12,9 @@ const types = {
 
     SET_CARDS_VIEW_ID: "SET_CARDS_VIEW_ID",
 
-    SET_CARD_EDIT: "SET_CARD_EDIT"
+    SET_CARD_EDIT: "SET_CARD_EDIT",
+
+    SET_USER: "SET_USER"
 };
 
 export default types;

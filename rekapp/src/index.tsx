@@ -25,7 +25,7 @@ ReactDOM.render(
       <Switch>
         <ProtectedRoute path="/" exact component={Home}></ProtectedRoute>
         <ProtectedRoute path="/deck/:deckId/:cardIndex" component={DeckPractice}></ProtectedRoute>
-        <ProtectedRoute path="/settings" component={Settings}></ProtectedRoute>
+        <ProtectedRoute path="/settings/:option" component={Settings}></ProtectedRoute>
         <Route path="/register" component={Register}></Route>
         <Route path="/login" component={Login}></Route>
       </Switch>

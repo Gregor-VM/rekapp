@@ -1,0 +1,30 @@
+@import './../../sass/variables.scss';
+
+.container{
+    background-color: color("foreground");
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 99%;
+    border-radius: 10px;
+    border: .5px solid rgba(255, 255, 255, .5);
+
+    & > p{
+        margin: 0;
+        margin-left: 10px;
+        font-weight: lighter;
+    }
+
+    & > i{
+        cursor: pointer;
+        padding: 15px;
+        border-radius: 0px 10px 10px 0px;
+        transition: all .5s;
+        border-left: 1px dashed color("background");
+        &:hover{
+            box-shadow: -0px 0px 10px .1px rgba(255, 255, 255, .1) inset;
+        }
+    }
+
+
+}

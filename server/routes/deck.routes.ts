@@ -1,14 +1,24 @@
 import {Router} from 'express';
 import verifyToken from '../middlewares/verifyToken';
 import {protectedGet, createDeck, getDecks, getDeck, deleteAllDecks, deleteDeckById,
-        getCards, createCard, deleteCardById, shareDeckByEmail, updateDeckInfo, updateCard} from 
-'../controllers/deck.controller'
+        getCards, createCard, deleteCardById, shareDeckByEmail, updateDeckInfo, updateCard,
+        updateUserInfo, changePassword, getUserInfo} from '../controllers/deck.controller';
 
 const router = Router();
 
 router.use(verifyToken);
 
 router.get("/protected", protectedGet);
+
+// GET USER INFO
+
+router.get("/user-info", getUserInfo);
+
+// CONFIG ROUTES
+
+router.put("/update-user-info", updateUserInfo);
+
+router.put("/change-password", changePassword);
 
 // DECKS ROUTES
 

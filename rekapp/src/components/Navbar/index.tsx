@@ -1,13 +1,16 @@
-import {useState, useEffect, createRef} from 'react';
+import {useState, createRef, useEffect, useCallback} from 'react';
 import styles from "./navbar.module.scss";
 
 import {useDispatch, useSelector} from 'react-redux';
-import {useLocation} from 'react-router-dom';
+import {useLocation, useHistory} from 'react-router-dom';
 import * as actions from '../../store/actions/modalActions';
+import * as userActions from '../../store/actions/userActions';
 
 import AddCardButton from '../AddCardButton';
 import { RootState } from '../../store/store';
 import Auth from '../../utils/Auth';
+import { User } from '../../interfaces';
+import axios from '../../utils/axios';
 
 function Navbar() {
     const [menu, setMenu] = useState(false);
@@ -16,9 +19,13 @@ function Navbar() {
     const imgLink = "https://yt3.ggpht.com/ytc/AKedOLTpvKuGuqG-anw7EaboiIh5Zb8AxdB1rFFkjIB4oQ=s48-c-k-c0x00ffffff-no-rj";
 
     const dispatch = useDispatch();
+    const history = useHistory();
       
     const isHome = (useLocation()).pathname === "/";
     const count : {count: number, total: number | null} = useSelector((state: RootState) => state.practiceCount);
+
+    const user : User = useSelector((state: RootState) => state.user);
+
     const profileMenuRef : React.LegacyRef<HTMLDivElement> = createRef();
 
     const openMenu = () => {
@@ -41,6 +48,26 @@ function Navbar() {
         Auth.logout();
         window.location.href = "/";
     };
+
+    const handleSettings = () => {
+        history.push("/settings/manage-account");
+    }
+
+    const getUserInfo = useCallback(
+        async () => {
+            const userInfo: User = (await (axios.get("/user-info"))).data;
+            dispatch(userActions.setUser(userInfo));
+        },
+        [],
+    );
+
+    useEffect(() => {
+        if(user.username === "" || user.email === ""){
+            getUserInfo();
+        }
+    }, []);
+
+
 
 
     return (
@@ -75,12 +102,12 @@ function Navbar() {
                 <div ref={profileMenuRef} style={{display: open ? undefined : "none"}} className={styles.profileMenu}>
                     <img src={imgLink}></img>
                     <div ref={profileMenuRef}>
-                        <p>GregorVM</p>
-                        <small>john@email.com</small>
+                        <p>{user.username}</p>
+                        <small>{user.email}</small>
                     </div>
 
                     <span>
-                        <button>Manage my account</button>
+                        <button onClick={handleSettings}>Manage my account</button>
                         <button onClick={handleLogout}>Logout</button>
                     </span>
                 </div>

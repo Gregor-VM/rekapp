@@ -7,6 +7,7 @@ interface IUserDocument extends Document {
     username: string
     email: string
     password: string
+    profileImg: string
     decks: Deck[]
     config: Object
 }
@@ -31,7 +32,10 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    profileImg: String,
+    profileImg: {
+        type: String,
+        required: false,
+    },
     decks: [{
         name: String,
         shared: {value: Boolean, author: String},

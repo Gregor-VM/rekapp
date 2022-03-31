@@ -129,6 +129,8 @@ export const deleteCardById : RequestHandler = async (req: UserRequest, res) => 
     res.sendStatus(204);
 }
 
+
+
 export const shareDeckByEmail : RequestHandler = async (req: UserRequest, res) => {
     const email = req.params.email as string;
     const deckId = req.params.deckId as string;
@@ -147,4 +149,58 @@ export const shareDeckByEmail : RequestHandler = async (req: UserRequest, res) =
     }else{
         res.sendStatus(406);
     }
+}
+
+
+
+export const updateUserInfo : RequestHandler = async (req: UserRequest, res) => {
+    const {username: newUsername, email: newEmail} : {username: string, email: string} = req.body;
+
+    const user = await User.findById(req.userId);
+
+    if(newUsername.length < 3 || newEmail.length < 6 || !newEmail.includes("@")){
+        return res.sendStatus(400)
+    };
+
+    user.username = newUsername;
+    user.email = newEmail;
+
+    await user.save();
+
+    res.sendStatus(200);
+
+}
+
+export const changePassword : RequestHandler = async (req: UserRequest, res) => {
+
+    const {oldPassword, newPassword} : {oldPassword: string, newPassword: string} = req.body;
+
+    if(newPassword.length < 6) return res.sendStatus(400);
+
+    const user = await User.findById(req.userId);
+    const oldPasswordHash = user.password;
+
+    const match = await User.verifyPassword(oldPassword, oldPasswordHash);
+
+    if(match){
+
+        const newPasswordHash = await User.encryptPassword(newPassword);
+        user.password = newPasswordHash;
+        await user.save();
+
+        return res.sendStatus(200);
+    } else {
+        return res.sendStatus(401)
+    }
+
+
+
+}
+
+export const getUserInfo : RequestHandler = async (req: UserRequest, res) => {
+    const user = await User.findById(req.userId);
+
+    const userInfo = {username: user.username, email: user.email, profileImg: user.profileImg};
+
+    res.json(userInfo);
 }

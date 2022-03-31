@@ -2,7 +2,7 @@ import app from '../app';
 import request from 'supertest';
 import mongoose from 'mongoose';
 
-const token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNzg5NDQ2NjZjYjMzNjdhOTJiZWZiZSIsImlhdCI6MTY0MDM2NDA4MiwiZXhwIjoxNjQwNzk2MDgyfQ.esnQIwnhzp-8rLdJ7JBHZBF1cWZbl9zNg1yyTlntGH8";
+const token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNzg5NDQ2NjZjYjMzNjdhOTJiZWZiZSIsImlhdCI6MTY0ODQ5NDUwMywiZXhwIjoxNjQ4OTI2NTAzfQ.63gbIIT0EBWDJaF-5aZPMyPflEzKpTKusuRT9_JzQV8";
 
 //const agent = request(app);
 
@@ -74,6 +74,43 @@ describe("POST login", () => {
     });
 
 });
+
+
+describe("GET user-info", () => {
+    it("should response with status code 200 and an object with the user info", (done) => {
+        agent.get("/user-info").set("Authorization", token)
+        .set("Accept", "application/json").end((err, res) => {
+            if(err) done(err);
+            expect(res.body).toBeDefined();
+            return done();
+        })
+    })
+});
+
+
+describe("PUT update-user-info", () => {
+    it("should response with status code 200 if a correct username and password are provided", (done) => {
+
+        const userData = {email: "john@email.com", username: "John"};
+        agent.put("/update-user-info").set("Authorization", token)
+        .set("Accept", "application/json").send(userData)
+        .expect(200, done);
+
+    })
+});
+
+describe("PUT change-password", () => {
+    it("should response with status code 200 if a correct oldPassword and newPassword are provided", (done) => {
+        
+        const userData = {oldPassword: "123456", newPassword: "123456"};
+        agent.put("/change-password").set("Authorization", token)
+        .set("Accept", "application/json").send(userData)
+        .expect(200, done);
+
+    })
+})
+
+
 
 let deckId : string;
 let cardId : string;
