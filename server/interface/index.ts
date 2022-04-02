@@ -21,10 +21,10 @@ export interface Card{
 
 export interface Deck {
     _id: string | undefined
-    shared: {value: boolean, author: string}
     name: string
     backgroundColor: string
     backgroundImage: string
-    options: Object,
+    options: Object
+    shareWith: string[]
     cards: Card[]
 }

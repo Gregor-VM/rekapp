@@ -6,6 +6,12 @@ interface UserRequest extends Request{
     userId: string
 }
 
+interface UserShared {
+    email: string
+    username: string
+    profileImg: string
+}
+
 
 
 export const protectedGet : RequestHandler = async (_req, res) => {
@@ -130,6 +136,19 @@ export const deleteCardById : RequestHandler = async (req: UserRequest, res) => 
 }
 
 
+//share
+
+export const getShareDeck : RequestHandler = async (req: UserRequest, res) => {
+    const deckId = (req.params.deckId as string);
+
+    const thisUser = await User.findById(req.userId);
+    const sharedItem = thisUser.sharedWithMe.find(item => item.deckId === deckId);
+    const user = await User.findById(sharedItem.author);
+    
+    const deck = user.decks.find(deck => deck._id.toString() === deckId);
+    if(deck.shareWith.includes(thisUser._id.toString())) res.json(deck);
+    else res.sendStatus(401);
+}
 
 export const shareDeckByEmail : RequestHandler = async (req: UserRequest, res) => {
     const email = req.params.email as string;
@@ -137,14 +156,16 @@ export const shareDeckByEmail : RequestHandler = async (req: UserRequest, res) =
 
     const user = await User.findById(req.userId);
     const userEmail = user.email;
-    const deck = user.decks.find(deck => deck._id.toString() === deckId);
+    const deckIndex = user.decks.findIndex(deck => deck._id.toString() === deckId);
 
     const data = await User.findOne({email: email});
 
 
     if(userEmail !== email){
-        data.decks.push({...deck, shared: {value: true, author: req.userId}});
+        data.sharedWithMe.push({author: req.userId, deckId});
         await data.save();
+        user.decks[deckIndex].shareWith.push(data._id.toString());
+        await user.save();
         res.sendStatus(200);
     }else{
         res.sendStatus(406);
@@ -153,8 +174,60 @@ export const shareDeckByEmail : RequestHandler = async (req: UserRequest, res) =
 
 
 
+export const deleteShareEmail : RequestHandler = async (req: UserRequest, res) => {
+    const email = req.params.email as string;
+    const deckId = req.params.deckId as string;
+
+    const user = await User.findById(req.userId);
+    const userEmail = user.email;
+    const deckIndex = user.decks.findIndex(deck => deck._id.toString() === deckId);
+
+    const data = await User.findOne({email: email});
+
+
+    if(userEmail !== email){
+        const sharedWithMeIndex = data.sharedWithMe.findIndex(item => item.deckId === deckId);
+        data.sharedWithMe.splice(sharedWithMeIndex, 1);
+        await data.save();
+        const emailSharedIndex = user.decks[deckIndex].shareWith.findIndex(item => item === data._id.toString());
+        user.decks[deckIndex].shareWith.splice(emailSharedIndex, 1);
+        await user.save();
+        res.sendStatus(204);
+    }else{
+        res.sendStatus(406);
+    }
+}
+
+ 
+
+export const getSharedEmails : RequestHandler = async (req: UserRequest, res) => {
+    const deckId = req.params.deckId as string;    
+
+    const user = await User.findById(req.userId);
+    const deck = user.decks.find(deck => deck._id.toString() === deckId);
+    let usersData : UserShared[] = [];
+
+    for(let i=0;i<deck.shareWith.length;i++){
+        const userShared = await User.findById(deck.shareWith[i]);
+        usersData.push({email: userShared.email, username: userShared.username, profileImg: userShared.profileImg});
+    }
+    res.json(usersData);
+}
+
+export const getSharedDecks : RequestHandler = async (req: UserRequest, res) => {
+    const user = await User.findById(req.userId);
+    let sharedDecks = [];
+    for(let i=0;i<user.sharedWithMe.length;i++){
+        const deck = (await User.findById(user.sharedWithMe[i].author)).decks.find(deck => deck._id.toString() === user.sharedWithMe[i].deckId);
+        sharedDecks.push(deck);
+    };
+    res.json(sharedDecks)
+}
+
+//settings
+
 export const updateUserInfo : RequestHandler = async (req: UserRequest, res) => {
-    const {username: newUsername, email: newEmail} : {username: string, email: string} = req.body;
+    const {username: newUsername, email: newEmail, profileImg} : {username: string, email: string, profileImg: string} = req.body;
 
     const user = await User.findById(req.userId);
 
@@ -164,6 +237,9 @@ export const updateUserInfo : RequestHandler = async (req: UserRequest, res) => 
 
     user.username = newUsername;
     user.email = newEmail;
+    if(profileImg){
+        user.profileImg = profileImg;
+    }
 
     await user.save();
 
@@ -199,8 +275,12 @@ export const changePassword : RequestHandler = async (req: UserRequest, res) => 
 
 export const getUserInfo : RequestHandler = async (req: UserRequest, res) => {
     const user = await User.findById(req.userId);
-
     const userInfo = {username: user.username, email: user.email, profileImg: user.profileImg};
-
     res.json(userInfo);
+}
+
+export const deleteAccount : RequestHandler = async (req: UserRequest, res) => {
+    const user = await User.findById(req.userId);
+    await user.delete();
+    res.sendStatus(204);
 }

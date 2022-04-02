@@ -1,10 +1,11 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, createRef} from 'react';
 import styles from './account_settings.module.scss';
 import {useSelector} from 'react-redux';
 import {User} from '../../interfaces';
 import { RootState } from '../../store/store';
 import axios from '../../utils/axios';
 import Alert from '../Alert';
+import useSelectImg from '../../hooks/useSelectImg';
 
 
 function AccountSettings() {
@@ -16,11 +17,13 @@ function AccountSettings() {
     const [loading, setLoading] = useState(false);
     const [msg, setMsg] = useState("");
 
-    const imgLink = "https://yt3.ggpht.com/ytc/AKedOLTpvKuGuqG-anw7EaboiIh5Zb8AxdB1rFFkjIB4oQ=s48-c-k-c0x00ffffff-no-rj";
+    const inputRef = createRef<HTMLInputElement>();
+
+    const {base64, name, selectFile, fileSelected} = useSelectImg({ref: inputRef});
 
     const handleUpdateProfile = async () => {
         setLoading(true);
-        const userInfo = {username, email};
+        const userInfo = {username, email, profileImg: (base64 === "" ? undefined : base64)};
         const response = await axios.put("/update-user-info", userInfo);
         if(response.status !== 200) window.alert("An unexpected error has ocurred");
         setLoading(false);
@@ -29,7 +32,17 @@ function AccountSettings() {
 
     useEffect(() => {
         setUsername(user.username);setEmail(user.email);
-    }, [user])
+    }, [user]);
+
+    const currentImg = () => {
+        if(base64 === "" && !user.profileImg){
+            return "/user.svg";
+        } else if(user.profileImg !== "" && base64 === ""){
+            return user.profileImg;
+        } else {
+            return base64;
+        }
+    }
 
     return (
         <div className={styles.container}>
@@ -53,8 +66,9 @@ function AccountSettings() {
 
             <div className={styles.right_box}>
                 <p>Profile picture</p>
-                <img src={imgLink}></img>
-                <button>Change</button>
+                <input onChange={fileSelected} ref={inputRef} accept="jpg" type="file" hidden={true} />
+                <img alt={name} src={currentImg()}></img>
+                <button onClick={selectFile}>Change</button>
             </div>
 
         </div>

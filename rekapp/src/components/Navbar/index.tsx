@@ -16,8 +16,6 @@ function Navbar() {
     const [menu, setMenu] = useState(false);
     const [open, setOpen] = useState(false);
 
-    const imgLink = "https://yt3.ggpht.com/ytc/AKedOLTpvKuGuqG-anw7EaboiIh5Zb8AxdB1rFFkjIB4oQ=s48-c-k-c0x00ffffff-no-rj";
-
     const dispatch = useDispatch();
     const history = useHistory();
       
@@ -78,7 +76,11 @@ function Navbar() {
         {(isHome && <AddCardButton />)}
 
         <div className={styles.menubar + " " + (menu ? styles.openMenu : styles.closeMenu)}>
-            Menu
+            <ul className={styles.side_menu}>
+                <li onClick={() => history.push("/")}><i className="fas fa-home"></i>Home</li>
+                <li onClick={() => history.push("/shared-with-me")}><i className="fas fa-share-alt"></i>Shared With Me</li>
+                <li onClick={() => history.push("/settings/general-settings")}><i className="fas fa-cog"></i>Settings</li>
+            </ul>
         </div>
         {menu && (<div className={styles.out} onClick={closeMenu}></div>)}
         <nav className={styles.navbar}>
@@ -96,11 +98,11 @@ function Navbar() {
                 {(isHome && <button onClick={openModal}>CREATE DECK</button>)}
                 {(count.total && <span>{count.count}/{count.total}</span>)}
 
-                <img onClick={openProfileMenu} className={styles.profile} title="Profile" alt="profile" src={imgLink}></img>
+                <img onClick={openProfileMenu} className={styles.profile} title="Profile" alt="profile" src={user.profileImg ? user.profileImg : "/user.svg"}></img>
 
 
                 <div ref={profileMenuRef} style={{display: open ? undefined : "none"}} className={styles.profileMenu}>
-                    <img src={imgLink}></img>
+                    <img src={user.profileImg ? user.profileImg : "/user.svg"}></img>
                     <div ref={profileMenuRef}>
                         <p>{user.username}</p>
                         <small>{user.email}</small>

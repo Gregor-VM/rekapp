@@ -4,6 +4,7 @@ import styles from './settings.module.scss';
 import Navbar from '../../components/Navbar';
 import AccountSettings from './../../components/AccountSettings';
 import ChangePassword from './../../components/ChangePassword';
+import DeleteAccount from '../../components/DeleteAccount';
 
 function Settings() {
 
@@ -16,6 +17,8 @@ function Settings() {
                 return <AccountSettings />;
             case "change-password":
                 return <ChangePassword />;
+            case "delete-account":
+                return <DeleteAccount />;
             default:
                 return <></>;
         }
@@ -30,6 +33,7 @@ function Settings() {
                     <li onClick={() => history.push("/settings/general-settings")}>General settings</li>
                     <li onClick={() => history.push("/settings/manage-account")}>Manage account</li>
                     <li onClick={() => history.push("/settings/change-password")}>Change password</li>
+                    <li onClick={() => history.push("/settings/delete-account")}>Delete account</li>
                 </ul>
             </div>
 

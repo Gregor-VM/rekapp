@@ -10,6 +10,7 @@ interface IUserDocument extends Document {
     profileImg: string
     decks: Deck[]
     config: Object
+    sharedWithMe: {author: string, deckId: string}[]
 }
 
 interface IUserModel extends Model<IUserDocument> {
@@ -36,12 +37,15 @@ const UserSchema = new Schema({
         type: String,
         required: false,
     },
+    sharedWithMe: [{
+        author: String, deckId: String
+    }],
     decks: [{
         name: String,
-        shared: {value: Boolean, author: String},
         backgroundColor: String,
         backgroundImage: String,
         options: Object,
+        shareWith: [String],
         cards: 
 
             [{

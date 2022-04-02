@@ -33,7 +33,8 @@ function AddCard() {
 
     const [card, setCard] = useState({front: "", back: ""});
 
-    const decksList = useSelector((state : RootState) => (state.decks as Deck[]).map(deck => ({name: deck.name, _id: deck._id})));
+    const deckStored : {decks: Deck[]} = useSelector((state : RootState) => (state.decks));
+    const decksList = deckStored.decks.map(deck => ({name: deck.name, _id: deck._id}));
     const cardEdit = useSelector((state : RootState) => (state.cardEdit));
 
     

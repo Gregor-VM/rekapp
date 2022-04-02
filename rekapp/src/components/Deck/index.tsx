@@ -6,9 +6,7 @@ import {useSelector} from 'react-redux';
 
 import {Deck as DeckInterface} from '../../interfaces';
 
-function Deck({loading}:{loading: boolean}) {
-
-    const decks : DeckInterface[] = useSelector((state: RootState) => state.decks);
+function Deck({loading, decks}:{loading: boolean, decks: DeckInterface[]}) {
 
     if(loading) return (<div>Loading</div>)
 

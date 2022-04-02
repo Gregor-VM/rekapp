@@ -1,6 +1,6 @@
 import styles from './card_item.module.scss';
 
-import {useHistory} from 'react-router-dom';
+import {useHistory, useLocation} from 'react-router-dom';
 import {useState} from 'react';
 import {useDispatch} from 'react-redux';
 
@@ -14,6 +14,9 @@ function CardItem({index, deck, card, setQueue, queue} : {index: number, queue: 
     const [reveal, setReveal] = useState(false);
     const history = useHistory();
     const dispatch = useDispatch();
+    const location = useLocation();
+
+    const shared = location.pathname.includes("deck-shared");
 
     const revealHandler = () => {
 
@@ -31,7 +34,7 @@ function CardItem({index, deck, card, setQueue, queue} : {index: number, queue: 
 
         if(queue[1] === undefined && answer){
             dispatch(practiceCountActions.resetPracticeCount());
-            history.push("/");
+            shared ? history.push("/shared-with-me") : history.push("/");
             return;
         };
 
@@ -53,7 +56,8 @@ function CardItem({index, deck, card, setQueue, queue} : {index: number, queue: 
 
         // REDIRECT TO THE NEXT ELEMENT IN THE QUEUE
 
-        history.push(`/deck/${deck?._id}/${queue[1] === undefined ? previousIndex : queue[1]}`);
+        if(shared) history.push(`/deck-shared/${deck?._id}/${queue[1] === undefined ? previousIndex : queue[1]}`);
+        else history.push(`/deck/${deck?._id}/${queue[1] === undefined ? previousIndex : queue[1]}`);
 
     }
     

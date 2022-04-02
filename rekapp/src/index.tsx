@@ -15,6 +15,7 @@ import Login from './pages/Login/Login';
 
 import ProtectedRoute from './components/ProtectedRoute'
 import Settings from './pages/Settings/index';
+import SharedWithMe from './pages/SharedWithMe';
 
 //import reportWebVitals from './reportWebVitals';
 
@@ -24,7 +25,9 @@ ReactDOM.render(
     <Router>
       <Switch>
         <ProtectedRoute path="/" exact component={Home}></ProtectedRoute>
-        <ProtectedRoute path="/deck/:deckId/:cardIndex" component={DeckPractice}></ProtectedRoute>
+        <ProtectedRoute path="/shared-with-me" component={SharedWithMe}></ProtectedRoute>
+        <ProtectedRoute path="/deck/:deckId/:cardIndex" component={() => (<DeckPractice shared={false} />)}></ProtectedRoute>
+        <ProtectedRoute path="/deck-shared/:deckId/:cardIndex" component={() => (<DeckPractice shared={true} />)}></ProtectedRoute>
         <ProtectedRoute path="/settings/:option" component={Settings}></ProtectedRoute>
         <Route path="/register" component={Register}></Route>
         <Route path="/login" component={Login}></Route>

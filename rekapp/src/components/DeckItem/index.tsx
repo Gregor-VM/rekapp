@@ -1,8 +1,8 @@
 import styles from './deck_item.module.scss';
 import {Deck} from '../../interfaces';
 
-import {useState} from 'react'
-import {useHistory} from 'react-router-dom';
+import {useState} from 'react';
+import {useHistory, useLocation} from 'react-router-dom';
 
 import {useDispatch} from 'react-redux';
 import * as deckActions from '../../store/actions/decksActions';
@@ -17,9 +17,12 @@ function GroupItem({deck} : {deck : Deck}) {
     const history = useHistory();
     const dispatch = useDispatch();
 
+    const location = useLocation();
+    const menuVisible = (location.pathname === "/");
+
     const handleClick = () => {
         
-        history.push(`/deck/${deck._id}/1`);
+        menuVisible ? history.push(`/deck/${deck._id}/1`) : history.push(`/deck-shared/${deck._id}/1`);
     };
 
     const openMenu = () => {
@@ -51,12 +54,21 @@ function GroupItem({deck} : {deck : Deck}) {
         if(response.status === 204) dispatch(deckActions.deleteDeck(deck._id as string));
     }
 
-    const displayCards = async () => {
+    const displayCards = () => {
 
         dispatch(modalActions.openModal(2));
         if(deck._id){
             dispatch(viewCardsActions.setViewCardId(deck._id));
         }
+    }
+
+    const shareDeck = () => {
+
+        dispatch(modalActions.openModal(3));
+        if(deck._id){
+            dispatch(viewCardsActions.setViewCardId(deck._id));
+        }
+
     }
 
     return (
@@ -67,7 +79,8 @@ function GroupItem({deck} : {deck : Deck}) {
             </div>
         </div>
 
-        <div onClick={openMenu} className={styles.menu}>
+        {menuVisible && (
+            <div onClick={openMenu} className={styles.menu}>
             <div className={styles.options}>
                 <div></div>
                 <div className={styles.centerxshadow}></div>
@@ -76,11 +89,13 @@ function GroupItem({deck} : {deck : Deck}) {
 
             {isOpen && (
                 <ul>
+                    <li onClick={shareDeck}>Share</li>
                     <li onClick={deleteDeck}>Delete</li>
                     <li onClick={displayCards}>Cards</li>
                 </ul>
             )}
         </div>
+        )}
 
         </div>
 

@@ -1,0 +1,35 @@
+@import './../../sass/variables.scss';
+
+.container{
+
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+
+    & > h2{
+        font-weight: lighter;
+        font-size: 30px;
+    }
+
+    & > span{
+        margin-bottom: 40px;
+        text-align: center;
+    }
+
+    & > span > button{
+        width: 100%;
+        padding: 20px;
+        border-radius: 5px;
+        background-color: darken($color: red, $amount: 10);
+        border: 1px solid rgba(255, 255, 255, 1);
+        margin-top: 10px;
+        cursor: pointer;
+        transition: all .2s;
+    
+        &:hover{
+            background-color: darken($color: red, $amount: 5);
+        }
+    }
+}

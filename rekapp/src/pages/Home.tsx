@@ -14,10 +14,15 @@ import { RootState } from '../store/store';
 
 import {useHistory} from 'react-router-dom';
 
+interface DeckStore {
+  decks: Deck[]
+  sharedDecks: Deck[]
+}
+
 function App() {
 
   const [loading, setLoading] = useState(true);
-  const decks : Deck[] = useSelector((state: RootState) => state.decks);
+  const decks : DeckStore = useSelector((state: RootState) => state.decks);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -30,18 +35,19 @@ function App() {
   }, [dispatch, setLoading]);
 
   useEffect(() => {
-    if(decks.length > 0) {
+    if(decks.decks.length > 0) {
       setLoading(false);
       return
     };
-    getDecksCallback()
-  }, [getDecksCallback, decks]);
+    if(loading) getDecksCallback();
+  }, [getDecksCallback, decks.decks.length]);
+  
 
   return (
     <>
       <Modal />
       <Navbar />
-      <DeckComp loading={loading} />
+      <DeckComp loading={loading} decks={decks.decks} />
     </>
   );
 }

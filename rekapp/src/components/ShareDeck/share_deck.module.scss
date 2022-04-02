@@ -1,0 +1,107 @@
+@import './../../sass/variables.scss';
+
+%button{
+    width: 12%;
+    margin-left: 30px;
+    padding: 20px;
+    outline: 0;
+    border: 0;
+    background-color: color("primary");
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover{
+        background-color: lighten($color: color("primary"), $amount: 2);
+    }
+}
+
+
+
+
+.container{
+    height: 100%;
+    background-color: color("background");
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+
+    & > h2{
+        margin: 0;
+        font-weight: lighter;
+        font-size: 30px;
+        text-align: center;
+    }
+
+    & > .emails {
+        overflow: scroll;
+        height: 270px;
+        max-height: 270px;
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        &::-webkit-scrollbar{
+            display: none;
+        }
+
+        & > span{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            &:hover{
+                background-color: color("foreground");
+            }
+
+            & > i{
+                padding: 15px;
+                cursor: pointer;
+                &:hover{
+                    background-color: lighten($color: color("foreground"), $amount: 10);
+                }
+            }
+        }
+    }
+
+    & > .btn {
+        display: flex;
+        justify-content: flex-end;
+        button{
+            @extend %button;
+        }
+    }
+
+
+
+    & > .type_email {
+
+        width: 100%;
+        margin-top: 20px;
+
+        & > span{
+            display: flex;
+            justify-content: space-between;
+        }
+
+        & > input{
+            width: 80%;
+            padding: 20px;
+            background-color: darken($color: color("foreground"), $amount: 2);
+            outline: none;
+            border: 0;
+            color: color("text");
+            border-radius: 5px 5px 0 0;
+            border-bottom: 1px solid color("primary");
+            &:focus{
+                background-color: color("foreground");
+            }
+        }
+
+        & > button{
+            @extend %button;
+        }
+
+    }
+
+
+
+}

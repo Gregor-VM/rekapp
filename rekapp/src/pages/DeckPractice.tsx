@@ -1,5 +1,6 @@
 import {useEffect, useState, useCallback} from 'react';
-import {useLocation} from 'react-router-dom';
+
+import { useLocation } from 'react-router-dom';
 
 import Navbar from '../components/Navbar';
 import CardItem from '../components/CardItem';
@@ -10,7 +11,8 @@ import {Deck} from '../interfaces';
 import { useDispatch } from 'react-redux';
 import * as practiceCountActions from './../store/actions/practiceCountActions';
 
-function DeckPractice() {
+
+function DeckPractice({shared} : {shared: boolean}) {
 
     const [loading, setLoading] = useState(true);
     const [queue, setQueue] = useState<number[] | never[]>([]);
@@ -34,11 +36,13 @@ function DeckPractice() {
         [setQueue, cards?.cards.length],
     )
 
+    
+
     const getCardsCb = useCallback(
         async () => {
 
             if(loading){
-                const deckInfo : Deck =  (await axios.get(`/deck/${deckId}`)).data;
+                const deckInfo : Deck = shared ? (await axios.get(`/deck-shared/${deckId}`)).data : (await axios.get(`/deck/${deckId}`)).data;
                 dispatch(practiceCountActions.setTotal(deckInfo.cards.length));
                 setCards(deckInfo);
                 setLoading(false);

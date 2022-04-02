@@ -59,6 +59,7 @@
     }
 
     & > img{
+        width: 50px;
         border-radius: 50%;
         margin: 0 10px;
     }
@@ -81,7 +82,7 @@
 
 .openMenu{
     transition: all 0.5s;
-    width: 20%;
+    width: 220px;
 }
 
 .closeMenu{
@@ -174,4 +175,28 @@
     height: 100%;
     background-color: rgba(0,0,0,.15);
     z-index: 1;
+}
+
+
+
+.side_menu{
+    width: 220px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    & > li{
+        padding: 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, .4);
+        cursor: pointer;
+        &:hover{
+            background-color: color("background");
+        }
+
+        & > i{
+            font-size: 20px;
+            margin-right: 10px;
+        }
+    }
+    
 }

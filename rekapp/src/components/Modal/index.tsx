@@ -11,6 +11,7 @@ import {RootState} from '../../store/store';
 import AddDeck from '../AddDeck';
 import AddCard from '../AddCard';
 import ViewCards from '../ViewCards';
+import ShareDeck from '../ShareDeck';
 
 function Modal() {
 
@@ -30,6 +31,7 @@ function Modal() {
                 {(modal.content === 0) && (<AddDeck />)}
                 {(modal.content === 1) && (<AddCard />)}
                 {(modal.content === 2) && (<ViewCards />)}
+                {(modal.content === 3) && (<ShareDeck />)}
             </div>
         </div>
     )

@@ -2,7 +2,7 @@ import app from '../app';
 import request from 'supertest';
 import mongoose from 'mongoose';
 
-const token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNzg5NDQ2NjZjYjMzNjdhOTJiZWZiZSIsImlhdCI6MTY0ODQ5NDUwMywiZXhwIjoxNjQ4OTI2NTAzfQ.63gbIIT0EBWDJaF-5aZPMyPflEzKpTKusuRT9_JzQV8";
+const token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNDVmYTFkNzgzNmQyYjRhNjE4MjkzYyIsImlhdCI6MTY0ODc1NDE0OCwiZXhwIjoxNjQ5MTg2MTQ4fQ.KA37Hpqlta9DD55EAcMcg8laT5grlFCN4FHMYlhKMR8";
 
 //const agent = request(app);
 
@@ -64,7 +64,7 @@ describe("GET protected", () => {
 describe("POST login", () => {
     it("should login and return a token if username and password are provided", (done) => {
         
-        const userData = {email: "john@email.com", password: "123456"};
+        const userData = {email: "gregorvm@mail.com", password: "1234567"};
         authAgent.post("/login")
         .send(userData).expect(200).end((err, res) => {
             if(err) done(err);
@@ -91,7 +91,7 @@ describe("GET user-info", () => {
 describe("PUT update-user-info", () => {
     it("should response with status code 200 if a correct username and password are provided", (done) => {
 
-        const userData = {email: "john@email.com", username: "John"};
+        const userData = {username: "GregorVM", email: "gregorvm@mail.com"};
         agent.put("/update-user-info").set("Authorization", token)
         .set("Accept", "application/json").send(userData)
         .expect(200, done);
@@ -102,11 +102,32 @@ describe("PUT update-user-info", () => {
 describe("PUT change-password", () => {
     it("should response with status code 200 if a correct oldPassword and newPassword are provided", (done) => {
         
-        const userData = {oldPassword: "123456", newPassword: "123456"};
+        const userData = {oldPassword: "1234567", newPassword: "1234567"};
         agent.put("/change-password").set("Authorization", token)
         .set("Accept", "application/json").send(userData)
         .expect(200, done);
 
+    })
+})
+
+describe("DELETE delete-account", () => {
+
+    let tokenToDelete : string;
+
+    it("should register a new user to be deleted", (done) => {
+        const userData = {username: "Deleted", email: "delete@email.com", password: "shouldbedeleted"};
+        authAgent.post("/register")
+        .send(userData).expect(200).end((err, res) => {
+            if(err) done(err);
+            expect(res.body.token).toBeDefined();
+            tokenToDelete = "Bearer " + res.body.token;
+            return done();
+        })
+    })
+
+    it("should response with 204", (done) => {
+        agent.delete("/delete-account").set("Authorization", tokenToDelete)
+        .set("Accept", "application/json").send().expect(204, done);
     })
 })
 
@@ -293,7 +314,7 @@ describe("DELETE deck", () => {
 
 describe("Share deck", () => {
     it("should response with code 406", (done) => {
-        agent.post("/deck/share/john@email.com/" + deckId)
+        agent.post("/deck/share/gregorvm@mail.com/" + deckId)
         .set("Authorization", token).send().expect(406, done);
     })
 })

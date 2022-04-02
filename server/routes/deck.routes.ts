@@ -2,7 +2,8 @@ import {Router} from 'express';
 import verifyToken from '../middlewares/verifyToken';
 import {protectedGet, createDeck, getDecks, getDeck, deleteAllDecks, deleteDeckById,
         getCards, createCard, deleteCardById, shareDeckByEmail, updateDeckInfo, updateCard,
-        updateUserInfo, changePassword, getUserInfo} from '../controllers/deck.controller';
+        updateUserInfo, changePassword, getUserInfo, deleteAccount, deleteShareEmail, 
+        getSharedEmails, getSharedDecks, getShareDeck} from '../controllers/deck.controller';
 
 const router = Router();
 
@@ -19,6 +20,8 @@ router.get("/user-info", getUserInfo);
 router.put("/update-user-info", updateUserInfo);
 
 router.put("/change-password", changePassword);
+
+router.delete("/delete-account", deleteAccount);
 
 // DECKS ROUTES
 
@@ -47,5 +50,13 @@ router.delete("/card/:deckId/:cardId", deleteCardById);
 //SHARE DECK ROUTES
 
 router.post("/deck/share/:email/:deckId", shareDeckByEmail);
+
+router.delete("/deck/share/:email/:deckId", deleteShareEmail);
+
+router.get("/deck/share/:deckId", getSharedEmails);
+
+router.get("/decks/share-with-me", getSharedDecks);
+
+router.get("/deck-shared/:deckId", getShareDeck)
 
 export default router;
