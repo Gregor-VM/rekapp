@@ -4,3 +4,27 @@
     grid-template-columns: repeat(6, 1fr);
     grid-gap: 10px;
 }
+
+@media (max-width: 1000px) {
+    .container{
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .container{
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 500px) {
+    .container{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 400px) {
+    .container{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

@@ -29,11 +29,13 @@ function CardInfo({cardInfo, small} : {small: boolean, cardInfo: {img: Img | und
     return (
         <div className={styles.container}>
                 {cardInfo.text}
-                <img alt={cardInfo.img?.title} src={cardInfo.img?.data}></img>
+                {cardInfo.img?.data && (<img alt={cardInfo.img?.title} src={cardInfo.img?.data}></img>)}
                 
-                <div onClick={() => playOrPause(true)} className={isPlaying.front ? "" : styles.playing}>
-                {isPlaying.front ? <i className="fas fa-play"></i> : <i className="fas fa-pause"></i>}
-                </div>
+                {cardInfo.audio?.data && (
+                    <div onClick={() => playOrPause(true)} className={isPlaying.front ? "" : styles.playing}>
+                    {isPlaying.front ? <i className="fas fa-play"></i> : <i className="fas fa-pause"></i>}
+                    </div>
+                )}
                 <audio onPause={() => toggle(true)} onPlay={() => toggle(true)} autoPlay={!small} ref={audioRef} hidden>
                     <source src={cardInfo.audio?.data} type="audio/ogg" />
                 </audio>

@@ -23,12 +23,17 @@
     background-color: color("foreground");
     height: 100%;
     padding: 20px;
+    overflow: scroll;
+    &::-webkit-scrollbar{
+        display: none;
+    }
     
     & > div{
         border-bottom: 2px solid color("primary");
         display: flex;
         align-items: center;
         overflow: hidden;
+        justify-content: space-between;
         & > div{
             display: flex;
             margin-left: 100px;

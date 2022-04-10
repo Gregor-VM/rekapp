@@ -22,8 +22,8 @@ function AddCard() {
     const [selected, setSelected] = useState<string | undefined>(undefined);
     const [currentUIBar, setCurrentUIBar] = useState(0);
 
-    const [base64front, setBase64front] = useState<string>();
-    const [base64back, setBase64back] = useState<string>();
+    const [base64front, setBase64front] = useState<string | undefined>();
+    const [base64back, setBase64back] = useState<string | undefined>();
 
     const [audioDataUrlFront, setAudioDataUrlFront] = useState<string>("");
     const [audioDataUrlBack, setAudioDataUrlBack] = useState<string>("");
@@ -47,7 +47,7 @@ function AddCard() {
         setCard({...card, [e.target.name]:e.target.value});
     };
 
-    const createCard : React.FormEventHandler<HTMLFormElement> = async (e) => {        
+    const createCard : React.FormEventHandler<HTMLFormElement> = async (e) => {
 
         e.preventDefault();
 
@@ -80,15 +80,25 @@ function AddCard() {
                 dispatch(cardEditActions.setCardEdit(null));
             }
 
-            return;
         }
 
-        const createdCard = (await axios.post("/card/" + selected, cardData));
+        if(!cardEdit.editing){
+            const createdCard = (await axios.post("/card/" + selected, cardData));
 
-        if(createdCard.status === 200){
-            setCard({front: "", back: ""});
-            tabTapped(0);
+            if(createdCard.status !== 200){
+                return window.alert("An unexpected error has happened :(");
+            }
         }
+
+        //Reset everything back
+        tabTapped(0);
+        setBase64back(undefined);
+        setBase64front(undefined);
+        setAudioDataUrlBack("");
+        setAudioDataUrlFront("");
+        setAudioUrlBack("");
+        setAudioUrlFront("");
+        setCard({front: "", back: ""});
 
     };
 
@@ -103,6 +113,9 @@ function AddCard() {
 
 
     useEffect(() => {
+        if(decksList.length === 0){
+            return;
+        }
         const deckSelected = localStorage.getItem("deckSelected");
         const idSelected = decksList.find((deck) => deck._id === deckSelected);
         if(idSelected) setSelected(idSelected._id);
@@ -156,6 +169,10 @@ function AddCard() {
             }
         }
     },[cardEdit.editing, dispatch]);
+
+    useEffect(() => {
+        console.log(base64front?.length, base64back?.length)
+    }, [base64back, base64front]);
 
     return (
         <>

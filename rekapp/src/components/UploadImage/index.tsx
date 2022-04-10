@@ -1,4 +1,4 @@
-import React, {DragEvent, createRef, MouseEventHandler} from 'react'
+import React, {DragEvent, createRef, MouseEventHandler} from 'react';
 import styles from './upload_image.module.scss';
 
 function UploadImage({base64, setBase64} : {base64: string  | undefined, setBase64: (string: string) => void}) {
@@ -59,7 +59,6 @@ function UploadImage({base64, setBase64} : {base64: string  | undefined, setBase
         }
     }
 
-
     return (
         <div className={styles.container}>
             <div onDragLeave={dragLeave} onDragOver={dragOver} onDragEnter={dragEnter} onDrop={fileDrop} className={styles.dropArea}>
@@ -67,7 +66,7 @@ function UploadImage({base64, setBase64} : {base64: string  | undefined, setBase
                 <input onChange={fileSelected} ref={inputRef} accept="jpg" type="file" hidden={true} />
             </div>
             <div className={styles.imgContainer}>
-                <img alt={name} src={base64}></img>
+                {base64 && (<img alt={name} src={base64}></img>)}
             </div>
         </div>
     )

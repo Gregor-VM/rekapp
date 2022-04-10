@@ -1,16 +1,15 @@
 import styles from './deck.module.scss';
 import DeckItem from '../DeckItem';
 
-import {RootState} from '../../store/store';
-import {useSelector} from 'react-redux';
-
 import {Deck as DeckInterface} from '../../interfaces';
+import Loading from '../Loading';
+import NothingHere from '../NothingHere';
 
 function Deck({loading, decks}:{loading: boolean, decks: DeckInterface[]}) {
 
-    if(loading) return (<div>Loading</div>)
+    if(loading) return (<Loading/>)
 
-    if(decks.length === 0) return (<div>Nothing here</div>)
+    if(decks.length === 0) return (<NothingHere/>)
 
     return (
         <div className={styles.container}>

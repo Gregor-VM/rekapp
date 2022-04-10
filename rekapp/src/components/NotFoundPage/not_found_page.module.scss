@@ -1,0 +1,17 @@
+.container{
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h2{
+        font-weight: lighter;
+    }
+
+    & > img{
+        width: 50%;
+        margin-bottom: 30px;
+    }
+
+}

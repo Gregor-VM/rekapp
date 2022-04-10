@@ -1,6 +1,5 @@
 import {useState, useCallback, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {useHistory} from 'react-router-dom';
 import * as actions from '../../store/actions/decksActions';
 
 import Modal from '../../components/Modal';
@@ -20,7 +19,6 @@ function SharedWithMe() {
     const [loading, setLoading] = useState(true);
     const decks : DeckStore = useSelector((state: RootState) => state.decks);
     const dispatch = useDispatch();
-    const history = useHistory();
 
     const getDecksCallback = useCallback(async () => {
         setLoading(true);
@@ -35,7 +33,7 @@ function SharedWithMe() {
           return
         };
         if(loading) getDecksCallback();
-      }, [getDecksCallback, decks.sharedDecks.length]);
+      }, [getDecksCallback, decks.sharedDecks.length, loading]);
 
     return (
         <>

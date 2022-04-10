@@ -33,15 +33,15 @@ function ChangePassword() {
         <h3>Change password</h3>
             <span>
                 <label>Old password</label>
-                <input onChange={handleChangePasswordInput} value={password.old} name="old" type="password" placeholder="Old password"></input>
+                <input autoComplete="new-password" onChange={handleChangePasswordInput} value={password.old} name="old" type="password" placeholder="Old password"></input>
             </span>
             <span>
                 <label>New password</label>
-                <input onChange={handleChangePasswordInput} value={password.new} name="new" type="password" placeholder="New password"></input>
+                <input autoComplete="new-password" onChange={handleChangePasswordInput} value={password.new} name="new" type="password" placeholder="New password"></input>
             </span>
             <span>
                 <label>Confirm new password</label>
-                <input onChange={handleChangePasswordInput} value={password.confirm} name="confirm" type="password" placeholder="Confirm new password"></input>
+                <input autoComplete="new-password" onChange={handleChangePasswordInput} value={password.confirm} name="confirm" type="password" placeholder="Confirm new password"></input>
             </span>
 
             <span>

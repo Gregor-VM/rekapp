@@ -1,7 +1,7 @@
 import types from '../types';
 
 const initialValue : {count: number, total: number | null} = {
-    count: 1,
+    count: 0,
     total: null
 };
 

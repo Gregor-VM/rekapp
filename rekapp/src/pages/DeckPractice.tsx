@@ -53,7 +53,7 @@ function DeckPractice({shared} : {shared: boolean}) {
             }
 
         },
-        [deckId, dispatch, queue, fillQueue, loading],
+        [deckId, dispatch, queue, fillQueue, loading, shared],
     )
 
     useEffect(() => {

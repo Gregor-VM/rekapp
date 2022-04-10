@@ -1,0 +1,31 @@
+@import './../../sass/variables.scss';
+
+.container{
+
+    display: flex;
+    width: 100%;
+    height: calc(100vh - 70px);
+    justify-content: center;
+    align-items: center;
+
+
+
+    & > .spinner{
+        color: color("text");
+        font-size: 200%;
+        animation-name: spinnerAnimation;
+        animation-duration: .5s;
+        animation-iteration-count: infinite;
+        animation-fill-mode: both;
+    }
+}
+
+@keyframes spinnerAnimation {
+
+    0%{}
+
+    100%{
+        transform: rotate(360deg);
+    }
+    
+}

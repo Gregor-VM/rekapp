@@ -2,7 +2,6 @@ import {useState} from 'react'
 import { Link, useHistory } from 'react-router-dom';
 import styles from './register.module.scss';
 
-import axios from 'axios';
 import Auth from '../../utils/Auth';
 
 function Register() {

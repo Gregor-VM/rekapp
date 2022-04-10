@@ -15,6 +15,7 @@ function DeleteAccount() {
         <div className={styles.container}>
             <h2>Delete Account</h2>
             <span>
+                <img alt="delete account" src="/delete.svg"></img>
                 <small>If you delete your account, there's no going back. All of your information on this site will be deleted.</small>
                 <button onClick={handleDeleteAccount}>Delete Account</button>
             </span>

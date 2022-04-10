@@ -49,19 +49,19 @@ function ShareDeck() {
                 setEmails(getEmails);
             }
         },
-        [setEmails]
+        [setEmails, deckId]
     )
 
     useEffect(() => {
         getEmails();
-    }, [])
+    }, [getEmails])
 
     return (
         <div className={styles.container}>
             <h2>Share Deck</h2>
             <form onSubmit={addEmail} className={styles.type_email}><input value={typed} onChange={(e) => setTyped(e.target.value)} type="text" placeholder="Type email to share"></input><button>Add</button></form>
             <div className={styles.emails}>
-                {emails.map((email, i) => (<span><p>{email}</p><i onClick={() => removeEmail(email)} className="fas fa-times"></i></span>))}
+                {emails.map((email, key) => (<span key={key}><p>{email}</p><i onClick={() => removeEmail(email)} className="fas fa-times"></i></span>))}
             </div>
             {/* .map(div) */}
 

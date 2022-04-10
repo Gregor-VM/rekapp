@@ -1,16 +1,19 @@
 import {useState, useEffect, createRef} from 'react';
 import styles from './account_settings.module.scss';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {User} from '../../interfaces';
 import { RootState } from '../../store/store';
 import axios from '../../utils/axios';
 import Alert from '../Alert';
 import useSelectImg from '../../hooks/useSelectImg';
 
+import * as userActions from './../../store/actions/userActions';
+
 
 function AccountSettings() {
 
     const user : User = useSelector((state: RootState) => state.user);
+    const dispatch = useDispatch();
 
     const [username, setUsername] = useState(user.username);
     const [email, setEmail] = useState(user.email);
@@ -26,6 +29,7 @@ function AccountSettings() {
         const userInfo = {username, email, profileImg: (base64 === "" ? undefined : base64)};
         const response = await axios.put("/update-user-info", userInfo);
         if(response.status !== 200) window.alert("An unexpected error has ocurred");
+        dispatch(userActions.setUser(userInfo));
         setLoading(false);
         setMsg("The profile has been updated");
     };

@@ -30,10 +30,9 @@ function Settings() {
         <div className={styles.container}>
             <div className={styles.sidebar}>
                 <ul>
-                    <li onClick={() => history.push("/settings/general-settings")}>General settings</li>
-                    <li onClick={() => history.push("/settings/manage-account")}>Manage account</li>
-                    <li onClick={() => history.push("/settings/change-password")}>Change password</li>
-                    <li onClick={() => history.push("/settings/delete-account")}>Delete account</li>
+                    <li style={{backgroundColor: option === "manage-account" ? "#ff5a1d" : ""}} onClick={() => history.push("/settings/manage-account")}>Manage account</li>
+                    <li style={{backgroundColor: option === "change-password" ? "#ff5a1d" : ""}} onClick={() => history.push("/settings/change-password")}>Change password</li>
+                    <li style={{backgroundColor: option === "delete-account" ? "#ff5a1d" : ""}} onClick={() => history.push("/settings/delete-account")}>Delete account</li>
                 </ul>
             </div>
 

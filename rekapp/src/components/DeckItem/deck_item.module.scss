@@ -11,6 +11,7 @@
         width: 100%;
         text-align: center;
         margin: 1em 0;
+        text-shadow: 0px 0px 5px black;
     }
 
     & > .top {
@@ -33,6 +34,7 @@
     display: flex;
     transform: translate(400%, -310%);
     cursor: pointer;
+    z-index: 1;
 
     .options {
         width: 100%;

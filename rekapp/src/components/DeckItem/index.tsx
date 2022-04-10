@@ -11,7 +11,24 @@ import * as viewCardsActions from '../../store/actions/viewCardsActions';
 
 import axios from '../../utils/axios';
 
+import * as patterns from '../../utils/patterns';
+
+interface Patterns {
+    pattern1: (color: string) => React.CSSProperties
+    pattern2: (color: string) => React.CSSProperties
+    pattern3: (color: string) => React.CSSProperties
+    pattern4: (color: string) => React.CSSProperties
+    pattern5: (color: string) => React.CSSProperties
+    pattern6: (color: string) => React.CSSProperties
+    //pattern7: (color: string) => React.CSSProperties
+    pattern8: (color: string) => React.CSSProperties
+    pattern9: (color: string) => React.CSSProperties
+    pattern10: (color: string) => React.CSSProperties
+}
+
 function GroupItem({deck} : {deck : Deck}) {
+
+    const patternsObj : Patterns = patterns;
 
     const [isOpen, setIsOpen] = useState(false);
     const history = useHistory();
@@ -71,9 +88,15 @@ function GroupItem({deck} : {deck : Deck}) {
 
     }
 
+    const darknessAmount = 1.4;
+
+    const color = "rgb(" + deck.backgroundColor.replace("rgb(", "").replace(")", "").split(", ").map(el => (parseInt(el)/darknessAmount)+"").join(", ") + ")";
+
+    const patternStyle = deck.backgroundImage.includes("pattern") ? patternsObj[deck.backgroundImage as keyof Patterns](color) : ({backgroundColor: deck.backgroundColor});
+
     return (
         <div>
-        <div onClick={handleClick} style={{backgroundColor: deck.backgroundColor}} className={styles.groupItem}>
+        <div onClick={handleClick} style={patternStyle} className={styles.groupItem}>
             <div className={styles.top}>
                 <h4>{deck.name}</h4>
             </div>

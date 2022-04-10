@@ -56,16 +56,14 @@ function Navbar() {
             const userInfo: User = (await (axios.get("/user-info"))).data;
             dispatch(userActions.setUser(userInfo));
         },
-        [],
+        [dispatch],
     );
 
     useEffect(() => {
         if(user.username === "" || user.email === ""){
             getUserInfo();
         }
-    }, []);
-
-
+    }, [getUserInfo, user.username, user.email]);
 
 
     return (
@@ -79,7 +77,7 @@ function Navbar() {
             <ul className={styles.side_menu}>
                 <li onClick={() => history.push("/")}><i className="fas fa-home"></i>Home</li>
                 <li onClick={() => history.push("/shared-with-me")}><i className="fas fa-share-alt"></i>Shared With Me</li>
-                <li onClick={() => history.push("/settings/general-settings")}><i className="fas fa-cog"></i>Settings</li>
+                <li onClick={() => history.push("/settings/manage-account")}><i className="fas fa-cog"></i>Settings</li>
             </ul>
         </div>
         {menu && (<div className={styles.out} onClick={closeMenu}></div>)}
@@ -88,7 +86,7 @@ function Navbar() {
             <div className={styles.menu} onClick={openMenu}>
                 <div></div><div></div><div></div>
             </div>
-            <h2>
+            <h2 className={styles.title} onClick={() => history.push("/")}>
                 REKAPP
             </h2>
             </div>
@@ -96,13 +94,13 @@ function Navbar() {
             <div className={styles.profileContainer}>
                 
                 {(isHome && <button onClick={openModal}>CREATE DECK</button>)}
-                {(count.total && <span>{count.count}/{count.total}</span>)}
+                {(count.total && <span>{count.count + 1}/{count.total}</span>)}
 
                 <img onClick={openProfileMenu} className={styles.profile} title="Profile" alt="profile" src={user.profileImg ? user.profileImg : "/user.svg"}></img>
 
 
                 <div ref={profileMenuRef} style={{display: open ? undefined : "none"}} className={styles.profileMenu}>
-                    <img src={user.profileImg ? user.profileImg : "/user.svg"}></img>
+                    <img src={user.profileImg ? user.profileImg : "/user.svg"} alt="profile"></img>
                     <div ref={profileMenuRef}>
                         <p>{user.username}</p>
                         <small>{user.email}</small>

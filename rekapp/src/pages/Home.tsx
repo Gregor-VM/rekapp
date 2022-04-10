@@ -12,8 +12,6 @@ import axios from '../utils/axios';
 import {Deck} from '../interfaces'
 import { RootState } from '../store/store';
 
-import {useHistory} from 'react-router-dom';
-
 interface DeckStore {
   decks: Deck[]
   sharedDecks: Deck[]
@@ -24,7 +22,6 @@ function App() {
   const [loading, setLoading] = useState(true);
   const decks : DeckStore = useSelector((state: RootState) => state.decks);
   const dispatch = useDispatch();
-  const history = useHistory();
 
 
   const getDecksCallback = useCallback(async () => {
@@ -40,7 +37,7 @@ function App() {
       return
     };
     if(loading) getDecksCallback();
-  }, [getDecksCallback, decks.decks.length]);
+  }, [getDecksCallback, decks.decks.length, loading]);
   
 
   return (

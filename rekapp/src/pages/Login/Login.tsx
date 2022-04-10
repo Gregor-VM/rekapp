@@ -31,13 +31,13 @@ function Login() {
                 <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} value={password}></input>
                 <button className={styles.loginBtn}>Sing in</button>
 
-                <div className={styles.options}>
+                {/*<div className={styles.options}>
                     <span>
                         <input type="checkbox"></input>
                         <label>Remember me!</label>
                     </span>
                     <a href="#">Forgot password?</a>
-                </div>
+                </div>*/}
             </form>
             
         </div>
