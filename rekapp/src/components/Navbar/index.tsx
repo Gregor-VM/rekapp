@@ -75,9 +75,21 @@ function Navbar() {
 
         <div className={styles.menubar + " " + (menu ? styles.openMenu : styles.closeMenu)}>
             <ul className={styles.side_menu}>
+
+                <div className={styles.mobileProfile}>
+
+                    <img src={user.profileImg ? user.profileImg : "/user.svg"} alt="profile"></img>
+                    <div>
+                        <p>{user.username}</p>
+                        <small>{user.email}</small>
+                    </div>
+
+                </div>
+
                 <li onClick={() => history.push("/")}><i className="fas fa-home"></i>Home</li>
                 <li onClick={() => history.push("/shared-with-me")}><i className="fas fa-share-alt"></i>Shared With Me</li>
                 <li onClick={() => history.push("/settings/manage-account")}><i className="fas fa-cog"></i>Settings</li>
+                <li className={styles.mobile} onClick={handleLogout}><i className="fas fa-sign-out-alt"></i>Logout</li>
             </ul>
         </div>
         {menu && (<div className={styles.out} onClick={closeMenu}></div>)}
@@ -93,7 +105,6 @@ function Navbar() {
 
             <div className={styles.profileContainer}>
                 
-                {(isHome && <button onClick={openModal}>CREATE DECK</button>)}
                 {(count.total && <span>{count.count + 1}/{count.total}</span>)}
 
                 <img onClick={openProfileMenu} className={styles.profile} title="Profile" alt="profile" src={user.profileImg ? user.profileImg : "/user.svg"}></img>

@@ -31,3 +31,12 @@
 .playing{
     background-color: darken($color: color("red"), $amount: 20) !important;
 }
+
+@media (max-width: 370px) {
+    .container{
+        & > img{
+            width: 150px;
+            height: 150px;
+        }
+    }
+}

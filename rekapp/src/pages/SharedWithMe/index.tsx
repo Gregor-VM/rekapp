@@ -22,7 +22,7 @@ function SharedWithMe() {
 
     const getDecksCallback = useCallback(async () => {
         setLoading(true);
-        const decks : Deck[] = (await axios.get("/decks/share-with-me")).data;
+        const decks : Deck[] = ((await axios.get("/decks/share-with-me")).data)
         dispatch(actions.loadSharedDecks(decks));
         setLoading(false);
       }, [dispatch, setLoading]);

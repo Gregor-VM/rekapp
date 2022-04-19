@@ -1,5 +1,6 @@
 .container{
 
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -14,4 +15,10 @@
         margin-bottom: 30px;
     }
 
+}
+
+@media (max-width: 500px) {
+    .container > h2{
+        font-size: 15px;
+    }
 }

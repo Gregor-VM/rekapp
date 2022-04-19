@@ -64,7 +64,7 @@ function AddDeck() {
 
     return (
         <form className={styles.container}>
-            <h2>Add Deck</h2>
+            <span><h2>Add Deck</h2><i onClick={() => dispatch(modalActions.closeModal())} className="fas fa-window-close"></i></span>
             <div className={styles.body}>
                 <input ref={nameRef} autoComplete="new-password" autoFocus type="text" placeholder="Name of the deck" />
                 <h3>Select a background</h3>

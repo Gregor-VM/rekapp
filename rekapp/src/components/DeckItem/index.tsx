@@ -95,7 +95,7 @@ function GroupItem({deck} : {deck : Deck}) {
     const patternStyle = deck.backgroundImage.includes("pattern") ? patternsObj[deck.backgroundImage as keyof Patterns](color) : ({backgroundColor: deck.backgroundColor});
 
     return (
-        <div>
+        <div className={styles.container}>
         <div onClick={handleClick} style={patternStyle} className={styles.groupItem}>
             <div className={styles.top}>
                 <h4>{deck.name}</h4>
@@ -118,6 +118,17 @@ function GroupItem({deck} : {deck : Deck}) {
                 </ul>
             )}
         </div>
+        )}
+
+        
+        {isOpen && (
+            <div className={styles.menuList}>
+                <ul>
+                    <li onClick={shareDeck}>Share</li>
+                    <li onClick={deleteDeck}>Delete</li>
+                    <li onClick={displayCards}>Cards</li>
+                </ul>
+            </div>
         )}
 
         </div>

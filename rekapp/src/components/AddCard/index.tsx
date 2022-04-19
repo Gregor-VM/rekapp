@@ -47,6 +47,11 @@ function AddCard() {
         setCard({...card, [e.target.name]:e.target.value});
     };
 
+    const cancelHandler : React.MouseEventHandler<HTMLButtonElement> = async (e) => {
+        e.preventDefault();
+        dispatch(modalActions.closeModal());
+    }
+
     const createCard : React.FormEventHandler<HTMLFormElement> = async (e) => {
 
         e.preventDefault();
@@ -214,6 +219,8 @@ function AddCard() {
             </div>
             <div className={styles.footer}>
 
+                <button onClick={cancelHandler} className={styles.cancel}>Cancel</button>
+
                     {(selected === undefined) && <div className={styles.loadingSelected}></div>}
                         {((selected !== undefined) && <select defaultValue={selected} onChange={deckSelect}>
                             {decksList.map(deckName => {
@@ -224,7 +231,7 @@ function AddCard() {
                             })}
                     </select>)}
 
-                <button type="submit">{cardEdit.editing ? "UPDATE CARD" : "CREATE CARD"}</button>
+                <button type="submit">{cardEdit.editing ? "Update card" : "Create card"}</button>
             </div>
         </form>
         </>

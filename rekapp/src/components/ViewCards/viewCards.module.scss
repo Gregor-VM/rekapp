@@ -44,3 +44,48 @@
 .rows{
     display: flex;
 }
+
+.title{
+    border-bottom: 2px solid color("primary");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & > i{
+        display: none;
+        font-size: 25px;
+        &:active{
+            color: red;
+        }
+    }
+
+    & > h2{
+        font-weight: lighter;
+        text-align: center;
+    }
+}
+
+@media (max-width: 1200px) {
+    .view_cards_container > div > div{
+        margin-left: 0px;
+    }
+}
+
+@media (max-width: 700px) {
+
+    .title{
+        justify-content: space-between;
+        & > i{
+            display: block;
+        }
+    }
+}
+
+
+@media (max-width: 850px) {
+
+    .view_cards_container > div{
+        flex-direction: column;
+        padding-bottom: 25px;
+    }
+}

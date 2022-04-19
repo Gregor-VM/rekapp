@@ -27,3 +27,15 @@
         }
     }
 }
+
+@media (max-width: 500px) {
+    .container{
+        flex-direction: column;
+    }
+
+    .sidebar{
+        width: 100%;
+        height: unset;
+        border-right: none;
+    }
+}

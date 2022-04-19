@@ -22,6 +22,7 @@ function Login() {
 
     return (
         <>
+        <h2 className={styles.title}>REKAPP</h2>
         <div className={styles.container}>
             <header>
                 <h2>Sing In</h2>

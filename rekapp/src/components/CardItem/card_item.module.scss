@@ -73,3 +73,25 @@
         }
     }
 }
+
+
+@media (max-width: 720px) {
+    .container{
+        flex-direction: column;
+        width: 100%;
+        & > div{
+            width: 100%;
+        }
+    }
+}
+
+@media (max-width: 370px) {
+    .container{
+
+        & > .back{
+            & > div > button{
+                padding: 30px;
+            }
+        }
+    }
+}

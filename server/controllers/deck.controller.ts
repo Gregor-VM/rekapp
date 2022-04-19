@@ -219,9 +219,9 @@ export const getSharedDecks : RequestHandler = async (req: UserRequest, res) => 
     let sharedDecks = [];
     for(let i=0;i<user.sharedWithMe.length;i++){
         const deck = (await User.findById(user.sharedWithMe[i].author)).decks.find(deck => deck._id.toString() === user.sharedWithMe[i].deckId);
-        sharedDecks.push(deck);
+        deck && sharedDecks.push(deck);
     };
-    res.json(sharedDecks)
+    res.json(sharedDecks);
 }
 
 //settings

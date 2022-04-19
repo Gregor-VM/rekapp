@@ -1,11 +1,15 @@
 import {useState, useEffect, useCallback} from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/store';
 import axios from '../../utils/axios';
 
 import styles from './share_deck.module.scss';
 
+import * as actions from './../../store/actions/modalActions';
+
 function ShareDeck() {
+
+    const dispatch = useDispatch();
 
     const [emails, setEmails] = useState<never[] | string[]>([]);
     const [typed, setTyped] = useState("");
@@ -65,7 +69,7 @@ function ShareDeck() {
             </div>
             {/* .map(div) */}
 
-            <div className={styles.btn}><button>Done</button></div>
+            <div onClick={() => dispatch(actions.closeModal())} className={styles.btn}><button>Done</button></div>
         </div>
     )
 };

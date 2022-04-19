@@ -6,7 +6,6 @@
 
 
 .container{
-
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -62,6 +61,7 @@
             background-color: color("foreground");
             width: 150px;
             height: 100%;
+            padding: 10px;
             outline: none;
             border: none;
             font-family: inherit;
@@ -71,9 +71,12 @@
 
         & > select{
             @extend %twoSections;
-            padding: 10px;
+            cursor: pointer;
             &:focus{
-                //border-color: color("primary");
+                background-color: rgba(17, 116, 0, 0.5);
+            }
+
+            &:hover{
                 background-color: darken($color: color("primary"), $amount: 20);
             }
             
@@ -88,6 +91,12 @@
             cursor: pointer;
             &:hover{
                 background-color: darken($color: color("primary"), $amount: 20);
+            }
+        }
+
+        & > .cancel:hover{
+            &:hover{
+                background-color: darken($color: red, $amount: 20);
             }
         }
     }
@@ -159,4 +168,17 @@
     animation-duration: 2s;
     animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
     animation-fill-mode: forwards;
+}
+
+
+@media (max-width: 460px) {
+    
+    .container{
+        & > .footer{
+            width: 100%;
+            border-radius: 0;
+            display: flex;
+            justify-content: space-between;
+        }
+    }
 }

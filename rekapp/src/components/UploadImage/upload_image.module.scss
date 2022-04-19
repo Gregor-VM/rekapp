@@ -38,3 +38,19 @@
         background-size: cover;
     }
 }
+
+@media (max-width: 650px) {
+    .container{
+        flex-direction: column;
+        margin-bottom: 15em;
+
+        & > div{
+            padding: 80px 0px;
+            width: 100%;
+        }
+
+        & > div:first-child{
+            margin-bottom: 20px;
+        }
+    }
+}

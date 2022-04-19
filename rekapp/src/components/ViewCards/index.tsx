@@ -51,6 +51,7 @@ function ViewCards() {
     return (
         !loading ? (
             <div className={styles.view_cards_container}>
+                <span className={styles.title}><h2>Cards</h2><i onClick={() => dispatch(modalActions.closeModal())} className="fas fa-window-close"></i></span>
                 {cards.map(card => {
                     return (<div key={card._id} className={styles.rows}>
 

@@ -1,5 +1,11 @@
 @import '../../sass/variables.scss';
 
+.title{
+    margin-top: 1em;
+    font-size: 25px;
+    text-align: center;
+}
+
 a {
     text-decoration: none;
     color: color("primary");
@@ -9,14 +15,14 @@ a {
     background-color: color("foreground");
     padding: 10px;
     width: 40%;
-    margin-left: 30%;
+    margin: auto;
     border: 1px solid rgba(255, 255, 255,.25);
 }
 
 .container{
     @extend %containerDad;
     padding-bottom: 30px;
-    margin-top: 15vh;
+    margin-top: 12vh;
 
     & > header{
         text-align: center;
@@ -62,4 +68,16 @@ a {
 
 .sign_up_msg {
     text-align: center;
+}
+
+@media (max-width: 900px) {
+    %containerDad {
+        width: 70%;
+    }
+}
+
+@media (max-width: 400px) {
+    %containerDad {
+        width: 90%;
+    }
 }

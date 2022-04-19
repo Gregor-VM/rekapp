@@ -30,7 +30,9 @@
 }
 
 .container{
-    position: absolute;
+    z-index: 2;
+    //position: absolute;
+    position: fixed;
     height: 80px;
     width: 80px;
     border-radius: 50%;

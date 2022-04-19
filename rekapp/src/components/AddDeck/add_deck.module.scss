@@ -3,16 +3,38 @@
 
 .container{
 
+    overflow: scroll;
     padding: 20px;
     display: flex;
     flex-direction: column;
-    height: calc(100% - 40px);
+    justify-content: space-between;
+    height: 100%;
     background-color: color("background");
 
-    h2{
-        font-weight: lighter;
-        text-align: center;
+    &::-webkit-scrollbar{
+        display: none;
     }
+
+    & > span{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        & > i{
+            display: none;
+            font-size: 25px;
+            &:active{
+                color: red;
+            }
+        }
+
+        & > h2{
+            font-weight: lighter;
+            text-align: center;
+        }
+    }
+
+    
 
     h3{
         margin: 10px 0;
@@ -45,6 +67,8 @@
         align-self: flex-end;
         
         & > button{
+            margin-top: 20px;
+            margin-bottom: 40px;
             padding: 20px;
             border: 0;
             outline: 0;
@@ -81,16 +105,76 @@
 
 
 .patternSelector{
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
     & > .pattern {
-        margin: 5px;
-        width: 90px;
         height: 70px;
+        margin: 5px;
         border-radius: 10px;
         border: 4px solid transparent;
         border-radius: 10px;
         cursor: pointer;
         @extend %pattern10;
+    }
+}
+
+@media (max-width: 1300px) {
+    .colorSelector, .patternSelector{
+        grid-template-columns: repeat(10, 1fr);
+    }
+}
+
+@media (max-width: 1050px) {
+    .colorSelector, .patternSelector{
+        grid-template-columns: repeat(8, 1fr);
+    }
+
+}
+
+@media (max-width: 900px) {
+    .colorSelector, .patternSelector{
+        grid-template-columns: repeat(6, 1fr);
+    }
+}
+
+@media (max-width: 700px) {
+
+    .container > span{
+        justify-content: space-between;
+        & > i{
+            display: block;
+        }
+    }
+
+    .colorSelector, .patternSelector{
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+    .container{
+        & > .footer{
+            width: 100%;
+            align-self: center;
+            & > button{
+                width: 100%;
+            }
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    .colorSelector, .patternSelector{
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 500px) {
+    .colorSelector, .patternSelector{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 400px) {
+    .colorSelector, .patternSelector{
+        grid-template-columns: repeat(2, 1fr);
     }
 }
