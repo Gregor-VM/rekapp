@@ -19,12 +19,14 @@ app.use(express.urlencoded({extended: true, limit: "30mb"}));
 app.use(cors());
 
 // SERVE REACT APP
-/*
+
 app.use(express.static(path.resolve(__dirname, '../rekapp/build')));
 
 app.get("/api", (req, res) => {
     res.json({msg: "Hello world"});
 })
+
+/*
 
 // to redirect to our react app if a url doesn't exists
 app.get('*', (req, res) => {
@@ -32,6 +34,8 @@ app.get('*', (req, res) => {
 });
 
 */
+
+
 
 app.use("/auth", authRoutes);
 app.use("/api", deckRoutes);
