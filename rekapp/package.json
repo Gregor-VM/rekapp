@@ -59,7 +59,6 @@
     ]
   },
   "devDependencies": {
-    "@types/dom-mediacapture-record": "^1.0.10",
-    "@types/react-router-dom": "^5.3.2"
+
   }
 }
