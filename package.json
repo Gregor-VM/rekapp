@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "rimraf": "./node_modules/rimraf/bin.js",
     "test": "npx jest",
     "start": "rimraf ./dist && tsc && node dist/",
     "dev": "nodemon server/index.ts --exec ts-node",
