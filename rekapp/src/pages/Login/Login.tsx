@@ -1,13 +1,19 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import styles from './login.module.scss';
 
 import Auth from './../../utils/Auth';
 import {useHistory} from 'react-router-dom';
 
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
+
 
 
 function Login() {
+
+    const [remember, setRemember] = useState<boolean>(false);
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -17,8 +23,27 @@ function Login() {
         e.preventDefault();
 
         await Auth.login(email, password);
+
+        if(remember) localStorage.setItem("remember", "true");
+        else localStorage.removeItem("remember");
+
         history.push("/");
     }
+
+    const rememberHandler : React.ChangeEventHandler<HTMLInputElement> = (e) => {
+        setRemember(e.target.checked);
+    }
+
+    useEffect(() => {
+        const doRemember = localStorage.getItem("remember");
+        if(doRemember === "true"){
+            if(Auth.isAuth()){
+                window.location.href = "/";
+            }
+            setRemember(true);
+        }
+
+    }, []);
 
     return (
         <>
@@ -32,13 +57,13 @@ function Login() {
                 <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} value={password}></input>
                 <button className={styles.loginBtn}>Sing in</button>
 
-                {/*<div className={styles.options}>
+                <div className={styles.options}>
                     <span>
-                        <input type="checkbox"></input>
-                        <label>Remember me!</label>
+                        <input onChange={rememberHandler} checked={remember} id="remember" type="checkbox"></input>
+                        <label htmlFor="remember">Remember me!</label>
                     </span>
                     <a href="#">Forgot password?</a>
-                </div>*/}
+                </div>
             </form>
             
         </div>
