@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npx jest",
-    "start": "npm i rimraf && rimraf ./dist && tsc && node dist/",
+    "start": "npm install && rimraf ./dist && tsc && node dist/",
     "dev": "nodemon server/index.ts --exec ts-node",
     "build": "cd rekapp && npm install && npm run build"
   },
