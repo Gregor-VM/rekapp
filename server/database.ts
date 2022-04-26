@@ -5,7 +5,7 @@ if(process.env.NODE_ENV !== "test"){ // Allow not running this script in testing
 
     if(process.env.NODE_ENV === "production"){
         console.log("Running production enviroment");
-        
+        console.log(config.MONGO_URL);
         mongoose.connect(config.MONGO_URL, (e) => {
         if(e) console.log(`Database error: ${e.name}, details: ${e.message}`);
         else console.log("Database connected!");

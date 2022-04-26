@@ -1,8 +1,14 @@
 import axios, { AxiosError } from 'axios';
 import Auth from './Auth';
 
+/*
+
 const axiosInstance = axios.create({
     baseURL: "http://localhost:3001/api/"
+});*/
+
+const axiosInstance = axios.create({
+    baseURL: `${window.location.origin}/api/`
 });
 
 axiosInstance.interceptors.request.use((config) => {
