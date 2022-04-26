@@ -1,13 +1,5 @@
-import express from 'express';
+import app from './app';
 
-const app = express();
-
-app.get("/status", (_, res) => {
-    res.json({msg: "ok"});
-});
-
-//const PORT : number = parseInt((process.env.PORT as string)) | 3001;
 const PORT = process.env.PORT;
-console.log(PORT);
 
-app.listen(PORT, () => console.log(`Server listening on port ${PORT}!`));
+app.listen((PORT ? PORT : 3001), () => console.log(`Server listening on port ${PORT}!`));
