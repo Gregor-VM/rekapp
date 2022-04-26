@@ -22,6 +22,8 @@ app.use(cors());
 
 app.use(express.static(path.resolve(__dirname, '../rekapp/build')));
 
+console.log("api is running")
+
 app.get("/api", (req, res) => {
     res.json({msg: "Hello world"});
 })
