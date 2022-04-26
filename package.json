@@ -7,6 +7,7 @@
     "test": "npx jest",
     "start": "node dist/",
     "dev": "nodemon server/index.ts --exec ts-node",
+    "postinstall": "npm run build",
     "build": "cd rekapp && npm install && npm run build && cd ../ rimraf ./dist && tsc"
   },
   "keywords": [],
