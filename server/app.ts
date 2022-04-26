@@ -5,24 +5,28 @@ import cors from 'cors';
 
 dotenv.config();
 
+/*
+
 import './database';
 
 //ROUTES
 import authRoutes from './routes/auth.routes';
 import deckRoutes from './routes/deck.routes';
 
+*/
+
 const app = express();
 
 app.use(express.json({limit: "30mb"}));
 app.use(express.urlencoded({extended: true, limit: "30mb"}));
+
+/*
 
 app.use(cors());
 
 // SERVE REACT APP
 
 app.use(express.static(path.resolve(__dirname, '../rekapp/build')));
-
-console.log("api is running")
 
 app.get("/api", (req, res) => {
     res.json({msg: "Hello world"});
@@ -37,9 +41,11 @@ app.get('*', (req, res) => {
 
 */
 
-
+/*
 
 app.use("/auth", authRoutes);
 app.use("/api", deckRoutes);
+
+*/
 
 export default app;
