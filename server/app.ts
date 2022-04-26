@@ -25,17 +25,14 @@ app.use(express.static(path.resolve(__dirname, '../rekapp/build')));
 
 app.get("/api", (req, res) => {
     res.json({msg: "Hello world"});
-})
+});
+
+app.use("/auth", authRoutes);
+app.use("/api", deckRoutes);
 
 // to redirect to our react app if a url doesn't exists
 app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../rekapp/build', 'index.html'));
 });
-
-
-app.use("/auth", authRoutes);
-app.use("/api", deckRoutes);
-
-
 
 export default app;
