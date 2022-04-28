@@ -11,12 +11,14 @@ import UploadImage from '../UploadImage';
 
 import * as cardEditActions from '../../store/actions/cardEditActions';
 import * as modalActions from '../../store/actions/modalActions';
+import Loading from '../Loading';
 
 
 function AddCard() {
 
     const dispatch = useDispatch();
 
+    const [loading, setLoading] = useState(false);
 
     const [mounted, setMounted] = useState(false);
     const [selected, setSelected] = useState<string | undefined>(undefined);
@@ -53,6 +55,8 @@ function AddCard() {
     }
 
     const createCard : React.FormEventHandler<HTMLFormElement> = async (e) => {
+
+        setLoading(true);
 
         e.preventDefault();
 
@@ -104,6 +108,8 @@ function AddCard() {
         setAudioUrlBack("");
         setAudioUrlFront("");
         setCard({front: "", back: ""});
+
+        setLoading(false);
 
     };
 
@@ -178,6 +184,8 @@ function AddCard() {
     useEffect(() => {
         console.log(base64front?.length, base64back?.length)
     }, [base64back, base64front]);
+
+    if(loading) return <div className={styles.loading}><Loading /></div>;
 
     return (
         <>

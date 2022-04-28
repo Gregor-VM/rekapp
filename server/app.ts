@@ -32,7 +32,9 @@ app.use("/api", deckRoutes);
 
 // to redirect to our react app if a url doesn't exists
 app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../rekapp/build', 'index.html'));
+    if(process.env.NODE_ENV === "development"){
+        res.sendFile(path.resolve(__dirname, '../rekapp/build', 'index.html'));
+    }
 });
 
 export default app;

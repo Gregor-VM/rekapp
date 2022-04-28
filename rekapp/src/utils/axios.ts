@@ -7,8 +7,10 @@ const axiosInstance = axios.create({
     baseURL: "http://localhost:3001/api/"
 });*/
 
+const baseURL = `${window.location.origin}/api/`;
+
 const axiosInstance = axios.create({
-    baseURL: `${window.location.origin}/api/`
+    baseURL: baseURL
 });
 
 axiosInstance.interceptors.request.use((config) => {

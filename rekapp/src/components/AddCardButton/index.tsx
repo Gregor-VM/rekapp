@@ -29,9 +29,7 @@ function AddCardButton() {
             animateCb();
             dispatch(actions.openModal(1));
         } else {
-            if(window.confirm("You don't have any decks, create one first")){
-                dispatch(actions.openModal(0));
-            }
+            dispatch(actions.openModal(0));
         }
 
     }

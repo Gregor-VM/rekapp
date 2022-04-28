@@ -11,11 +11,13 @@ import CardInfo from '../CardInfo';
 
 import * as modalActions from '../../store/actions/modalActions';
 import * as cardEditActions from '../../store/actions/cardEditActions';
+import Loading from '../Loading';
 
 function ViewCards() {
 
     const [cards, setCards] = useState<Card[] | never[]>([]);
     const [update, setUpdate] = useState(false);
+    const [loadingDeleteCard, setLoadingDeleteCard] = useState("");
     const [loading, setLoading] = useState<boolean>(true);
 
     const dispatch = useDispatch();
@@ -29,6 +31,7 @@ function ViewCards() {
     }
 
     const deleteCard = async (cardId: string | undefined) => {
+        setLoadingDeleteCard(cardId || "");
         if(cardId){
             const response = await axios.delete(`/card/${deckId}/${cardId}`);
             if(response.status === 204){
@@ -59,14 +62,14 @@ function ViewCards() {
                         <CardInfo small={true} cardInfo={{img: card.backImg, audio: card.backAudio, text: card.back}} />
 
                         <div>
-                            <button className={styles.view_cards_button} onClick={() => deleteCard(card._id)}><i className="fas fa-trash"></i></button>
+                            <button className={styles.view_cards_button} onClick={() => deleteCard(card._id)}>{loadingDeleteCard !== card._id ? <i className="fas fa-trash"></i> : <Loading />}</button>
                             <button className={styles.view_cards_button} onClick={() => editCard(card)}><i className="fas fa-edit"></i></button>
                         </div>
 
                         </div>)
                 })}
             </div>
-        ) : <></>
+        ) : <div className={styles.loading}><Loading /></div>
     )
 }
 

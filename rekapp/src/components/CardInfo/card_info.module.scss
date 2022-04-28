@@ -5,6 +5,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 0 15px;
 
     & > img {
         margin: 20px;
@@ -31,6 +32,15 @@
 .playing{
     background-color: darken($color: color("red"), $amount: 20) !important;
 }
+
+@media (max-width: 720px) {
+    .container{
+        text-align: center;
+        padding: 0;
+        padding-top: 15px;
+    }
+}
+
 
 @media (max-width: 370px) {
     .container{

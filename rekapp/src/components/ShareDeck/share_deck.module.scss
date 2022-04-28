@@ -69,6 +69,10 @@
         margin-bottom: 30px;
         button{
             @extend %button;
+            background-color: color("foreground");
+            &:hover{
+                background-color: lighten($color: color("foreground"), $amount: 20);
+            }
         }
     }
 

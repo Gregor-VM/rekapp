@@ -3,7 +3,6 @@ import styles from "./navbar.module.scss";
 
 import {useDispatch, useSelector} from 'react-redux';
 import {useLocation, useHistory} from 'react-router-dom';
-import * as actions from '../../store/actions/modalActions';
 import * as userActions from '../../store/actions/userActions';
 
 import AddCardButton from '../AddCardButton';
@@ -33,10 +32,6 @@ function Navbar() {
     const closeMenu = () => {
         setMenu(false);
     }
-
-    const openModal = () => {
-        dispatch(actions.openModal(0));
-    };
 
     const openProfileMenu = () => {
         setOpen(prev => !prev);

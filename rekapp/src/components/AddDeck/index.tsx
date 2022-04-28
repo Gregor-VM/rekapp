@@ -62,6 +62,10 @@ function AddDeck() {
 
     const patternList : string[] = Object.keys(patterns);
 
+    const closeModal = () => {
+        dispatch(dispatch(modalActions.closeModal()));
+    }
+
     return (
         <form className={styles.container}>
             <span><h2>Add Deck</h2><i onClick={() => dispatch(modalActions.closeModal())} className="fas fa-window-close"></i></span>
@@ -87,6 +91,7 @@ function AddDeck() {
                 </div>
             </div>
             <div className={styles.footer}>
+                <button onClick={closeModal}>CANCEL</button>
                 <button onClick={createDeck}>CREATE DECK</button>
             </div>
 

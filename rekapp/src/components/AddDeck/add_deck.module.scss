@@ -19,9 +19,11 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        margin: 0px 30px;
 
         & > i{
             display: none;
+            margin-left: auto;
             font-size: 25px;
             &:active{
                 color: red;
@@ -77,6 +79,14 @@
             background-color: darken($color: color("primary"), $amount: 10);
             &:hover{
                 background-color: darken($color: color("primary"), $amount: 20);
+            }
+        }
+
+        & > button:first-child{
+            background-color: color("foreground");
+            margin-right: 20px;
+            &:hover{
+                background-color: lighten($color: color("foreground"), $amount: 20);
             }
         }
     }
@@ -139,10 +149,16 @@
 
 @media (max-width: 700px) {
 
+    .footer > button:first-child{
+        display: none;
+    }
+
     .container > span{
         justify-content: space-between;
+        margin: 0px 0px;
         & > i{
             display: block;
+            margin-left: unset;
         }
     }
 

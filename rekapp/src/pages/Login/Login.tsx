@@ -5,12 +5,6 @@ import styles from './login.module.scss';
 import Auth from './../../utils/Auth';
 import {useHistory} from 'react-router-dom';
 
-import Cookies from 'universal-cookie';
-
-const cookies = new Cookies();
-
-
-
 function Login() {
 
     const [remember, setRemember] = useState<boolean>(false);
@@ -62,7 +56,7 @@ function Login() {
                         <input onChange={rememberHandler} checked={remember} id="remember" type="checkbox"></input>
                         <label htmlFor="remember">Remember me!</label>
                     </span>
-                    <a href="#">Forgot password?</a>
+                    <a href="/">Forgot password?</a>
                 </div>
             </form>
             

@@ -1,5 +1,15 @@
 @import "../../sass/variables.scss";
 
+.loading{
+    width: 100%;
+    height: 100%;
+    background-color: color("background");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+}
+
 .view_cards_button{
 
     display: flex;
@@ -11,11 +21,15 @@
     width: 3rem;
     height: 3rem;
     cursor: pointer;
-    border: none;
-    
+    border: none;    
 
     &:hover{
         background-color: rgba(color("text"), .2);
+    }
+
+    //loadingDeleteIcon
+    & > div{
+        font-size: 8px;
     }
 }
 
@@ -50,12 +64,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 0px 30px;
 
     & > i{
-        display: none;
+        margin-left: auto;
         font-size: 25px;
+        cursor: pointer;
         &:active{
             color: red;
+        }
+        &:hover{
+            color: lighten($color: red, $amount: 20);
         }
     }
 
@@ -73,10 +92,14 @@
 
 @media (max-width: 700px) {
 
+
+
     .title{
         justify-content: space-between;
+        margin: none;
         & > i{
             display: block;
+            margin-left: unset;
         }
     }
 }
