@@ -1,5 +1,6 @@
 import {useState, useEffect, createRef} from 'react';
-import styles from './account_settings.module.scss';
+import darkStyles from './account_settings.module.scss';
+import lightStyles from './account_settings.light.module.scss';
 import {useSelector, useDispatch} from 'react-redux';
 import {User} from '../../interfaces';
 import { RootState } from '../../store/store';
@@ -8,9 +9,12 @@ import Alert from '../Alert';
 import useSelectImg from '../../hooks/useSelectImg';
 
 import * as userActions from './../../store/actions/userActions';
+import useThemeChanger from '../../hooks/useThemeChanger';
 
 
 function AccountSettings() {
+
+    const styles = useThemeChanger(darkStyles, lightStyles);
 
     const user : User = useSelector((state: RootState) => state.user);
     const dispatch = useDispatch();

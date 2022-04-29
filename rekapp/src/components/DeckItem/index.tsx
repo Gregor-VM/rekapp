@@ -1,4 +1,5 @@
-import styles from './deck_item.module.scss';
+import darkStyles from './deck_item.module.scss';
+import lightStyles from './deck_item.light.module.scss';
 import {Deck} from '../../interfaces';
 
 import {useState} from 'react';
@@ -12,6 +13,7 @@ import * as viewCardsActions from '../../store/actions/viewCardsActions';
 import axios from '../../utils/axios';
 
 import * as patterns from '../../utils/patterns';
+import useThemeChanger from '../../hooks/useThemeChanger';
 
 interface Patterns {
     pattern1: (color: string) => React.CSSProperties
@@ -27,6 +29,8 @@ interface Patterns {
 }
 
 function GroupItem({deck} : {deck : Deck}) {
+
+    const styles = useThemeChanger(darkStyles, lightStyles);
 
     const patternsObj : Patterns = patterns;
 

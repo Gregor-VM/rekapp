@@ -1,12 +1,16 @@
 import {useParams, useHistory} from 'react-router-dom';
-import styles from './settings.module.scss';
+import darkStyles from './settings.module.scss';
+import lightStyles from './settings.light.module.scss';
 
 import Navbar from '../../components/Navbar';
 import AccountSettings from './../../components/AccountSettings';
 import ChangePassword from './../../components/ChangePassword';
 import DeleteAccount from '../../components/DeleteAccount';
+import useThemeChanger from '../../hooks/useThemeChanger';
 
 function Settings() {
+
+    const styles = useThemeChanger(darkStyles, lightStyles);
 
     const {option} : {option: string} = useParams();
     const history = useHistory();
@@ -30,9 +34,9 @@ function Settings() {
         <div className={styles.container}>
             <div className={styles.sidebar}>
                 <ul>
-                    <li style={{backgroundColor: option === "manage-account" ? "#ff5a1d" : ""}} onClick={() => history.push("/settings/manage-account")}>Manage account</li>
-                    <li style={{backgroundColor: option === "change-password" ? "#ff5a1d" : ""}} onClick={() => history.push("/settings/change-password")}>Change password</li>
-                    <li style={{backgroundColor: option === "delete-account" ? "#ff5a1d" : ""}} onClick={() => history.push("/settings/delete-account")}>Delete account</li>
+                    <li className={option === "manage-account" ? styles.active : ""} onClick={() => history.push("/settings/manage-account")}>Manage account</li>
+                    <li className={option === "change-password" ? styles.active : ""} onClick={() => history.push("/settings/change-password")}>Change password</li>
+                    <li className={option === "delete-account" ? styles.active : ""} onClick={() => history.push("/settings/delete-account")}>Delete account</li>
                 </ul>
             </div>
 

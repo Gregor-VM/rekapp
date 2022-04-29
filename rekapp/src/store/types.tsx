@@ -15,7 +15,9 @@ const types = {
 
     SET_CARD_EDIT: "SET_CARD_EDIT",
 
-    SET_USER: "SET_USER"
+    SET_USER: "SET_USER",
+
+    CHANGE_THEME: "CHANGE_THEME"
 };
 
 export default types;

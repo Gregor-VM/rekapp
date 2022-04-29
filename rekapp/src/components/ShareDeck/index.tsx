@@ -3,14 +3,20 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/store';
 import axios from '../../utils/axios';
 
-import styles from './share_deck.module.scss';
+import darkStyles from './share_deck.module.scss';
+import lightStyles from './share_deck.light.module.scss';
 
 import * as actions from './../../store/actions/modalActions';
+import useThemeChanger from '../../hooks/useThemeChanger';
+import Loading from '../Loading';
 
 function ShareDeck() {
 
+    const styles = useThemeChanger(darkStyles, lightStyles);
+
     const dispatch = useDispatch();
 
+    const [loading, setLoading] = useState(true);
     const [emails, setEmails] = useState<never[] | string[]>([]);
     const [typed, setTyped] = useState("");
 
@@ -51,14 +57,17 @@ function ShareDeck() {
                 };
                 const getEmails = response.data.map((item: UserShareWith) => item.email);
                 setEmails(getEmails);
+                setLoading(false);
             }
         },
-        [setEmails, deckId]
+        [setEmails, deckId, setLoading]
     )
 
     useEffect(() => {
         getEmails();
-    }, [getEmails])
+    }, [getEmails]);
+
+    if(loading) return <div className={styles.loading}><Loading /></div>;
 
     return (
         <div className={styles.container}>
@@ -67,7 +76,7 @@ function ShareDeck() {
             <div className={styles.emails}>
                 {emails.map((email, key) => (<span key={key}><p>{email}</p><i onClick={() => removeEmail(email)} className="fas fa-times"></i></span>))}
             </div>
-            {/* .map(div) */}
+
 
             <div onClick={() => dispatch(actions.closeModal())} className={styles.btn}><button>Done</button></div>
         </div>

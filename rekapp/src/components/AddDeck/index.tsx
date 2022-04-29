@@ -1,6 +1,7 @@
 import {useState, useRef} from 'react';
 import {useDispatch} from 'react-redux';
-import styles from './add_deck.module.scss';
+import darkStyles from './add_deck.module.scss';
+import lightStyles from './add_deck.light.module.scss';
 
 import axios from '../../utils/axios';
 
@@ -10,6 +11,7 @@ import * as deckActions from '../../store/actions/decksActions';
 import { Deck } from '../../interfaces';
 
 import * as patterns from '../../utils/patterns';
+import useThemeChanger from '../../hooks/useThemeChanger';
 
 interface Patterns {
     pattern1: (color: string) => React.CSSProperties
@@ -25,6 +27,8 @@ interface Patterns {
 }
 
 function AddDeck() {
+
+    const styles = useThemeChanger(darkStyles, lightStyles);
 
     const patternsObj : Patterns = patterns;
 

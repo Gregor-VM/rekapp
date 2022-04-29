@@ -1,0 +1,23 @@
+@import './account_settings.module.scss';
+
+.container{
+    & *{
+        color: light_color("text");
+    }
+
+    & button{
+        background-color: light_color("foreground");
+    }
+}
+
+.left_box > span{
+
+    & > input{
+        background-color: light_color("foreground");
+    }
+
+    & > button{
+        color: light_color("foreground");
+    }
+    
+}

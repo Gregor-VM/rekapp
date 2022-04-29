@@ -1,0 +1,21 @@
+@import './record_audio.module.scss';
+
+.controls {
+
+    & > div{
+        background-color: rgba(light_color("text"), .1);      
+
+        &:hover{
+            background-color: rgba(light_color("text"), .2);
+        }
+    }
+}
+
+.recording{
+    background-color: rgba(light_color("text"), .4) !important;
+}
+
+.playing{
+    color: light_color("background");
+    background-color: lighten($color: color("red"), $amount: 35) !important;
+}

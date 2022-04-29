@@ -1,0 +1,35 @@
+@import './add_deck.module.scss';
+
+.container{
+
+    background-color: light_color("background");
+
+    & *{
+        color: light_color("text");
+
+    }
+
+    & > .body > input{
+        background-color: light_color("foreground");
+    }
+
+    & > .footer > button {
+        color: light_color("foreground");
+    }
+}
+
+.patternSelector > div{
+    box-shadow: 0px 0px 10px lighten($color: light_color("text"), $amount: 80);
+}
+
+.colorSelector > div{
+    box-shadow: 0px 0px 10px lighten($color: light_color("text"), $amount: 80);
+}
+
+.activeColor{
+    border-color: light_color("text") !important;
+}
+
+.activePrimaryColor{
+    border-color: light_color("primary") !important;
+}

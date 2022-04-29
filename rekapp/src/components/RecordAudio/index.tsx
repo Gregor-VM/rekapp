@@ -1,9 +1,13 @@
-import styles from './record_audio.module.scss';
+import darkStyles from './record_audio.module.scss';
+import lightStyles from './record_audio.light.module.scss';
 import {useState} from 'react';
 import useAudio from '../../hooks/useAudio';
+import useThemeChanger from '../../hooks/useThemeChanger';
 //import { Audio } from '../../interfaces';
 
 function RecordAudio({url, setUrl, dataURL, setDataURL} : {url: string, setUrl: (string: string) => void, dataURL: string, setDataURL: (string: string) => void}) {
+
+    const styles = useThemeChanger(darkStyles, lightStyles);
 
     const [recording, setRecording] = useState(false);
     const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);

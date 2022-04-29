@@ -1,15 +1,18 @@
 import {useState, createRef, useEffect, useCallback} from 'react';
-import styles from "./navbar.module.scss";
+import darkStyles from "./navbar.module.scss";
+import lightStyles from "./navbar.light.module.scss";
 
 import {useDispatch, useSelector} from 'react-redux';
 import {useLocation, useHistory} from 'react-router-dom';
 import * as userActions from '../../store/actions/userActions';
+import * as themeActions from '../../store/actions/themeActions';
 
 import AddCardButton from '../AddCardButton';
 import { RootState } from '../../store/store';
 import Auth from '../../utils/Auth';
 import { User } from '../../interfaces';
 import axios from '../../utils/axios';
+import useThemeChanger from '../../hooks/useThemeChanger';
 
 function Navbar() {
     const [menu, setMenu] = useState(false);
@@ -20,8 +23,11 @@ function Navbar() {
       
     const isHome = (useLocation()).pathname === "/";
     const count : {count: number, total: number | null} = useSelector((state: RootState) => state.practiceCount);
+    const darkMode : boolean | null = useSelector((state: RootState) => state.theme.darkMode);
 
     const user : User = useSelector((state: RootState) => state.user);
+    
+    const styles = useThemeChanger(darkStyles, lightStyles);
 
     const profileMenuRef : React.LegacyRef<HTMLDivElement> = createRef();
 
@@ -60,6 +66,10 @@ function Navbar() {
         }
     }, [getUserInfo, user.username, user.email]);
 
+    const changeTheme : React.FormEventHandler<HTMLLabelElement> = () => {
+        dispatch(themeActions.changeTheme());
+    };
+
 
     return (
         <>
@@ -84,6 +94,7 @@ function Navbar() {
                 <li onClick={() => history.push("/")}><i className="fas fa-home"></i>Home</li>
                 <li onClick={() => history.push("/shared-with-me")}><i className="fas fa-share-alt"></i>Shared With Me</li>
                 <li onClick={() => history.push("/settings/manage-account")}><i className="fas fa-cog"></i>Settings</li>
+                <label className={styles.theme} htmlFor="theme" onChange={changeTheme}><li><i className="far fa-moon"></i>Dark mode<span className={`${styles.slider} ${darkMode ? styles.animationFor : styles.animationBack}`}><div></div></span><input id="theme" type="checkbox"></input></li></label>
                 <li className={styles.mobile} onClick={handleLogout}><i className="fas fa-sign-out-alt"></i>Logout</li>
             </ul>
         </div>

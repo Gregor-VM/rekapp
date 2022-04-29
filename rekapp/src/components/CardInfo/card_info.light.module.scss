@@ -1,0 +1,13 @@
+@import './card_info.module.scss';
+
+.container > div, .back > span > div {
+    background-color: rgba(light_color("text"), .1);
+
+    &:hover{
+        background-color: rgba(light_color("text"), .05);
+    }
+}
+
+.playing{
+    background-color: lighten($color: color("primary"), $amount: 20) !important;
+}

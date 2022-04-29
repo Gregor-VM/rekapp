@@ -1,11 +1,15 @@
 import {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
-import styles from './login.module.scss';
+import darkStyles from './login.module.scss';
+import lightStyles from './login.light.module.scss';
 
 import Auth from './../../utils/Auth';
 import {useHistory} from 'react-router-dom';
+import useThemeChanger from '../../hooks/useThemeChanger';
 
 function Login() {
+
+    const styles = useThemeChanger(darkStyles, lightStyles);
 
     const [remember, setRemember] = useState<boolean>(false);
 

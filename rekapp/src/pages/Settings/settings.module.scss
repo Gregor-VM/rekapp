@@ -5,6 +5,11 @@
 
 }
 
+.active{
+    background-color: darken($color: color("primary"), $amount: 10) !important;
+    color: white;
+}
+
 .sidebar {
     height: calc(100vh - 70px);
     width: 300px;

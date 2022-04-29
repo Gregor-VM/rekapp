@@ -1,0 +1,30 @@
+@import './register.module.scss';
+
+
+a {
+    text-decoration: none;
+    color: light_color("primary") !important;
+}
+
+%containerDad {
+    background-color: light_color("foreground");
+}
+
+.container{
+    & * {
+        color: light_color("text");
+    }
+}
+
+.registerForm{
+    & > input{
+        background-color: light_color("background");
+        color: light_color("text");
+    }
+
+    
+}
+
+.registerBtn{
+    background-color: darken($color: light_color("primary"), $amount: 20) !important;
+}

@@ -3,7 +3,8 @@ import {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import axios from '../../utils/axios';
 
-import styles from './viewCards.module.scss';
+import darkStyles from './viewCards.module.scss';
+import lightStyles from './viewCards.light.module.scss';
 
 import {RootState} from '../../store/store';
 import { Card, Deck } from '../../interfaces';
@@ -12,8 +13,11 @@ import CardInfo from '../CardInfo';
 import * as modalActions from '../../store/actions/modalActions';
 import * as cardEditActions from '../../store/actions/cardEditActions';
 import Loading from '../Loading';
+import useThemeChanger from '../../hooks/useThemeChanger';
 
 function ViewCards() {
+
+    const styles = useThemeChanger(darkStyles, lightStyles);
 
     const [cards, setCards] = useState<Card[] | never[]>([]);
     const [update, setUpdate] = useState(false);

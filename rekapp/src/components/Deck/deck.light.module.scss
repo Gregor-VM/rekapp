@@ -1,0 +1,11 @@
+@import './deck.module.scss';
+
+.addDeck{
+    background-color: rgba(color("primary"), 0.1);
+    border: 1px solid rgba(rgb(0,0,0), 0.3);
+
+    &:hover{
+        border: 1px solid rgba(rgb(0,0,0), 0.5);
+    }
+}
+

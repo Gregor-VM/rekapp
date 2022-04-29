@@ -13,6 +13,23 @@ $palette : (
 //rgb(28, 31, 32) (light dark)
 //#131516 (dark dark dark)
 
+$light_palette : (
+    "primary": rgb(255, 131, 86),
+    "secondary": #00789c,
+    "background": #eeeeee,
+    "foreground": #ffffff,
+    "text": rgb(0, 0, 0),
+    "green": rgb(80, 252, 0),
+    "red":rgb(255, 0, 0)
+);
+
+//#202324 (dark dark)
+//rgb(28, 31, 32) (light dark)
+//#131516 (dark dark dark)
+
+@function light_color ($key){
+    @return map-get($map: $light_palette, $key: $key);
+}
 
 @function color ($key){
     @return map-get($map: $palette, $key: $key);

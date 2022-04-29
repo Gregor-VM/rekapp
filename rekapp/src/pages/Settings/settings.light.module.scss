@@ -1,0 +1,21 @@
+@import './settings.module.scss';
+
+.active{
+    background-color: light_color("primary") !important;
+    color: white;
+}
+
+.sidebar {
+    border-right: 1px solid rgba(light_color("text"), .2);
+
+    & > ul {
+
+        & > li{
+            border-bottom: 1px solid rgba(light_color("text"), .2);
+            background-color: light_color("background");
+            &:hover{
+                background-color: lighten($color: light_color("background"), $amount: 2.5);
+            }
+        }
+    }
+}

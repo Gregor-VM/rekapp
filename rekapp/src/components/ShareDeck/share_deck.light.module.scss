@@ -1,0 +1,46 @@
+@import './share_deck.module.scss';
+
+%button{
+    color: light_color("foreground");
+}
+
+.loading{
+    color: light_color("text");
+    background-color: light_color("foreground");
+    font-size: 10px;
+}
+
+.container{
+    background-color: light_color("foreground");
+
+    & > .emails > span{
+        &:hover{
+            background-color: light_color("background");
+        }
+        & > i:hover{
+            border-radius: 5px;
+            color: light_color("foreground");
+            background-color: lighten($color: light_color("red"), $amount: 25);
+        }
+    }
+
+    & > .btn {
+        button{
+            @extend %button;
+            font-weight: bolder;
+            background-color: lighten($color: light_color("secondary"), $amount: 0);
+            &:hover{
+                background-color: lighten($color: light_color("secondary"), $amount: 10);
+            }
+        }
+    }
+
+    & > .type_email > input{
+        color: light_color("text");
+        background-color: darken($color: light_color("foreground"), $amount: 2);
+        border-bottom: 1px solid light_color("primary");
+        &:focus{
+            background-color: darken($color: light_color("foreground"), $amount: 5);
+        }
+    }
+}

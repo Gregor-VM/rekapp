@@ -1,10 +1,16 @@
-import normalStyles from './card_info.module.scss';
-import smallStyles from './card_info_small.module.scss';
+import darkNormalStyles from './card_info.module.scss';
+import darkSmallStyles from './card_info_small.module.scss';
+import lightNormalStyles from './card_info.light.module.scss';
+import lightSmallStyles from './card_info_small.light.module.scss';
 
 import {useState, createRef} from 'react';
 import {Img, Audio} from '../../interfaces/index'
+import useThemeChanger from '../../hooks/useThemeChanger';
 
 function CardInfo({cardInfo, small} : {small: boolean, cardInfo: {img: Img | undefined, audio: Audio | undefined, text: string}}) {
+
+    const smallStyles = useThemeChanger(darkSmallStyles, lightSmallStyles);
+    const normalStyles = useThemeChanger(darkNormalStyles, lightNormalStyles);
 
     const styles = small ? smallStyles : normalStyles;
 

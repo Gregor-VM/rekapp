@@ -1,10 +1,14 @@
 import {useState} from 'react'
 import { Link, useHistory } from 'react-router-dom';
-import styles from './register.module.scss';
+import darkStyles from './register.module.scss';
+import lightStyles from './register.light.module.scss';
 
 import Auth from '../../utils/Auth';
+import useThemeChanger from '../../hooks/useThemeChanger';
 
 function Register() {
+
+    const styles = useThemeChanger(darkStyles, lightStyles);
 
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");

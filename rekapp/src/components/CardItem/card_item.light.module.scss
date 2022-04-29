@@ -1,0 +1,14 @@
+@import './card_item.module.scss';
+
+.container{
+    & > .back{
+        background-color: rgba(light_color("text"),.02);
+    }
+
+    & > .reveal{
+        background-color: rgba(light_color("text"),.05);
+        &:hover{
+            background-color: rgba(light_color("text"),.08);
+        }
+    }
+}

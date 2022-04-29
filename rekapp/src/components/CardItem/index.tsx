@@ -1,4 +1,5 @@
-import styles from './card_item.module.scss';
+import darkStyles from './card_item.module.scss';
+import lightStyles from './card_item.light.module.scss';
 
 import {useHistory, useLocation} from 'react-router-dom';
 import {useState} from 'react';
@@ -8,8 +9,11 @@ import {Card, Deck} from '../../interfaces';
 import CardInfo from '../CardInfo';
 
 import * as practiceCountActions from './../../store/actions/practiceCountActions';
+import useThemeChanger from '../../hooks/useThemeChanger';
 
 function CardItem({index, deck, card, setQueue, queue} : {index: number, queue: never[] | number[], deck: Deck | null, card: Card | undefined, setQueue: React.Dispatch<React.SetStateAction<never[] | number[]>>}) {
+
+    const styles = useThemeChanger(darkStyles, lightStyles);
 
     const [reveal, setReveal] = useState(false);
     const history = useHistory();

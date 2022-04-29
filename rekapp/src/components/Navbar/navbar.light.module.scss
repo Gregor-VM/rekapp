@@ -1,0 +1,79 @@
+@import './navbar.module.scss';
+
+.navbar {
+    background-color: light_color("primary");
+    & * {
+        color: light_color("text");
+    }
+    border-bottom: 2px solid lighten($color: light_color("primary"), $amount: 10);
+}
+
+.title{
+    color: light_color("foreground");
+}
+
+.menu{
+
+    &:active{
+        background-color: lighten($color: light_color("primary"), $amount: 5);
+    }
+
+    & div{
+        background-color: light_color("foreground");
+    }
+
+}
+
+
+.menubar {
+    background-color: light_color("foreground");
+}
+
+.profileMenu {
+    background-color: light_color("foreground");
+    border: 1px solid lighten($color: light_color(text), $amount: 80);
+
+    & > span{
+        & > button {
+            color: light_color("foreground");
+            background-color: light_color("primary");
+            font-weight: lighter;
+    
+            &:hover{
+                background-color: darken($color: light_color("primary"), $amount: 10);
+            }
+        }
+    }
+}
+
+.side_menu{
+
+    & > li{
+        color: light_color("text");
+        border-bottom: 1px solid lighten($color: light_color(text), $amount: 80);
+        &:hover{
+            background-color: rgba($color: light_color("primary"), $alpha: 0.3);
+        }
+        & > i{
+            color: light_color("text");
+        }
+    }
+
+    & > label > li{
+        color: light_color("text");
+        border-bottom: 1px solid lighten($color: light_color(text), $amount: 80);
+        &:hover{
+            background-color: rgba($color: light_color("primary"), $alpha: 0.3);
+        }
+    }
+    
+}
+
+
+.mobileProfile{
+
+    & > div{
+        border-bottom: lighten($color: light_color(text), $amount: 80);
+    }
+}
+

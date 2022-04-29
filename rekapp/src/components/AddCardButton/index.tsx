@@ -1,14 +1,18 @@
 import {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import styles from './add_card_button.module.scss';
+import darkStyles from './add_card_button.module.scss';
+import lightStyles from './add_card_button.light.module.scss';
 import * as actions from '../../store/actions/modalActions';
 import { RootState } from '../../store/store';
 import { Deck } from '../../interfaces';
+import useThemeChanger from '../../hooks/useThemeChanger';
 
 
 function AddCardButton() {
 
     const deckStored : {decks: Deck[]} = useSelector((state : RootState) => (state.decks));
+
+    const styles = useThemeChanger(darkStyles, lightStyles);
     
     const userHasDecks = () => {
         const decksList = deckStored.decks;

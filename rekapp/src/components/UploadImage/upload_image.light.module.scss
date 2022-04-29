@@ -1,0 +1,15 @@
+@import './upload_image.module.scss';
+
+.dropArea{
+    border: 2px dashed light_color("text");
+
+    & button{
+        color: light_color("foreground");
+        border: 1px solid light_color("text");
+        background-color: color("primary");
+    }
+}
+
+.imgContainer{
+    background-color: lighten($color: light_color("primary"), $amount: 25);
+}

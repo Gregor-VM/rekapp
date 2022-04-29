@@ -1,0 +1,24 @@
+@import './deck_item.module.scss';
+
+
+.groupItem > div > h4{
+    color: invert(light_color("text"));
+}
+
+.menu{
+    & > .options{
+        & > div{
+            background-color: light_color("background");
+        }
+    }
+
+    & > ul{
+        background-color: light_color("background");
+        & > li{
+            color: light_color("text");
+            &:hover{
+                background-color: lighten($color: light_color("text"), $amount: 80);
+            }
+        }
+    }
+}

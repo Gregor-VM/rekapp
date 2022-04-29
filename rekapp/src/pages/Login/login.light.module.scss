@@ -1,0 +1,30 @@
+@import './login.module.scss';
+
+
+a {
+    text-decoration: none;
+    color: light_color("primary") !important;
+}
+
+%containerDad {
+    background-color: light_color("foreground");
+}
+
+.container{
+    & * {
+        color: light_color("text");
+    }
+}
+
+.loginForm{
+    & > input{
+        background-color: light_color("background");
+        color: light_color("text");
+    }
+
+    
+}
+
+.loginBtn{
+    background-color: darken($color: light_color("primary"), $amount: 20) !important;
+}

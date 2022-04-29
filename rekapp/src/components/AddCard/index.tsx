@@ -1,5 +1,6 @@
 import {useCallback, useEffect, useState} from 'react';
-import styles from './add_card.module.scss';
+import darkStyles from './add_card.module.scss';
+import lightStyles from './add_card.light.module.scss';
 import {useSelector, useDispatch} from 'react-redux';
 
 import axios from '../../utils/axios';
@@ -12,9 +13,12 @@ import UploadImage from '../UploadImage';
 import * as cardEditActions from '../../store/actions/cardEditActions';
 import * as modalActions from '../../store/actions/modalActions';
 import Loading from '../Loading';
+import useThemeChanger from '../../hooks/useThemeChanger';
 
 
 function AddCard() {
+
+    const styles = useThemeChanger(darkStyles, lightStyles);
 
     const dispatch = useDispatch();
 

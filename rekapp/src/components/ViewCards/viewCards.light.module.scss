@@ -1,0 +1,22 @@
+@import './viewCards.module.scss';
+
+.loading{
+    background-color: light_color("foreground");
+}
+
+
+.view_cards_button{
+    background-color: rgba(light_color("text"), .1);
+
+    &:hover{
+        background-color: rgba(light_color("text"), .05);
+    }
+}
+
+.view_cards_container{
+    background-color: light_color("foreground");
+}
+
+.title > i{
+    color: lighten($color: light_color("text"), $amount: 30)
+}

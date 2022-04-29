@@ -10,13 +10,13 @@ $height: 150px;
     height: $height;
     border-radius: 20px;
     cursor: pointer;
-    color: white;
+    color: color("text");
 
     & > div > h4{
         width: 100%;
         text-align: center;
         margin: 1em 0;
-        text-shadow: 0px 0px 5px black;
+        text-shadow: 0px 0px 5px invert(color("text"));
     }
 
     & > .top {
@@ -53,7 +53,7 @@ $height: 150px;
             border-radius: 5px;
             width: 5px;
             height: 5px;
-            background-color: rgb(255, 255, 255);
+            background-color: color("text");
             margin: 1px 0;
         }
     

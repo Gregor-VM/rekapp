@@ -1,0 +1,80 @@
+@import './add_card.module.scss';
+
+.loading{
+    background-color: light_color("foreground");
+}
+
+.container{
+    & * {
+        color: light_color("text");
+    }
+    
+    background-color: light_color("background");
+
+    & > .body {
+        & > textarea{
+            background-color: light_color("foreground");
+            border: 1px dashed rgba(light_color("text"),.5);
+        }
+    }
+
+    & > .footer{
+        border-top: 2px solid rgba(light_color("text"),.2);
+        border-left: 2px solid rgba(light_color("text"),.2);
+
+        %twoSections{
+            background-color: light_color("foreground");
+        }
+
+        & > select{
+            &:hover{
+                background-color: lighten($color: light_color("primary"), $amount: 10);
+            }
+            &:focus{
+                color: light_color("background");
+                background-color: light_color("primary");
+            }
+            & option{
+                background-color: light_color("background");
+            }
+        }
+
+        & > button{
+            @extend %twoSections;
+            cursor: pointer;
+            &:hover{
+                background-color: lighten($color: light_color("primary"), $amount: 10);
+            }
+        }
+
+        & > .cancel:hover{
+            &:hover{
+                background-color: lighten($color: light_color("text"), $amount: 80);
+            }
+        }
+    }
+
+}
+
+.toggleBar{
+    background-color: light_color("foreground");
+
+    .backgroundBar{
+        background-color: rgba(light_color("text"),.2);
+    }
+
+}
+
+
+.activeTab{
+    
+    @keyframes activeTab {
+        0%{
+            background-color: transparent;
+        }
+
+        100%{
+            background-color: rgba(light_color("primary"), .2);
+        }
+    }
+}

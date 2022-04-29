@@ -1,19 +1,5 @@
 @import "./sass/variables.scss";
 
-* {
-    color: color("text");
-}
-
-
-
-
-
-
-
-
-
-
-
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -21,10 +7,27 @@ body {
       sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: color("background");
   }
   
   code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
       monospace;
   }
+
+.light-theme{
+
+  background-color: light_color("background");
+
+  & * {
+    color: light_color("text");
+  }
+  
+}
+
+.dark-theme{
+  background-color: color("background");
+
+  & * {
+    color: color("text");
+  }
+}

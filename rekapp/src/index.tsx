@@ -17,12 +17,14 @@ import ProtectedRoute from './components/ProtectedRoute'
 import Settings from './pages/Settings/index';
 import SharedWithMe from './pages/SharedWithMe';
 import NotFoundPage from './components/NotFoundPage';
+import ThemeStyle from './components/ThemeStyle';
 
 //import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
+    <ThemeStyle>
     <Router>
       <Switch>
         <ProtectedRoute path="/" exact component={Home}></ProtectedRoute>
@@ -35,6 +37,7 @@ ReactDOM.render(
         <Route path="*" component={NotFoundPage}></Route>
       </Switch>
     </Router>
+    </ThemeStyle>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

@@ -1,10 +1,14 @@
 import {useState} from 'react';
+import useThemeChanger from '../../hooks/useThemeChanger';
 import axios from '../../utils/axios';
 import Alert from '../Alert';
 
-import styles from './change_password.module.scss';
+import darkStyles from './change_password.module.scss';
+import lightStyles from './change_password.light.module.scss';
 
 function ChangePassword() {
+
+    const styles = useThemeChanger(darkStyles, lightStyles);
 
     const [password, setPassword] = useState({old: "", new: "", confirm: ""});
     const [loading, setLoading] = useState(false);

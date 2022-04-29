@@ -1,7 +1,11 @@
 import React, {DragEvent, createRef, MouseEventHandler} from 'react';
-import styles from './upload_image.module.scss';
+import useThemeChanger from '../../hooks/useThemeChanger';
+import darkStyles from './upload_image.module.scss';
+import lightStyles from './upload_image.light.module.scss';
 
 function UploadImage({base64, setBase64} : {base64: string  | undefined, setBase64: (string: string) => void}) {
+
+    const styles = useThemeChanger(darkStyles, lightStyles);
 
     const [name, setName] = React.useState("");
 
