@@ -26,7 +26,7 @@ interface Patterns {
     pattern10: (color: string) => React.CSSProperties
 }
 
-function AddDeck() {
+function AddDeck({closeModal} : {closeModal: () => void}) {
 
     const styles = useThemeChanger(darkStyles, lightStyles);
 
@@ -66,13 +66,9 @@ function AddDeck() {
 
     const patternList : string[] = Object.keys(patterns);
 
-    const closeModal = () => {
-        dispatch(dispatch(modalActions.closeModal()));
-    }
-
     return (
         <form className={styles.container}>
-            <span><h2>Add Deck</h2><i onClick={() => dispatch(modalActions.closeModal())} className="fas fa-window-close"></i></span>
+            <span><h2>Add Deck</h2><i onClick={closeModal} className="fas fa-window-close"></i></span>
             <div className={styles.body}>
                 <input ref={nameRef} autoComplete="new-password" autoFocus type="text" placeholder="Name of the deck" />
                 <h3>Select a background</h3>
@@ -95,7 +91,7 @@ function AddDeck() {
                 </div>
             </div>
             <div className={styles.footer}>
-                <button onClick={closeModal}>CANCEL</button>
+                <button type="button" onClick={closeModal}>CANCEL</button>
                 <button onClick={createDeck}>CREATE DECK</button>
             </div>
 

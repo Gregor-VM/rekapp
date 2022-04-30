@@ -1,20 +1,17 @@
 import {useState, useEffect, useCallback} from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import axios from '../../utils/axios';
 
 import darkStyles from './share_deck.module.scss';
 import lightStyles from './share_deck.light.module.scss';
 
-import * as actions from './../../store/actions/modalActions';
 import useThemeChanger from '../../hooks/useThemeChanger';
 import Loading from '../Loading';
 
-function ShareDeck() {
+function ShareDeck({closeModal} : {closeModal: () => void}) {
 
     const styles = useThemeChanger(darkStyles, lightStyles);
-
-    const dispatch = useDispatch();
 
     const [loading, setLoading] = useState(true);
     const [emails, setEmails] = useState<never[] | string[]>([]);
@@ -78,7 +75,7 @@ function ShareDeck() {
             </div>
 
 
-            <div onClick={() => dispatch(actions.closeModal())} className={styles.btn}><button>Done</button></div>
+            <div onClick={closeModal} className={styles.btn}><button>Done</button></div>
         </div>
     )
 };

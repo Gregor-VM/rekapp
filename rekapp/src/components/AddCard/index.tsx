@@ -16,7 +16,7 @@ import Loading from '../Loading';
 import useThemeChanger from '../../hooks/useThemeChanger';
 
 
-function AddCard() {
+function AddCard({closeModal} : {closeModal: () => void}) {
 
     const styles = useThemeChanger(darkStyles, lightStyles);
 
@@ -52,11 +52,6 @@ function AddCard() {
     const cardChangeHandler : React.ChangeEventHandler<HTMLTextAreaElement> = (e) => {
         setCard({...card, [e.target.name]:e.target.value});
     };
-
-    const cancelHandler : React.MouseEventHandler<HTMLButtonElement> = async (e) => {
-        e.preventDefault();
-        dispatch(modalActions.closeModal());
-    }
 
     const createCard : React.FormEventHandler<HTMLFormElement> = async (e) => {
 
@@ -231,7 +226,7 @@ function AddCard() {
             </div>
             <div className={styles.footer}>
 
-                <button onClick={cancelHandler} className={styles.cancel}>Cancel</button>
+                <button type="button" onClick={closeModal} className={styles.cancel}>Cancel</button>
 
                     {(selected === undefined) && <div className={styles.loadingSelected}></div>}
                         {((selected !== undefined) && <select defaultValue={selected} onChange={deckSelect}>

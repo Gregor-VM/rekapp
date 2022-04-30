@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import styles from './modal.module.scss';
 import {useSelector} from 'react-redux';
 import {useDispatch} from 'react-redux';
@@ -15,11 +16,16 @@ import ShareDeck from '../ShareDeck';
 
 function Modal() {
 
+    const [closeAnimation, setCloseAnimation] = useState(false);
     const modal = useSelector((state : RootState) => state.modal);
     const dispatch = useDispatch();
 
     const closeModal = () => {
-        dispatch(actions.closeModal());
+        setCloseAnimation(true)
+        setTimeout(() => {
+            setCloseAnimation(false);
+            dispatch(actions.closeModal());
+        }, 250);
     }
 
     if(!modal.open) return (<></>);
@@ -27,11 +33,11 @@ function Modal() {
     return (
         <div className={styles.modal}>
             <div onClick={closeModal} className={styles.out}></div>
-            <div className={styles.container}>
-                {(modal.content === 0) && (<AddDeck />)}
-                {(modal.content === 1) && (<AddCard />)}
-                {(modal.content === 2) && (<ViewCards />)}
-                {(modal.content === 3) && (<ShareDeck />)}
+            <div className={`${styles.container} ${closeAnimation ? styles.closeAnimation : ""}`}>
+                {(modal.content === 0) && (<AddDeck closeModal={closeModal} />)}
+                {(modal.content === 1) && (<AddCard closeModal={closeModal} />)}
+                {(modal.content === 2) && (<ViewCards closeModal={closeModal} />)}
+                {(modal.content === 3) && (<ShareDeck closeModal={closeModal} />)}
             </div>
         </div>
     )

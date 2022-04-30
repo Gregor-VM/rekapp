@@ -116,7 +116,7 @@ function Navbar() {
                 <img onClick={openProfileMenu} className={styles.profile} title="Profile" alt="profile" src={user.profileImg ? user.profileImg : "/user.svg"}></img>
 
 
-                <div ref={profileMenuRef} style={{display: open ? undefined : "none"}} className={styles.profileMenu}>
+                <div ref={profileMenuRef} className={`${styles.profileMenu} ${open ? styles.menuAnimation : styles.menuCloseAnimation}`}>
                     <img src={user.profileImg ? user.profileImg : "/user.svg"} alt="profile"></img>
                     <div ref={profileMenuRef}>
                         <p>{user.username}</p>

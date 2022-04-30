@@ -21,6 +21,46 @@
     top: 0;
 }
 
+.container{
+    width: 0;
+    height: 0;
+    animation-name: animation;
+    animation-duration: .25s;
+    animation-fill-mode: forwards;
+    animation-direction: alternate;
+}
+
+.closeAnimation{
+    animation-name: close_animation;
+    animation-duration: .25s;
+    animation-fill-mode: forwards;
+    animation-direction: alternate;
+}
+
+@keyframes animation {
+    0%{
+        width: 0;
+        height: 0;
+    }
+
+    100%{
+        width: 80%;
+        height: 80vh;
+    }
+}
+
+@keyframes close_animation {
+    0%{
+        width: 80%;
+        height: 80vh;
+    }
+
+    100%{
+        width: 0;
+        height: 0;
+    }
+}
+
 @media (max-width: 700px) {
     .container{
         height: 100vh;
@@ -28,5 +68,29 @@
         top: 0;
         left: 0;
         border-radius: 0;
+    }
+
+    @keyframes animation {
+        0%{
+            width: 0;
+            height: 0;
+        }
+    
+        100%{
+            width: 100%;
+            height: 100vh;
+        }
+    }
+    
+    @keyframes close_animation {
+        0%{
+            width: 100%;
+            height: 100vh;
+        }
+    
+        100%{
+            width: 0;
+            height: 0;
+        }
     }
 }
