@@ -273,8 +273,9 @@
 }
 
 .menuCloseAnimation{
-    width: 0;
-    height: 0;
+    overflow: hidden;
+    width: 0 !important;
+    height: 0 !important;
     opacity: 0;
 }
 

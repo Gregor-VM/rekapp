@@ -114,13 +114,12 @@ function GroupItem({deck} : {deck : Deck}) {
                 <div></div>
             </div>
 
-            {isOpen && (
-                <ul>
-                    <li onClick={shareDeck}>Share</li>
-                    <li onClick={deleteDeck}>Delete</li>
-                    <li onClick={displayCards}>Cards</li>
-                </ul>
-            )}
+            <ul className={isOpen ? styles.openAnimation : styles.closeAnimation}>
+                <li onClick={shareDeck}>Share</li>
+                <li onClick={deleteDeck}>Delete</li>
+                <li onClick={displayCards}>Cards</li>
+            </ul>
+
         </div>
         )}
 

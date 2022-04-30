@@ -22,3 +22,21 @@
         }
     }
 }
+
+
+.menuList{
+    background-color: rgba(0, 0, 0, .3);
+
+    & > ul {
+        background-color: light_color("text");
+        background-color: light_color("foreground");
+    
+        & > li{
+            color: light_color("text");
+            &:hover{
+                color: light_color("foreground");
+                background-color: lighten($color: light_color("text"), $amount: 30);
+            }
+        }
+    }
+}
