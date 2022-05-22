@@ -10,6 +10,7 @@ import axios from '../utils/axios';
 import {Deck} from '../interfaces';
 import { useDispatch } from 'react-redux';
 import * as practiceCountActions from './../store/actions/practiceCountActions';
+import Loading from '../components/Loading';
 
 
 function DeckPractice({shared} : {shared: boolean}) {
@@ -63,7 +64,7 @@ function DeckPractice({shared} : {shared: boolean}) {
     return (
         <div>
             <Navbar />
-            {loading && (<div>Loading</div>)}
+            {loading && (<Loading />)}
             {(!loading) && (
                 <CardItem index={index} queue={queue} setQueue={setQueue} deck={cards} card={cards?.cards[index - 1]} />
             )}

@@ -1,6 +1,7 @@
 @import "../../sass/variables.scss";
 
 .container{
+    overflow-y: auto;
     height: calc(100vh - 70px);
     display: flex;
     flex-direction: row;

@@ -111,7 +111,7 @@ function Navbar() {
 
             <div className={styles.profileContainer}>
                 
-                {(count.total && <span>{count.count + 1}/{count.total}</span>)}
+                {((count.total && !isHome) && <span>{count.count + 1}/{count.total}</span>)}
 
                 <img onClick={openProfileMenu} className={styles.profile} title="Profile" alt="profile" src={user.profileImg ? user.profileImg : "/user.svg"}></img>
 

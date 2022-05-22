@@ -2,7 +2,7 @@
 
 .container{
     display: flex;
-
+    overflow: auto;
 }
 
 .active{
@@ -11,7 +11,8 @@
 }
 
 .sidebar {
-    height: calc(100vh - 70px);
+    //height: calc(100vh - 70px);
+    height: unset;
     width: 300px;
     border-right: 1px solid rgba(255, 255, 255, .3);
 
