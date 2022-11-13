@@ -11,7 +11,7 @@
     "test": "npx jest",
     "start": "node dist/",
     "dev": "nodemon server/index.ts --exec ts-node",
-    "build:server": "rimraf ./dist && tsc",
+    "build:server": "npx rimraf ./dist && npx tsc",
     "build:client": "cd rekapp && npm i && npm run build",
     "build": "npm run build:client && npm run build:server"
   },
