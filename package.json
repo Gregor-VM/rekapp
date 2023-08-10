@@ -11,7 +11,7 @@
     "test": "npx jest",
     "start": "node dist/",
     "dev": "nodemon server/index.ts --exec ts-node",
-    "build:server": "cd .. && npm i && npm i rimraf -g && rimraf ./dist && npm install typescript -g && tsc --version && tsc",
+    "build:server": "npm i && npm i rimraf -g && rimraf ./dist && npm install typescript -g && tsc --version && tsc",
     "build:client": "cd rekapp && npm i && npm run build",
     "build": "npm run build:client && npm run build:server"
   },
