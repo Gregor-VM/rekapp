@@ -16,6 +16,13 @@ class AuthClass {
         }
     }
 
+    async loginGuest() {
+        const response = await axios.post(baseURL + "login-guest");
+        if(response.status === 200){
+            cookies.set('token', response.data.token);
+        }
+    }
+
     async register (username: string, email: string, password: string) {
         const response = await axios.post(baseURL + "register", {username, email, password});
         if(response.status === 200){

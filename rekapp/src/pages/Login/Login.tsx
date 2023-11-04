@@ -28,6 +28,17 @@ function Login() {
         history.push("/");
     }
 
+    const loginAsGuest: React.MouseEventHandler<HTMLAnchorElement> = async (e) => {
+        e.preventDefault();
+
+        await Auth.loginGuest();
+
+        if(remember) localStorage.setItem("remember", "true");
+        else localStorage.removeItem("remember");
+
+        history.push("/");
+    }
+
     const rememberHandler : React.ChangeEventHandler<HTMLInputElement> = (e) => {
         setRemember(e.target.checked);
     }
@@ -67,7 +78,7 @@ function Login() {
         </div>
 
         <div className={styles.container2}>
-            <p className={styles.sign_up_msg}>Don't have an account? <Link to="/register">Sign up</Link></p>
+            <p className={styles.sign_up_msg}>Don't have an account? <Link to="/register">Sign up</Link> <span className={styles.text_muted}>or</span> <a onClick={loginAsGuest} href="#">Continue as guest</a></p>
         </div>
 
         </>

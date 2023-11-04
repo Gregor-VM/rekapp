@@ -1,13 +1,20 @@
+import { useHistory } from 'react-router-dom';
 import Auth from '../../utils/Auth';
 import axios from '../../utils/axios';
 import styles from './delete_account.module.scss';
 
 function DeleteAccount() {
 
+    const history = useHistory();
+
     const handleDeleteAccount = async () => {
-        const response = await axios.delete("/delete-account");
-        if(response.status === 204){
-            Auth.logout();
+
+        if(window.confirm('Are you sure to proceed, once you delete your account all your information will be gone forever')){
+            const response = await axios.delete("/delete-account");
+            if(response.status === 204){
+                Auth.logout();
+                history.push('/login');
+            }
         }
     };
 
