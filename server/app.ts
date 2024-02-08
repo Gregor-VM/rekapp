@@ -21,7 +21,7 @@ app.use(cors());
 
 // SERVE REACT APP
 
-app.use(express.static(path.resolve(__dirname, '../rekapp/build')));
+//app.use(express.static(path.resolve(__dirname, '../rekapp/build')));
 
 app.get("/api", (req, res) => {
     res.json({msg: "Hello world"});
