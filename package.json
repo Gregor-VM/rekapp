@@ -3,10 +3,6 @@
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
-  "engines": {
-    "node": "16.18.1",
-    "npm": "8.19.2"
-  },
   "scripts": {
     "test": "npx jest",
     "start": "node dist/",
