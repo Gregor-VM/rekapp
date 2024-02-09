@@ -18,6 +18,7 @@ import Settings from './pages/Settings/index';
 import SharedWithMe from './pages/SharedWithMe';
 import NotFoundPage from './components/NotFoundPage';
 import ThemeStyle from './components/ThemeStyle';
+import Demo from './pages/Demo/Demo';
 
 //import reportWebVitals from './reportWebVitals';
 
@@ -34,6 +35,7 @@ ReactDOM.render(
         <ProtectedRoute path="/settings/:option" component={Settings}></ProtectedRoute>
         <Route path="/register" component={Register}></Route>
         <Route path="/login" component={Login}></Route>
+        <Route path="/demo" component={Demo}></Route>
         <Route path="*" component={NotFoundPage}></Route>
       </Switch>
     </Router>

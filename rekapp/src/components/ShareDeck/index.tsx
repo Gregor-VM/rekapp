@@ -22,7 +22,7 @@ function ShareDeck({closeModal} : {closeModal: () => void}) {
     const addEmail: React.FormEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault();
 
-        if(emails !== []){
+        if(emails.length > 0){
             if((emails as string[]).includes(typed))return;
         }
 
@@ -46,7 +46,7 @@ function ShareDeck({closeModal} : {closeModal: () => void}) {
     const getEmails = useCallback(
         async () => {
             const response = await axios.get(`/deck/share/${deckId}`);
-            if(response.status === 200 && response.data !== []){
+            if(response.status === 200 && response.data?.length > 0){
                 interface UserShareWith {
                     username: string
                     email: string

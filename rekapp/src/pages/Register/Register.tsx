@@ -34,8 +34,7 @@ function Register() {
 
     };
 
-    const loginAsGuest: React.MouseEventHandler<HTMLAnchorElement> = async (e) => {
-        e.preventDefault();
+    const loginAsGuest: React.MouseEventHandler<HTMLButtonElement> = async () => {
 
         await Auth.loginGuest();
 
@@ -61,7 +60,7 @@ function Register() {
         </div>
 
         <div className={styles.container2}>
-            <p className={styles.sign_in_msg}>Already have an account? <Link to="/login">Sing in</Link> <span className={styles.text_muted}>or</span> <a onClick={loginAsGuest} href="#">Continue as guest</a></p>
+            <p className={styles.sign_in_msg}>Already have an account? <Link to="/login">Sing in</Link> <span className={styles.text_muted}>or</span> <button className={styles.link} onClick={loginAsGuest}>Continue as guest</button></p>
         </div>
 
         </>

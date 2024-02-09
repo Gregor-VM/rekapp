@@ -9,3 +9,4 @@ rekapp/node_modules
 /rekapp/dist
 /rekapp/coverage
 /rekapp/build
+.vercel

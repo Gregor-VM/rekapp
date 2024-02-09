@@ -28,8 +28,7 @@ function Login() {
         history.push("/");
     }
 
-    const loginAsGuest: React.MouseEventHandler<HTMLAnchorElement> = async (e) => {
-        e.preventDefault();
+    const loginAsGuest: React.MouseEventHandler<HTMLButtonElement> = async () => {
 
         await Auth.loginGuest();
 
@@ -78,7 +77,7 @@ function Login() {
         </div>
 
         <div className={styles.container2}>
-            <p className={styles.sign_up_msg}>Don't have an account? <Link to="/register">Sign up</Link> <span className={styles.text_muted}>or</span> <a onClick={loginAsGuest} href="#">Continue as guest</a></p>
+            <p className={styles.sign_up_msg}>Don't have an account? <Link to="/register">Sign up</Link> <span className={styles.text_muted}>or</span> <button className={styles.link} onClick={loginAsGuest}>Continue as guest</button></p>
         </div>
 
         </>

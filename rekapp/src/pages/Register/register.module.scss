@@ -15,6 +15,15 @@ a {
     color: color("primary");
 }
 
+.link {
+    background-color: transparent;
+    border: none;
+    text-decoration: none;
+    color: color("primary");
+    font-size: medium;
+    cursor: pointer;
+}
+
 %containerDad {
     background-color: color("foreground");
     padding: 10px;
